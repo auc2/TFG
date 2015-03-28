@@ -1,0 +1,104 @@
+package cat.udl.eps.softarch.hello.model;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+
+
+
+@Entity
+public class Swimmer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @NotBlank(message = "El nom del nedador no pot estar en blanc.")
+    private String swimmername;
+
+
+    @NotBlank(message = "El cognom del nedador no pot estar en blanc.")
+    private String surname;
+
+
+    @NotBlank(message = "La ciutat del professor no pot estar en blanc.")
+    private String city;
+
+
+    @NotBlank(message = "El telefon del professor no pot estar en blanc.")
+    private String telephone;
+
+
+    @Email(message = "E-mail should be valid")
+    private String email;
+
+
+    @ManyToOne
+    private SwimmerGroup group;
+
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<AnualReport> reports = new ArrayList<AnualReport>();
+
+  
+
+    public Swimmer() { }
+
+
+
+ //Constructor basic
+    public Swimmer(String swimmername, String surname, String city, String telephone ) {
+        this.swimmername = swimmername;
+        this.surname = surname;
+        this.telephone = telephone;
+        this.city = city;
+    }
+
+    //Constructor amb email
+    public Swimmer(String swimmername, String surname, String city, String telephone, String email ) { 
+        this.swimmername = swimmername;
+        this.surname = surname;
+        this.telephone = telephone;
+        this.city = city;
+        this.email = email;
+    }
+
+    //Constructor amb email i swimmerGroup
+    public Swimmer(String swimmername, String surname, String telephone, String city, SwimmerGroup group,  String email) { 
+        this.swimmername = swimmername;
+        this.surname = surname;
+        this.telephone = telephone;
+        this.city = city;
+        this.email = email;
+        this.group = group;
+    }
+
+
+    public long getId() { return id; }
+
+    public String getSwimmerName() { return swimmername; }
+    public void setSwimmerName(String swimmername) { this.swimmername = swimmername; }
+
+    public void setSurname(String surname) { this.surname = surname; }
+    public String getSurname() { return surname; }
+
+
+    public void setCity(String city) { this.city = city; }
+    public String getCity() { return city; }
+
+    public void setTelephone(String telephone) { this.telephone = telephone; }
+    public String getTelephone() { return telephone; }
+
+
+    public void setEmail(String email) { this.email = email; }
+    public String getEmail() { return email; }
+
+
+    public SwimmerGroup getSwimmerGroup() { return group;  }
+
+    public void setSwimmerGroup(SwimmerGroup newSwimmerGroup) {   this.group = newSwimmerGroup;  }
+
+}
