@@ -1,4 +1,5 @@
 <%@include file="holder.jsp" %>
+<%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
 	<div id ="content">
 		<h1>Benvingut a la nostra aplicacció!!!</h1>
