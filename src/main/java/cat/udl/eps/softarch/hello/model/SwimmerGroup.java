@@ -17,11 +17,10 @@ public class SwimmerGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //A triar entre un desplegable de tres opcions.    	
     @NotBlank(message = "La hora de la classe no pot estar en blanc.")
     private String sessionHour;	
 
-    @NotBlank(message = "El nivell de la classe no pot estar en blanc.")
+   // @NotBlank(message = "El nivell de la classe no pot estar en blanc.")
     private String level; 
 
     @ManyToOne
@@ -30,7 +29,6 @@ public class SwimmerGroup {
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false) //Si poso False, no eliminara els alunes al borrar el grup.
     private List<Swimmer> swimmers = new ArrayList<Swimmer>();
-
 
 
     public SwimmerGroup() {}
@@ -56,6 +54,15 @@ public class SwimmerGroup {
       this.teacher = teacher;
       this.swimmers = swimmers;
     }
+
+        //Constructor per si en la creació es posen swimmers i teacher
+    public SwimmerGroup(String sessionHour, List<Swimmer> swimmers, Teacher teacher) {     
+      this.sessionHour = sessionHour;
+      this.level = level;
+      this.teacher = teacher;
+      this.swimmers = swimmers;
+    }
+
 
     public long getId() { return id; }
 

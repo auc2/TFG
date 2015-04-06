@@ -93,10 +93,10 @@ public class SwimmerGroupController {
         Iterable<Teacher> teachers = teacherService.findAll();
         Iterable<Swimmer> swimmers = swimmerService.findAll();
 
-        List<String> hourSessions = new ArrayList<String>();
-        hourSessions.add("1ra Sessió  10:15 - 11:15");
-        hourSessions.add("2na Sessió  11:15 - 12:15");
-        hourSessions.add("3ra Sessió  12:15 - 13:15");
+        List<String> sessionHours = new ArrayList<String>();
+        sessionHours.add("1ra Sessió  10:15 - 11:15");
+        sessionHours.add("2na Sessió  11:15 - 12:15");
+        sessionHours.add("3ra Sessió  12:15 - 13:15");
 
 
 
@@ -111,7 +111,7 @@ public class SwimmerGroupController {
         model.addObject("swimmerGroup", emptySwimmerGroup);
         model.addObject("teachers",teachers); // ("nom per referir-nos al jsp", objecte)
         model.addObject("swimmers",swimmers);
-        model.addObject("hourSessions",hourSessions);
+        model.addObject("sessionHours",sessionHours);
 
 
         return model;

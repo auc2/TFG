@@ -40,7 +40,7 @@
 
                 <!--LLISTAR SWIMMERGROUPS DISPONIBLES PER AFEGIR-->
                 <tr>
-                    <td><input type="submit" id="addTeacherButton" value="Acceptar" /></td>
+                    <td><input type="submit" id="addButton" value="Acceptar" /></td>
                 </tr>
             </table>
         </form:form>
