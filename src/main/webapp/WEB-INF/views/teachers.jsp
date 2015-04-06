@@ -6,11 +6,11 @@
 	<p>Professors donats d'alta.</p>
 
 	    <ul>
-	    <c:if test="${not empty teachers}">
-		<c:forEach var="teacher" items="${teachers}">
-		<li><a href="/teachers/${teacher.getId()}">${teacher.getId()}</a>: ${fn:escapeXml(teacher.getTeacherName())}</li>
-		</c:forEach>
-	    </c:if>
+		    <c:if test="${not empty teachers}">
+			<c:forEach var="teacher" items="${teachers}">
+				<li><a href="/teachers/${teacher.getId()}">${teacher.getId()}</a>: ${fn:escapeXml(teacher.getTeacherName())}</li>
+			</c:forEach>
+		    </c:if>
 	    </ul>
 	<br>
 </div>

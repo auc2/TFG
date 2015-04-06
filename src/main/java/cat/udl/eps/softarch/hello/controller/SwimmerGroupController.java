@@ -11,10 +11,14 @@ import com.google.common.base.Preconditions;
 import cat.udl.eps.softarch.hello.model.*;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
+import cat.udl.eps.softarch.hello.service.TeacherService;
+import cat.udl.eps.softarch.hello.service.SwimmerService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.http.HttpStatus;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -25,6 +29,9 @@ public class SwimmerGroupController {
 
     @Autowired SwimmerGroupRepository       swimmerGroupRepository;
     @Autowired SwimmerGroupService       swimmerGroupService;    
+
+     @Autowired TeacherService       teacherService;
+     @Autowired SwimmerService       swimmerService;    
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
@@ -81,9 +88,33 @@ public class SwimmerGroupController {
     // Create form
     @RequestMapping(value = "/swimmerGroupForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView createForm() {
+
+        TeacherController teaCont = new TeacherController();
+        Iterable<Teacher> teachers = teacherService.findAll();
+        Iterable<Swimmer> swimmers = swimmerService.findAll();
+
+        List<String> hourSessions = new ArrayList<String>();
+        hourSessions.add("1ra Sessió  10:15 - 11:15");
+        hourSessions.add("2na Sessió  11:15 - 12:15");
+        hourSessions.add("3ra Sessió  12:15 - 13:15");
+
+
+
+
+
+
         logger.info("Generating swimmerGroupForm for swimmerGroup creation");
         SwimmerGroup emptySwimmerGroup = new SwimmerGroup();
-        return new ModelAndView("swimmerGroupForm", "swimmerGroup", emptySwimmerGroup);
+
+
+        ModelAndView model = new ModelAndView("swimmerGroupForm");
+        model.addObject("swimmerGroup", emptySwimmerGroup);
+        model.addObject("teachers",teachers); // ("nom per referir-nos al jsp", objecte)
+        model.addObject("swimmers",swimmers);
+        model.addObject("hourSessions",hourSessions);
+
+
+        return model;
     }
 
 

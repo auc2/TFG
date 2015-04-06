@@ -17,6 +17,7 @@
 </head>
 <body>
 	<ul class="navbar">
+		<li><a href="/mainpage">Inici</a>
 		<li><a href="/teachers/teacherForm">Afegir monitor</a>
 		<li><a href="/teachers">Llistar monitors</a>
 		<li><a href="/swimmers/swimmerForm">Afegir nedador</a>

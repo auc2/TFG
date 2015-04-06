@@ -35,6 +35,8 @@ public class TeacherController {
         return teacherRepository.findAll(request).getContent();
     }
 
+
+
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHTML(@RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {

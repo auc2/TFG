@@ -32,7 +32,7 @@ ul.navbar li {
   background: white;
   margin: 0.5em 0;
   padding: 0.3em;
-  border-right: 1em solid black 
+  border-right: 1em solid black;
 
   border-top-right-radius: 10px; /**/
   border-bottom-right-radius: 10px;
@@ -127,4 +127,9 @@ padding-top: 140px;
   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
+}
+
+#optionsform {
+
+text-indent: 200px;
 }

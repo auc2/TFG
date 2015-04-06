@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.hello.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import cat.udl.eps.softarch.hello.model.Swimmer;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
+import org.springframework.data.domain.Sort;
 
 
 @Service
@@ -32,5 +34,20 @@ public class SwimmerServiceImpl implements SwimmerService {
         swimmerRepository.save(sw);
         return sw;
     }
+
+
+      
+    @Transactional(readOnly = true)
+    @Override
+    public List<Swimmer> findAll(){
+
+       List<Swimmer> swimmers = new ArrayList<Swimmer>();
+       return swimmerRepository.findAll(sortByIdAsc());
+    }
+
+    public Sort sortByIdAsc(){
+        return new Sort(Sort.Direction.ASC, "id");
+    }
+
   
 }

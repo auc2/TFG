@@ -18,22 +18,58 @@
         <form:form method="${method}" action="${action}" modelAttribute="swimmerGroup">
             <table>
                 <tr>
-                    <td><form:label path="sessionHour">Hora Classe: </form:label></td>
-                    <!-- Mostrar opcions (10:15-11:15, 11:15-12:15, 12:15-1:15) -->
+                    <td><form:label path="sessionHour">Hora Classe </form:label></td>
+
+                    hourSessions
+                    <div id ="optionsform">
+
+                          <ul>
+                                <c:if test="${not empty hourSessions}">
+                                <c:forEach var="hour" items="${hourSessions}">
+                                    <li> ${hour}</li>
+                                </c:forEach>
+                                </c:if>
+                            </ul>
+                    </div>
+
+
                     <td><form:input path="sessionHour"/> <i><form:errors path="sessionHour"></form:errors></i></td>
                 </tr>
                 <tr>
-                    <td><form:label path="level">Nivell: </form:label></td>
+                    <td><form:label path="level">Nivell </form:label></td>
                     <!-- Mostrar llista per elegir nivell -->
                     <td><form:input path="level"/> <i><form:errors path="level"></form:errors></i></td>
                 </tr>
                 <tr>
-                    <td><form:label path="level">Monitor: </form:label></td>
+                    <td><form:label path="level">Monitor </form:label></td>
                     <!-- Mostrar llista en combobox per exemple, per elegir monitor -->
+                            <ul>
+                                <c:if test="${not empty teachers}">
+                                <c:forEach var="teacher" items="${teachers}">
+                                    <li><a href="/teachers/${teacher.getId()}">${teacher.getId()}</a>: ${fn:escapeXml(teacher.getTeacherName())}</li>
+                                </c:forEach>
+                                </c:if>
+                            </ul>
                     <td><form:input path="level"/> <i><form:errors path="level"></form:errors></i></td>
 
-                     <!--LLISTAR SWIMMERS NO ASSIGNATS DISPONIBLES PER AFEGIR-->
-                     <!--LLISTAR TEACHERS NO ASSIGNATS PER ASSIGNAR GRUP-->
+                     <td>Nedadors </td>
+                               <ul>
+                                <c:if test="${not empty swimmers}">
+                                <c:forEach var="swimmer" items="${swimmers}">
+
+                                <c:choose>
+                                    <c:when test="${not empty swimmer.getSwimmerGroup()}">
+                                         <p>Tots els nedadors assignats a un grup.</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <p>Nedadors per assignar a un grup</p>
+                                      <li><a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${fn:escapeXml(swimmer.getSwimmerName())}</li>    
+                                    </c:otherwise>
+                                </c:choose>
+
+                                </c:forEach>
+                                </c:if>
+                            </ul>
 
                 </tr>
                 <tr>

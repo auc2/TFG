@@ -1,14 +1,19 @@
 package cat.udl.eps.softarch.hello.service;
-
-//import cat.udl.eps.softarch.hello.model.Greeting;
 import cat.udl.eps.softarch.hello.model.Teacher;
+import org.springframework.data.domain.Sort;
+import java.util.List;
 
 
 public interface TeacherService {
 
-    Teacher getTeacher(Long userId);
+    public Teacher getTeacher(Long userId);
 
-    Teacher addTeacher(Teacher t);
+    public Teacher addTeacher(Teacher t);
+
+	public List<Teacher> findAll();
+
+ 	public Sort sortByIdAsc();
+
 
  //   Greeting addGreetingToUser(Greeting greeting);
 

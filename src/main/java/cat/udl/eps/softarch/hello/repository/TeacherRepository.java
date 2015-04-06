@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import cat.udl.eps.softarch.hello.model.Teacher;
 
 
+
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     Teacher findTeacherByTeachername(@Param("teachername") String teachername);
