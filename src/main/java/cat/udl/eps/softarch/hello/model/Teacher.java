@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import java.sql.Blob;
 
 
 @Entity
@@ -13,6 +14,9 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Lob
+    private Blob photo;
 
     @NotBlank(message = "Teacher name cannot be blank")
     private String teachername;
@@ -60,6 +64,9 @@ public class Teacher {
         //Els gets seran pels update
 
     public long getId() { return id; }
+
+    public void setPhoto(Blob photo) { this.photo = photo; }
+    public Blob getPhoto() { return photo; }
 
     public void setTeacherName(String teachername) { this.teachername = teachername; }
     public String getTeacherName() { return teachername; }

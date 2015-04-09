@@ -21,9 +21,9 @@
 
                 <tr>
                     <td><form:label path="sessionHour"><b>Hora Classe </b></form:label></td>
-                    <div id ="optionsform">
-                        <td><form:select path="sessionHour" items="${sessionHours}" /></td>
-                    </div>
+                        <td>
+                                <form:select path="sessionHour" items="${sessionHours}" />
+                        </td>
                 </tr>
 
                     <tr>
@@ -33,10 +33,11 @@
                                 
                                     <c:forEach var="teacher" items="${teachers}">
                                     <tr>
-                                        <div id ="optionsform">
-                                            <td><a href="/teachers/${teacher.getId()}">${teacher.getId()}</a>: ${fn:escapeXml(teacher.getTeacherName())}</td>
-                                            <td><form:radiobutton path="teacher" value="no"></form:radiobutton></td>
+                                      <td>
+                                       <div id ="optionsform">
+                                            <a href="/teachers/${teacher.getId()}">${teacher.getId()}</a>: ${fn:escapeXml(teacher.getTeacherName())}</td>
                                         </div>
+                                       <td><form:radiobutton path="teacher" value="no"></form:radiobutton></td>
                                     </tr>
                                     </c:forEach>                               
 
@@ -46,22 +47,23 @@
 
                     <tr>
                                 <c:if test="${not empty swimmers}">
+                                <td><form:label path="swimmers"><b>Nedadors per assignar grup </b></form:label></td>
 
                                 <c:forEach var="swimmer" items="${swimmers}">
                                     <c:choose>
                                         <c:when test="${not empty swimmer.getSwimmerGroup()}">
                                             <div id ="optionsform">
-                                              <td><form:label path="swimmers"><b>Tots els nedadors assignats a un grup.</b></form:label></td>
+                                              <td><form:label path="swimmers">Tots els nedadors assignats a un grup.</form:label></td>
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <td><form:label path="swimmers"><b>Nedadors per assignar grup </b></form:label></td>
                                             <tr>
-                                            <div id ="optionsform">
-                                                <!--Això han de ser checkboxes o similar-->
-                                                  <td><a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${fn:escapeXml(swimmer.getSwimmerName())}</td>
-                                                   <td><form:radiobutton path="swimmers" value="no"></form:radiobutton></td>
-                                            </div>
+                                                    <td>
+                                                      <div id ="optionsform">
+                                                        <a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${fn:escapeXml(swimmer.getSwimmerName())}
+                                                      </div>
+                                                    </td>
+                                                   <td><form:radiobutton path="swimmers" value="no"></form:radiobutton></td>    
                                             </tr>
                                         </c:otherwise>
                                     </c:choose>

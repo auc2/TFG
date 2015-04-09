@@ -34,8 +34,12 @@
                     <td><form:input path="telephone"/> <i><form:errors path="telephone"></form:errors></i></td>
                 </tr>
                 <tr>
-                    <td><form:label path="email">E-Mail</form:label></td>
+                    <td><form:label path="email">E-Mail: </form:label></td>
                     <td><form:input path="email"/> <i><form:errors path="email"></form:errors></i></td>
+                </tr>
+                <tr>
+                    <td><form:label path="photo">Foto: </form:label></td>
+                    <td><input type="file" name="file" id="file"></td>
                 </tr>
 
                 <!--LLISTAR SWIMMERGROUPS DISPONIBLES PER AFEGIR-->

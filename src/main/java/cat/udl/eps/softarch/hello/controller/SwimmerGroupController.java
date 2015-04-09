@@ -99,10 +99,6 @@ public class SwimmerGroupController {
         sessionHours.add("3ra Sessió  12:15 - 13:15");
 
 
-
-
-
-
         logger.info("Generating swimmerGroupForm for swimmerGroup creation");
         SwimmerGroup emptySwimmerGroup = new SwimmerGroup();
 
