@@ -6,7 +6,8 @@ public interface SwimmerGroupService {
 
     SwimmerGroup getSwimmerGroup(Long userId);
 
-    SwimmerGroup addSwimmerGroup(SwimmerGroup group);
+    void addSwimmerGroup(SwimmerGroup group, Long teacherId);
+   // SwimmerGroup addSwimmerGroup(SwimmerGroup group);
 
   //  SwimmerGroup deleteSwimmerGroup(SwimmerGroup group);
 

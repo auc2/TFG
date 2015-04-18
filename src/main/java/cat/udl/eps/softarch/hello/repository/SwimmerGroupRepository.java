@@ -8,5 +8,5 @@ import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 public interface SwimmerGroupRepository extends JpaRepository<SwimmerGroup, Long> {
 
     SwimmerGroup findSwimmerGroupBySessionHour(@Param("sessionHour") String sessionHour);
-    SwimmerGroup findSwimmerGroupByLevel(@Param("level") String level);
+ /*   SwimmerGroup findSwimmerGroupByLevel(@Param("level") String level);*/
 }

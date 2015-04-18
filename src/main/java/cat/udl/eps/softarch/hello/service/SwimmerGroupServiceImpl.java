@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import cat.udl.eps.softarch.hello.model.SwimmerGroup;
+import cat.udl.eps.softarch.hello.model.Teacher;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
+import cat.udl.eps.softarch.hello.repository.TeacherRepository;
+
 
 
 @Service
@@ -22,15 +25,32 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
     @Override
     public SwimmerGroup getSwimmerGroup(Long userId) {
         SwimmerGroup group = swimmerGroupRepository.findOne(userId);
-        logger.info("SwimmerGroup level {}", group.getLevel());
+        logger.info("SwimmerGroup id {}", group.getId());
         return group;
     }
 
+
+
+    @Autowired 
+    TeacherRepository       teacherRepository;
+   
+    @Override
+    public void addSwimmerGroup(SwimmerGroup group, Long teacherId) {
+
+        Teacher teacher = teacherRepository.findOne(teacherId);       
+        group.setTeacher(teacher);
+
+        swimmerGroupRepository.save(group);
+    }
+}
+
+
+/*
    @Transactional(readOnly = true)
     @Override
     public SwimmerGroup addSwimmerGroup(SwimmerGroup group){
         swimmerGroupRepository.save(group);
         return group;
     }
-  
-}
+  */
+

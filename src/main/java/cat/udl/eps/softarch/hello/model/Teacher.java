@@ -40,7 +40,7 @@ public class Teacher {
 
     public Teacher() { }
 
-   //Constructor basic
+ /*  //Constructor basic
     public Teacher(String teachername, String surname, String city, String telephone, String email ) {
         this.teachername = teachername;
         this.surname = surname;
@@ -58,7 +58,7 @@ public class Teacher {
         this.city = city;
         this.swimmerGroups = swimmerGroups;
     }
-
+*/
 
 
         //Els gets seran pels update

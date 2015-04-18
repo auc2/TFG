@@ -8,7 +8,7 @@
 	    <ul>
 	    <c:if test="${not empty swimmerGroups}">
 		<c:forEach var="swimmerGroup" items="${swimmerGroups}">
-		<li><a href="/swimmerGroups/${swimmerGroup.getId()}">${swimmerGroup.getId()}</a>: ${fn:escapeXml(swimerGroup.getLevel())}</li>
+		<li><a href="/swimmerGroups/${swimmerGroup.getId()}">${swimmerGroup.getId()}</a>: ${fn:escapeXml(swimerGroup.getTeacher())}</li>
 		</c:forEach>
 	    </c:if>
 	    </ul>

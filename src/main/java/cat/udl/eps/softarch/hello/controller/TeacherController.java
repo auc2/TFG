@@ -49,6 +49,8 @@ public class TeacherController {
     public Teacher retrieve(@PathVariable("id") Long id) {
         logger.info("Retrieving teacher number {}", id);
         Preconditions.checkNotNull(teacherRepository.findOne(id), "Teacher with id %s not found", id);
+
+        //transformar imatge???
         return teacherService.getTeacher(id);
     }
 
@@ -58,31 +60,16 @@ public class TeacherController {
     }
 
 
-
-    
-
-
-
     // CREATE
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public Teacher create(@Valid @RequestBody Teacher teacher, HttpServletResponse response) {
-        logger.info("Creating teacher with name'{}'", teacher.getTeacherName());
-      //  Teacher newTeacher = SwimmerService.addTeacherToSwimmer(teacher);
-       Teacher newTeacher = teacherService.addTeacher(teacher);
-       response.setHeader("Location", "/teachers/" + newTeacher.getId());
-       return newTeacher;
-
-
-    }
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
     public String createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding, HttpServletResponse response) {
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
             return "teacherForm";
         }
-        return "redirect:/teachers/"+create(teacher, response).getId();
+        Teacher newTeacher = teacherService.addTeacher(teacher);
+
+        return "redirect:/teachers/"+newTeacher.getId();
     }
     // Create form
     @RequestMapping(value = "/teacherForm", method = RequestMethod.GET, produces = "text/html")

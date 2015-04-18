@@ -31,20 +31,30 @@
                             <ul>
                                 <c:if test="${not empty teachers}">
                                 
-                                    <c:forEach var="teacher" items="${teachers}">
+                                 <%--  <c:forEach var="teacher" items="${teachers}">-->--%>
                                     <tr>
                                       <td>
                                        <div id ="optionsform">
-                                            <a href="/teachers/${teacher.getId()}">${teacher.getId()}</a>: ${fn:escapeXml(teacher.getTeacherName())}</td>
-                                        </div>
-                                       <td><form:radiobutton path="teacher" value="no"></form:radiobutton></td>
+                                       
+                                    <%-- <td>${fn:escapeXml(teacher.getTeacherName())}</td>--%>
+
+                                    <select name="teacherId" >
+                                        <c:forEach items="${teachers}" var="teacher">
+                                           <option value="${teacher.getId()}">${teacher.getTeacherName()}
+                                        </c:forEach>
+                                    </select>
+                                      
+                                    
+                                         </div>
+                                     </td>
                                     </tr>
-                                    </c:forEach>                               
+                                  <%--   </c:forEach>  --%>                          
 
                                 </c:if>
                             </ul>
                     </tr>
-
+<%--
+    <td><form:radiobutton path="teacherId" value="${teacher.getId()}"></form:radiobutton></td>    
                     <tr>
                                 <c:if test="${not empty swimmers}">
                                 <td><form:label path="swimmers"><b>Nedadors per assignar grup </b></form:label></td>
@@ -60,10 +70,12 @@
                                             <tr>
                                                     <td>
                                                       <div id ="optionsform">
-                                                        <a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${fn:escapeXml(swimmer.getSwimmerName())}
+
+                                                        <td>${fn:escapeXml(swimmer.getSwimmerName())}</td>
+                                                        <td><form:checkbox path="swimmers" value="${swimmer}"></form:checkbox></td>    
+
                                                       </div>
                                                     </td>
-                                                   <td><form:radiobutton path="swimmers" value="no"></form:radiobutton></td>    
                                             </tr>
                                         </c:otherwise>
                                     </c:choose>
@@ -72,9 +84,11 @@
 
                                 </c:forEach>
                                 </c:if>
-                </tr>
+
+                                    TEacher no obligatori, i crear camp teacherID a SwimmerGroup amb el qual en el controller ho agafare després amb el findONe de repository Teacaher....teacherFormId
+                </tr>-->
                     <!-- (més endavant) Si la classe te més d'un nivell, mostrar llista per elegir nivell -->
-                
+                 --%> 
                 <tr>
                     <td><input type="submit"  id="addButton" value="Acceptar" /></td>
                 </tr>

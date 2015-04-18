@@ -38,6 +38,10 @@
                     <td><form:input path="email"/> <i><form:errors path="email"></form:errors></i></td>
                 </tr>
                 <tr>
+
+                    <!-- FER UN METODE APART AL CONTROLLER, PER AGAFAR LA INFORMACIÓ EN BYTES DEL DEBLOB, I RETORNARLA AL HTML, QUE SERA 
+                    L'ENCARREGAT DE TRANSFORMARLA.-->
+                    
                     <td><form:label path="photo">Foto: </form:label></td>
                     <td><input type="file" name="file" id="file"></td>
                 </tr>

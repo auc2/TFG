@@ -58,25 +58,15 @@ public class SwimmerController {
 
 
     // CREATE
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public Swimmer create(@Valid @RequestBody Swimmer swimmer, HttpServletResponse response) {
-        logger.info("Creating swimmer with name'{}'", swimmer.getSwimmerName());
-       Swimmer newSwimmer = swimmerService.addSwimmer(swimmer);
-       response.setHeader("Location", "/swimmers/" + newSwimmer.getId());
-       return newSwimmer;
-
-
-    }
-
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
     public String createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, HttpServletResponse response) {
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
             return "swimmerForm";
         }
-        return "redirect:/swimmers/"+create(swimmer, response).getId();
+
+        Swimmer newSwimmer = swimmerService.addSwimmer(swimmer);
+        return "redirect:/swimmers/"+newSwimmer.getId();
     }
     // Create form
     @RequestMapping(value = "/swimmerForm", method = RequestMethod.GET, produces = "text/html")

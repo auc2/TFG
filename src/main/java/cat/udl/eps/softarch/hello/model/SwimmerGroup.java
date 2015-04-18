@@ -8,20 +8,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import org.springframework.beans.factory.annotation.Autowired;
+import cat.udl.eps.softarch.hello.repository.TeacherRepository;
 
 
 @Entity
 public class SwimmerGroup {
 
+
     @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    private String level; 
 
     @NotBlank(message = "La hora de la classe no pot estar en blanc.")
     private String sessionHour;	
 
-   // @NotBlank(message = "El nivell de la classe no pot estar en blanc.")
-    private String level; 
 
     @ManyToOne
     private Teacher teacher;
@@ -32,6 +36,8 @@ public class SwimmerGroup {
 
 
     public SwimmerGroup() {}
+
+    /*
 
     //Constructor basic
     public SwimmerGroup(String sessionHour, String level) {     
@@ -61,7 +67,7 @@ public class SwimmerGroup {
       this.level = level;
       this.teacher = teacher;
       this.swimmers = swimmers;
-    }
+    }*/
 
 
     public long getId() { return id; }
@@ -87,5 +93,22 @@ public class SwimmerGroup {
 
     public Teacher getTeacher() { return teacher; }
 
-    public void setTeacher(Teacher teacher) { this.teacher = teacher; }
+     public void setTeacher(Teacher teacher) { 
+      this.teacher = teacher;
+     }
+
+     /*CREAR ENTITAT TEACHERIDFORM*/
+
+    /*   @Autowired
+     TeacherRepository      teacherRepository;
+
+    public void setTeacher(long teacher) { 
+
+  
+     Teacher t = teacherRepository.findOne(teacher);
+
+     this.teacher = t; 
+    
+    }
+    */
 }
