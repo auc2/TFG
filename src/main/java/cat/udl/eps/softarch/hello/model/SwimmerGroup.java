@@ -21,7 +21,7 @@ public class SwimmerGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String level; 
+   // private String level; 
 
     @NotBlank(message = "La hora de la classe no pot estar en blanc.")
     private String sessionHour;	
@@ -37,46 +37,15 @@ public class SwimmerGroup {
 
     public SwimmerGroup() {}
 
-    /*
-
-    //Constructor basic
-    public SwimmerGroup(String sessionHour, String level) {     
-      this.sessionHour = sessionHour;
-      this.level = level;
-    }
-
-
-    //Constructor per si en la creació es posen swimmers
-    public SwimmerGroup(String sessionHour, String level, List<Swimmer> swimmers) {     
-      this.sessionHour = sessionHour;
-      this.level = level;
-      this.swimmers = swimmers;
-    }
-
-    //Constructor per si en la creació es posen swimmers i teacher
-    public SwimmerGroup(String sessionHour, String level, List<Swimmer> swimmers, Teacher teacher) {     
-      this.sessionHour = sessionHour;
-      this.level = level;
-      this.teacher = teacher;
-      this.swimmers = swimmers;
-    }
-
-        //Constructor per si en la creació es posen swimmers i teacher
-    public SwimmerGroup(String sessionHour, List<Swimmer> swimmers, Teacher teacher) {     
-      this.sessionHour = sessionHour;
-      this.level = level;
-      this.teacher = teacher;
-      this.swimmers = swimmers;
-    }*/
-
+ 
 
     public long getId() { return id; }
 
     public String getSessionHour() { return sessionHour; }
     public void setSessionHour(String sessionHour) { this.sessionHour = sessionHour; }
 
-    public String getLevel() { return level; }
-    public void setLevel(String level) { this.level = level; }
+   // public String getLevel() { return level; }
+   // public void setLevel(String level) { this.level = level; }
     
 
    public List<Swimmer> getSwimmers() {

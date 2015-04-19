@@ -28,7 +28,6 @@ public class Teacher {
     @Email(message = "E-mail should be valid")
     private String email;
 
-//Canviar a string amb validadors posteriors
     @NotBlank(message = "El telefon del professor no pot estar en blanc.")
     private String telephone;
 
@@ -40,28 +39,7 @@ public class Teacher {
 
     public Teacher() { }
 
- /*  //Constructor basic
-    public Teacher(String teachername, String surname, String city, String telephone, String email ) {
-        this.teachername = teachername;
-        this.surname = surname;
-        this.city = city;
-        this.telephone = telephone;
-        this.email = email;
-    }
 
-    //Constructor amb swimmerGroup/s
-    public Teacher(String teachername, String surname, String email, String telephone, String city, List<SwimmerGroup> swimmerGroups) { 
-        this.teachername = teachername;
-        this.surname = surname;
-        this.email = email;
-        this.telephone = telephone;
-        this.city = city;
-        this.swimmerGroups = swimmerGroups;
-    }
-*/
-
-
-        //Els gets seran pels update
 
     public long getId() { return id; }
 

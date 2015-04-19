@@ -44,37 +44,7 @@ public class Swimmer {
     private List<AnualReport> reports = new ArrayList<AnualReport>();
 
   
-
     public Swimmer() { }
-
-
-
- //Constructor basic
-    public Swimmer(String swimmername, String surname, String city, String telephone ) {
-        this.swimmername = swimmername;
-        this.surname = surname;
-        this.telephone = telephone;
-        this.city = city;
-    }
-
-    //Constructor amb email
-    public Swimmer(String swimmername, String surname, String city, String telephone, String email ) { 
-        this.swimmername = swimmername;
-        this.surname = surname;
-        this.telephone = telephone;
-        this.city = city;
-        this.email = email;
-    }
-
-    //Constructor amb email i swimmerGroup
-    public Swimmer(String swimmername, String surname, String telephone, String city, SwimmerGroup group,  String email) { 
-        this.swimmername = swimmername;
-        this.surname = surname;
-        this.telephone = telephone;
-        this.city = city;
-        this.email = email;
-        this.group = group;
-    }
 
 
     public long getId() { return id; }

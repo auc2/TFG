@@ -41,6 +41,8 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
         group.setTeacher(teacher);
 
         swimmerGroupRepository.save(group);
+
+        //teacher.addSwimmerGroup(group);
     }
 }
 
