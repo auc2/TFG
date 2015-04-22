@@ -37,12 +37,13 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
     @Override
     public void addSwimmerGroup(SwimmerGroup group, Long teacherId) {
 
-        Teacher teacher = teacherRepository.findOne(teacherId);       
-        group.setTeacher(teacher);
+        Teacher teacher = teacherRepository.findOne(teacherId); 
 
+        group.setTeacher(teacher);
         swimmerGroupRepository.save(group);
 
         //teacher.addSwimmerGroup(group);
+        //teacherRepository.save(teacher);
     }
 }
 

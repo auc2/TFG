@@ -10,11 +10,13 @@ public interface SwimmerService {
 
     public Swimmer getSwimmer(Long userId);
 
-    public Swimmer addSwimmer(Swimmer sw);
-
     public List<Swimmer> findAll();
 
  	public Sort sortByIdAsc();
+
+    public Swimmer addSwimmer(Swimmer sw);
+    public void addSwimmer(Swimmer sw, Long groupId);
+
 
 // PENSAR...
  //   Greeting addReportToSwimmer(Report report);

@@ -29,16 +29,6 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
 
-  
-    @Transactional(readOnly = true)
-    @Override
-    public Teacher addTeacher(Teacher t) {
- 
-        teacherRepository.save(t);
-        return t;
-    }
-
-      
     @Transactional(readOnly = true)
     @Override
     public List<Teacher> findAll(){
@@ -52,7 +42,16 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
 
+  
+    @Transactional(readOnly = true)
+    @Override
+    public Teacher addTeacher(Teacher t) {
+ 
+        teacherRepository.save(t);
+        return t;
+    }
 
+      
    
 
 

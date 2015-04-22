@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import java.sql.Blob;
+import java.io.InputStream;
 
 
 @Entity
@@ -75,4 +76,15 @@ public class Teacher {
     public void removeSwimmerGroup(SwimmerGroup swimmerGroup) {
         swimmerGroups.remove(swimmerGroup);
     }
+
+/*
+    public InputStream get_user_photo() throws Exception {     
+       
+        
+        if(photo!=null)
+            return photo.getBinaryStream();
+        else
+            return null;
+    }*/
+
 }

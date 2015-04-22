@@ -66,6 +66,8 @@ public class SwimmerController {
         }
 
         Swimmer newSwimmer = swimmerService.addSwimmer(swimmer);
+      /////  Swimmer newSwimmer = swimmerService.addSwimmer(swimmer, groupId);
+
         return "redirect:/swimmers/"+newSwimmer.getId();
     }
     // Create form

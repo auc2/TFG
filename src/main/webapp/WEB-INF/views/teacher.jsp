@@ -10,9 +10,11 @@
 		    <p>Telefon: ${teacher.getTelephone()}</p>
 		    <p>Ciutat: ${teacher.getCity()}</p>
 
-		    <p>Foto:</p> <img alt="equip"  src="${teacher.getPhoto()}"  width="10%" height="15%"/> 
+    <p>Foto:</p> <img alt="equip"  src="getImage/${teacher.getId()}"  width="10%" height="15%"/>
 
-		    <!--Llistar swimmerGroups que te-->
+ 	<p>Monitor: ${swimmerGroup.getTeacher().getTeacherName()}</p>
+
+		    <!--Llistar swimmerGroups que te--> 
 		</c:if>
 	</div>
 </body>

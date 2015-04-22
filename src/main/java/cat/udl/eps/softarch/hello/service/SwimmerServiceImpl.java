@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import cat.udl.eps.softarch.hello.model.Swimmer;
+import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
+import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import org.springframework.data.domain.Sort;
 
 
@@ -28,13 +30,6 @@ public class SwimmerServiceImpl implements SwimmerService {
         return sw;
     }
 
-   @Transactional(readOnly = true)
-    @Override
-    public Swimmer addSwimmer(Swimmer sw){
-        swimmerRepository.save(sw);
-        return sw;
-    }
-
 
       
     @Transactional(readOnly = true)
@@ -48,6 +43,30 @@ public class SwimmerServiceImpl implements SwimmerService {
     public Sort sortByIdAsc(){
         return new Sort(Sort.Direction.ASC, "id");
     }
+
+
+
+   @Transactional(readOnly = true)
+    @Override
+    public Swimmer addSwimmer(Swimmer sw){
+        swimmerRepository.save(sw);
+        return sw;
+    }
+
+
+
+    @Autowired 
+    SwimmerGroupRepository       swimmerGroupRepository;
+   
+    @Override
+    public void addSwimmer(Swimmer sw, Long groupId){
+
+        SwimmerGroup group = swimmerGroupRepository.findOne(groupId); 
+
+        sw.setSwimmerGroup(group);
+        swimmerRepository.save(sw);
+    }
+
 
   
 }

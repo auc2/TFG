@@ -64,7 +64,6 @@ public class SwimmerGroupController {
 
 
 
-
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
     public String createHTML(@Valid @ModelAttribute("swimmerGroup") SwimmerGroup swimmerGroup, @RequestParam Long teacherId, BindingResult binding, HttpServletResponse response) {
@@ -72,6 +71,7 @@ public class SwimmerGroupController {
             logger.info("Validation error: {}", binding);
             return "swimmerGroupForm";
         }
+
            swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId);
         //   SwimmerGroup newSwimmerGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup);
 
@@ -84,14 +84,21 @@ public class SwimmerGroupController {
     public ModelAndView createForm() {
 
         TeacherController teaCont = new TeacherController();
-        Iterable<Teacher> teachers = teacherService.findAll();
-        Iterable<Swimmer> swimmers = swimmerService.findAll();
+        List<Teacher> teachers = new ArrayList<Teacher>();
+        teachers =  teacherService.findAll();
+        Teacher t = new Teacher();
+        t.setTeacherName("    -   ");
+        teachers.add(t);
+
+
+        List<Swimmer> swimmers = swimmerService.findAll();
 
         List<String> sessionHours = new ArrayList<String>();
         //FER-HO EN UN ENUM??
-        sessionHours.add("1ra Sessió  10:15 - 11:15");
-        sessionHours.add("2na Sessió  11:15 - 12:15");
-        sessionHours.add("3ra Sessió  12:15 - 13:15");
+        sessionHours.add("    -   ");
+        sessionHours.add("1ra Hora  10:15 - 11:15");
+        sessionHours.add("2na Hora  11:15 - 12:15");
+        sessionHours.add("3ra Hora  12:15 - 13:15");
 
 
         logger.info("Generating swimmerGroupForm for swimmerGroup creation");

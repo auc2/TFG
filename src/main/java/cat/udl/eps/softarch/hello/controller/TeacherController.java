@@ -15,6 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.http.HttpStatus;
+import java.sql.Blob;
+import java.io.IOException;
+import java.sql.SQLException;
+import org.springframework.http.MediaType;
+
 
 
 
@@ -49,8 +54,6 @@ public class TeacherController {
     public Teacher retrieve(@PathVariable("id") Long id) {
         logger.info("Retrieving teacher number {}", id);
         Preconditions.checkNotNull(teacherRepository.findOne(id), "Teacher with id %s not found", id);
-
-        //transformar imatge???
         return teacherService.getTeacher(id);
     }
 
@@ -58,6 +61,59 @@ public class TeacherController {
     public ModelAndView retrieveHTML(@PathVariable( "id" ) Long id) {
         return new ModelAndView("teacher", "teacher", retrieve(id));
     }
+
+
+
+    @RequestMapping(value = "/getImage/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getImage(@PathVariable("id") Long id) throws IOException, SQLException{
+
+        Teacher teacher = teacherService.getTeacher(id);
+
+        Blob blob =  teacher.getPhoto();
+
+        int blobLength = (int) blob.length();
+        byte[] imageBytes = blob.getBytes(1, blobLength);
+
+        return imageBytes;
+     
+
+    }
+
+
+
+/*
+
+  @RequestMapping(value = "/getImage/{id}", method = RequestMethod.GET)
+    public void getImage(@PathVariable("id") Long id, HttpServletResponse response) throws IOException, SQLException{
+
+        Teacher teacher = teacherService.getTeacher(id);
+
+        response.setContentType("image/jpeg");
+        Blob blob =  teacher.getPhoto();
+
+        int blobLength = (int) blob.length();
+        byte[] imageBytes = blob.getBytes(1, blobLength);
+
+        response.getOutputStream().write(imageBytes);
+        response.getOutputStream().flush();
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "admin/user/{id}/photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] testphoto(@PathVariable("id") int id_sys_user) throws Exception {        
+        byte[] thumb = null;
+
+        Teacher teacher = teacherService.getTeacher(id);
+
+        InputStream in = teacher.getPhoto();   
+        if(in!=null){
+            thumb = IOUtils.toByteArray(in); 
+        }
+        return thumb;       
+}
+
+*/
 
 
     // CREATE
