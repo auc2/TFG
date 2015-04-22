@@ -89,6 +89,7 @@ public class SwimmerGroupController {
         Teacher t = new Teacher();
         t.setTeacherName("    -   ");
         teachers.add(t);
+        
 
 
         List<Swimmer> swimmers = swimmerService.findAll();
