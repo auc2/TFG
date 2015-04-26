@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.hello.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.model.Teacher;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.repository.TeacherRepository;
+import org.springframework.data.domain.Sort;
+
 
 
 
@@ -45,6 +48,22 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
         //teacher.addSwimmerGroup(group);
         //teacherRepository.save(teacher);
     }
+
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<SwimmerGroup> findAll(){
+
+       List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>();
+       return swimmerGroupRepository.findAll(sortByIdAsc());
+    }
+    
+
+    public Sort sortByIdAsc(){
+        return new Sort(Sort.Direction.ASC, "id");
+    }
+
+
 }
 
 

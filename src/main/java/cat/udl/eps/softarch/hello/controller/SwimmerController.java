@@ -11,10 +11,13 @@ import com.google.common.base.Preconditions;
 import cat.udl.eps.softarch.hello.model.*;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerService;
+import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.http.HttpStatus;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -24,7 +27,9 @@ public class SwimmerController {
     final Logger logger = LoggerFactory.getLogger(SwimmerController.class);
 
     @Autowired SwimmerRepository       swimmerRepository;
-    @Autowired SwimmerService       swimmerService;    
+    @Autowired SwimmerService       swimmerService;   
+    @Autowired SwimmerGroupService       swimmerGroupService;    
+ 
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
@@ -58,24 +63,65 @@ public class SwimmerController {
 
 
     // CREATE
+ //   @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
+  //  public String createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, HttpServletResponse response) {
+ //       if (binding.hasErrors()) {
+ ///           logger.info("Validation error: {}", binding);
+ //           return "swimmerForm";
+ //       }
+
+  //      Swimmer newSwimmer = swimmerService.addSwimmer(swimmer);
+//      return "redirect:/swimmers/"+newSwimmer.getId();
+  //  }
+
+
+    // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public String createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, HttpServletResponse response) {
+    public String createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, @RequestParam Long groupId, BindingResult binding, HttpServletResponse response) {
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
             return "swimmerForm";
         }
 
-        Swimmer newSwimmer = swimmerService.addSwimmer(swimmer);
-      /////  Swimmer newSwimmer = swimmerService.addSwimmer(swimmer, groupId);
+        //if group level =="    -   "  -->swimmerService.addSwimmer(swimmer);
 
-        return "redirect:/swimmers/"+newSwimmer.getId();
+        swimmerService.addSwimmer(swimmer, groupId);
+
+        return "redirect:/swimmers/"+swimmer.getId();
     }
+
+
+
+
+
     // Create form
     @RequestMapping(value = "/swimmerForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView createForm() {
+      
+        SwimmerGroupController swGrCont = new SwimmerGroupController();
+        List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>();
+       
+
+        groups =  swimmerGroupService.findAll();
+        SwimmerGroup g = new SwimmerGroup();
+        g.setLevel("    -   "); //valor 'null' per defecte
+        groups.add(g);
+
+
+
         logger.info("Generating swimmerForm for swimmer creation");
         Swimmer emptySwimmer = new Swimmer();
-        return new ModelAndView("swimmerForm", "swimmer", emptySwimmer);
+
+
+        ModelAndView model = new ModelAndView("swimmerForm");
+        model.addObject("swimmer", emptySwimmer);
+        model.addObject("groups",groups); // ("nom per referir-nos al jsp", objecte)
+
+
+        return model;
+
+
+        //return new ModelAndView("swimmerForm", "swimmer", emptySwimmer);
     }
 
 

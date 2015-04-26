@@ -38,8 +38,34 @@
                     <td><form:input path="email"/> <i><form:errors path="email"></form:errors></i></td>
                 </tr>
 
-                <!--LLISTAR SWIMMERGROUPS DISPONIBLES PER AFEGIR-->
 
+                    <tr>
+                    <td><form:label path="group"><b>Monitor </b></form:label></td>
+                            <ul>
+                                <c:if test="${not empty groups}">
+                                
+                                    <tr>
+                                      <td>
+                                       <div id ="optionsform">
+                                       
+                                            <select name="groupId" >
+                                                <c:forEach items="${groups}" var="group">
+                                                   <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}                                                    
+                                                </c:forEach>
+                                            </select>
+                                                                          
+                                         </div>
+                                     </td>
+                                    </tr>
+                                  <%--   </c:forEach>  --%>                          
+
+                                </c:if>
+                            </ul>
+                    </tr>
+
+                <!--LLISTAR SWIMMERGROUPS DISPONIBLES PER AFEGIR-->
+<br>
+<br>
                  <tr>
                     <td><input type="submit" id="addButton" value="Acceptar" /></td>
                 </tr>

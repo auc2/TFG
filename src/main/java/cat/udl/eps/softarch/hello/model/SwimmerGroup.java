@@ -21,7 +21,7 @@ public class SwimmerGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-   // private String level; 
+    private String level; 
 
     @NotBlank(message = "La hora de la classe no pot estar en blanc.")
     private String sessionHour;	
@@ -44,8 +44,8 @@ public class SwimmerGroup {
     public String getSessionHour() { return sessionHour; }
     public void setSessionHour(String sessionHour) { this.sessionHour = sessionHour; }
 
-   // public String getLevel() { return level; }
-   // public void setLevel(String level) { this.level = level; }
+    public String getLevel() { return level; }
+    public void setLevel(String level) { this.level = level; }
     
 
    public List<Swimmer> getSwimmers() {

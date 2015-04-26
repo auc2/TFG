@@ -21,6 +21,8 @@ public class SwimmerServiceImpl implements SwimmerService {
 
     @Autowired
     SwimmerRepository     swimmerRepository;
+    SwimmerGroupRepository    swimmerGroupRepository;
+
 
     @Transactional(readOnly = true)
     @Override
@@ -54,17 +56,16 @@ public class SwimmerServiceImpl implements SwimmerService {
     }
 
 
-
-    @Autowired 
-    SwimmerGroupRepository       swimmerGroupRepository;
-   
     @Override
     public void addSwimmer(Swimmer sw, Long groupId){
 
         SwimmerGroup group = swimmerGroupRepository.findOne(groupId); 
 
-        sw.setSwimmerGroup(group);
+        sw.setGroup(group);
         swimmerRepository.save(sw);
+
+        //group.addSwimmer(sw);
+        //swimmerGroupRepository.save(group);
     }
 
 

@@ -67,8 +67,8 @@ public class Swimmer {
     public String getEmail() { return email; }
 
 
-    public SwimmerGroup getSwimmerGroup() { return group;  }
+    public SwimmerGroup getGroup() { return group;  }
 
-    public void setSwimmerGroup(SwimmerGroup newSwimmerGroup) {   this.group = newSwimmerGroup;  }
+    public void setGroup(SwimmerGroup newSwimmerGroup) {   this.group = newSwimmerGroup;  }
 
 }
