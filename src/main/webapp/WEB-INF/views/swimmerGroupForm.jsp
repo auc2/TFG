@@ -25,6 +25,10 @@
                                 <form:select path="sessionHour" items="${sessionHours}" />
                         </td>
                 </tr>
+                <tr>
+                    <td><form:label path="level">Nivell</form:label></td>
+                    <td><form:input path="level"/> <i><form:errors path="level"></form:errors></i></td>
+                </tr>
 
                     <tr>
                     <td><form:label path="teacher"><b>Monitor </b></form:label></td>
@@ -53,6 +57,7 @@
                                 </c:if>
                             </ul>
                     </tr>
+
 <%--
     <td><form:radiobutton path="teacherId" value="${teacher.getId()}"></form:radiobutton></td>    
                     <tr>

@@ -86,7 +86,7 @@ public class SwimmerController {
         //if group level =="    -   "  -->swimmerService.addSwimmer(swimmer);
 
         swimmerService.addSwimmer(swimmer, groupId);
-
+        
         return "redirect:/swimmers/"+swimmer.getId();
     }
 
