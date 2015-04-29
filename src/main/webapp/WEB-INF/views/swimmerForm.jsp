@@ -34,13 +34,13 @@
                     <td><form:input path="telephone"/> <i><form:errors path="telephone"></form:errors></i></td>
                 </tr>
                 <tr>
-                    <td><form:label path="email">E-Mail</form:label></td>
+                    <td><form:label path="email">E-Mail:</form:label></td>
                     <td><form:input path="email"/> <i><form:errors path="email"></form:errors></i></td>
                 </tr>
 
 
                     <tr>
-                    <td><form:label path="group"><b>Monitor </b></form:label></td>
+                    <td><form:label path="group"><b>Grup:  </b></form:label></td>
                             <ul>
                                 <c:if test="${not empty groups}">
                                 

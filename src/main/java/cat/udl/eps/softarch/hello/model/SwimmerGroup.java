@@ -48,13 +48,16 @@ public class SwimmerGroup {
     public void setLevel(String level) { this.level = level; }
     
 
-   public List<Swimmer> getSwimmers() {
-        return swimmers;
-   }
+    public List<Swimmer> getSwimmers() {
+            return swimmers;
+    }
+
 
     public void addSwimmer(Swimmer newSwimmer) {
+        System.out.println("----------------Afegint un nedador--------------");
         swimmers.add(newSwimmer);
     }
+
 
     public void removeSwimmer(Swimmer swimmer) {
         swimmers.remove(swimmer);

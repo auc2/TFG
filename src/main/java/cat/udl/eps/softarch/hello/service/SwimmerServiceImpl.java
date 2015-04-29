@@ -64,10 +64,11 @@ public class SwimmerServiceImpl implements SwimmerService {
     @Override
     public void addSwimmer(Swimmer sw, Long groupId){
 
-        SwimmerGroup group = swimmergroupRepository.findOne(groupId); 
-
-        sw.setGroup(group);
-        swimmerRepository.save(sw);
+    
+            SwimmerGroup group = swimmergroupRepository.findOne(groupId); 
+            sw.setGroup(group);
+            swimmerRepository.save(sw);
+    
 
         //group.addSwimmer(sw);
         //swimmerGroupRepository.save(group);

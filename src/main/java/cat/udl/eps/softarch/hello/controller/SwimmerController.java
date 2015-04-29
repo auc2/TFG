@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.common.base.Preconditions;
 import cat.udl.eps.softarch.hello.model.*;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
+import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerService;
 import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,8 @@ public class SwimmerController {
     final Logger logger = LoggerFactory.getLogger(SwimmerController.class);
 
     @Autowired SwimmerRepository       swimmerRepository;
+    @Autowired SwimmerGroupRepository       swimmerGroupRepository;
+
     @Autowired SwimmerService       swimmerService;   
     @Autowired SwimmerGroupService       swimmerGroupService;    
  
@@ -35,14 +38,14 @@ public class SwimmerController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Swimmer> list(@RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size) {
+            @RequestParam(required = false, defaultValue = "100") int size) {
         PageRequest request = new PageRequest(page, size);
         return swimmerRepository.findAll(request).getContent();
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHTML(@RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size) {
+            @RequestParam(required = false, defaultValue = "100") int size) {
         return new ModelAndView("swimmers", "swimmers", list(page, size));
     }
 
@@ -62,18 +65,6 @@ public class SwimmerController {
 
 
 
-    // CREATE
- //   @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-  //  public String createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, HttpServletResponse response) {
- //       if (binding.hasErrors()) {
- ///           logger.info("Validation error: {}", binding);
- //           return "swimmerForm";
- //       }
-
-  //      Swimmer newSwimmer = swimmerService.addSwimmer(swimmer);
-//      return "redirect:/swimmers/"+newSwimmer.getId();
-  //  }
-
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
@@ -83,9 +74,17 @@ public class SwimmerController {
             return "swimmerForm";
         }
 
-        //if group level =="    -   "  -->swimmerService.addSwimmer(swimmer);
+        SwimmerGroup group = new SwimmerGroup();
+        group = swimmerGroupRepository.findOne(groupId);
 
-        swimmerService.addSwimmer(swimmer, groupId);
+        if (group.getLevel() == "-no grup assignat-"){
+            System.out.println("Afegint nedador sense grup assignat.");
+            swimmerService.addSwimmer(swimmer);
+        } 
+        else{
+            System.out.println("Afegint nedador amb grup assignat.");
+            swimmerService.addSwimmer(swimmer, groupId);
+        }
         
         return "redirect:/swimmers/"+swimmer.getId();
     }
@@ -104,9 +103,15 @@ public class SwimmerController {
 
         groups =  swimmerGroupService.findAll();
         SwimmerGroup g = new SwimmerGroup();
-        g.setLevel("    -   "); //valor 'null' per defecte
-        groups.add(g);
 
+        ////////////////////////////////////////////////////////////
+        //SOLS S'HA D'ASSIGNAT GUARDAR AQUEST VALOR AL INICI DE L'APLICAIÓ. NO CADA VEGADA!!!
+        g.setLevel("-no grup assignat-"); //valor 'null' per defecte
+        g.setSessionHour("-");
+        swimmerGroupRepository.save(g);
+
+        groups.add(g);
+        ///////////////////////////////////////////////////////////
 
 
         logger.info("Generating swimmerForm for swimmer creation");

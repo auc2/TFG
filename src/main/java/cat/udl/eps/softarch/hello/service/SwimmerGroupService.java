@@ -12,6 +12,9 @@ public interface SwimmerGroupService {
 
     void addSwimmerGroup(SwimmerGroup group, Long teacherId);
 
+    void addSwimmerGroup(SwimmerGroup group, Long teacherId,  ArrayList<Long> swimmersListId);
+    
+
 	public List<SwimmerGroup> findAll();
 
 	public Sort sortByIdAsc();

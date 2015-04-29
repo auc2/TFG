@@ -37,14 +37,14 @@ public class SwimmerGroupController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public Iterable<SwimmerGroup> list(@RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size) {
+            @RequestParam(required = false, defaultValue = "100") int size) {
         PageRequest request = new PageRequest(page, size);
         return swimmerGroupRepository.findAll(request).getContent();
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHTML(@RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size) {
+            @RequestParam(required = false, defaultValue = "100") int size) {
         return new ModelAndView("swimmerGroups", "swimmerGroups", list(page, size));
     }
 
@@ -59,22 +59,39 @@ public class SwimmerGroupController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView retrieveHTML(@PathVariable( "id" ) Long id) {
-        return new ModelAndView("swimmerGroup", "swimmerGroup", retrieve(id));
+
+
+        ModelAndView model = new ModelAndView("swimmerGroup");
+
+        SwimmerGroup group = retrieve(id);
+        model.addObject("swimmerGroup", group);
+
+////////////////////////////////////////
+       // List<SwimmerGroup> sws = group.getSwimmers();
+       // Iterable<SwimmerGroup> swimmers = Arrays.asList(sws);
+
+       // model.addObject("swimmers", swimmers); // ("nom per referir-nos al jsp", objecte)
+/////////////////////////////////////////
+
+        return model;
+       // return new ModelAndView("swimmerGroup", "swimmerGroup", retrieve(id));
     }
 
 
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public String createHTML(@Valid @ModelAttribute("swimmerGroup") SwimmerGroup swimmerGroup, @RequestParam Long teacherId, BindingResult binding, HttpServletResponse response) {
+    public String createHTML(@Valid @ModelAttribute("swimmerGroup") SwimmerGroup swimmerGroup, @RequestParam Long teacherId, 
+         @RequestParam(required = false, defaultValue = "") ArrayList<Long> swimmersListId, BindingResult binding, HttpServletResponse response) {
+        
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
             return "swimmerGroupForm";
         }
 
-           swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId);
-        //   SwimmerGroup newSwimmerGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup);
-
+        if(swimmersListId.size() > 0)  swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId, swimmersListId);
+        else  swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId);
+     
         return "redirect:/swimmerGroups/"+swimmerGroup.getId();
     }
 
@@ -100,6 +117,9 @@ public class SwimmerGroupController {
         sessionHours.add("1ra Hora  10:15 - 11:15");
         sessionHours.add("2na Hora  11:15 - 12:15");
         sessionHours.add("3ra Hora  12:15 - 13:15");
+
+
+
 
 
         logger.info("Generating swimmerGroupForm for swimmerGroup creation");
