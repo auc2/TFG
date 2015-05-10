@@ -35,7 +35,7 @@ public class Teacher {
     @NotBlank(message = "La ciutat del professor no pot estar en blanc.")
     private String city;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     private List<SwimmerGroup> swimmerGroups = new ArrayList<SwimmerGroup>();
 
     public Teacher() { }

@@ -45,6 +45,46 @@
                     <td><form:label path="photo">Foto: </form:label></td>
                     <td><input type="file" name="file" id="file"></td>
                 </tr>
+<br>
+<br>
+
+
+                <tr>
+                        <c:if test="${not empty groups}">
+                        <td><form:label path="swimmerGroups"><b>Grups per assignar al monitor:  </b></form:label></td>
+
+                                <c:forEach var="group" items="${groups}">
+                                    
+                                    <c:choose>
+                                        <c:when test="${not empty groups}">
+                                           <tr>
+                                                <td>
+                                                    <div id ="optionsform">
+
+                                                        <td><b>Grup: </b> ${group.getId()} - ${group.getLevel()}</td>
+                                                        <td>
+                                                            <input type ="checkbox" name ="groupsListId" value="${group.getId()}"/>    
+                                                        </td>    
+
+                                                    </div>
+                                                </td>
+                                            </tr>                                           
+                                        </c:when>
+                                        
+                                        <c:otherwise>
+                                         <div id ="optionsform">
+                                              <td><form:label path="swimmerGroups">Tots els grups assignats a un monitor.</form:label></td>
+                                            </div>                                         
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                </c:forEach>                            
+                        </c:if>
+                    </tr>
+
+
+
+
 
                 <!--LLISTAR SWIMMERGROUPS DISPONIBLES PER AFEGIR-->
                 <tr>

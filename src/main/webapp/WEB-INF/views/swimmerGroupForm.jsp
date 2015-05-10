@@ -33,12 +33,15 @@
                     <tr>
                     <td><form:label path="teacher"><b>Monitor </b></form:label></td>
                             <ul>
+
+                    <tr>
+                       <td>
+                         <div id ="optionsform">
+
+                                <select name="teacherId" >
+                                <option value="99"> no monitor assignat </option><%--null value, no teacher--%>
+
                                 <c:if test="${not empty teachers}">
-                                
-                                      <td>
-                                       <div id ="optionsform">
-                                       
-                                            <select name="teacherId" >
                                                 <c:forEach items="${teachers}" var="teacher">
                                                    <option value="${teacher.getId()}">${teacher.getTeacherName()}
                                                 </c:forEach>

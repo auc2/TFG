@@ -64,17 +64,10 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
         Teacher teacher = teacherRepository.findOne(teacherId); 
         group.setTeacher(teacher);
 
-       
-        System.out.println("Afegint alumnes checked al nou grup.");
-
         List<Long> swimmersId = swimmersListId;
         for( Long swimmerId : swimmersId ){
 
-            System.out.println("Nou nedador.....");
-
             Swimmer swimmer = swimmerRepository.findOne(swimmerId); 
-            System.out.println("-NOM................."+swimmer.getSwimmerName());
-
             group.addSwimmer(swimmer);
 
             swimmer.setGroup(group);
@@ -87,13 +80,13 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
         teacher.addSwimmerGroup(group);
         teacherRepository.save(teacher);
 
-        for( Long swimmerId : swimmersId ){
+       // for( Long swimmerId : swimmersId ){
 
-           Swimmer swimmer = swimmerRepository.findOne(swimmerId); 
+       //    Swimmer swimmer = swimmerRepository.findOne(swimmerId); 
 
-           swimmer.setGroup(group);
-           swimmerRepository.save(swimmer);
-        }    
+       //   swimmer.setGroup(group);
+        //   swimmerRepository.save(swimmer); //Update swimmer with group assigned
+       // }    
     }
 
 

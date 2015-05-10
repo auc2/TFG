@@ -11,6 +11,7 @@ import com.google.common.base.Preconditions;
 import cat.udl.eps.softarch.hello.model.*;
 import cat.udl.eps.softarch.hello.repository.TeacherRepository;
 import cat.udl.eps.softarch.hello.service.TeacherService;
+import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,8 @@ import java.sql.Blob;
 import java.io.IOException;
 import java.sql.SQLException;
 import org.springframework.http.MediaType;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -29,7 +32,10 @@ public class TeacherController {
     final Logger logger = LoggerFactory.getLogger(TeacherController.class);
 
     @Autowired TeacherRepository       teacherRepository;
-    @Autowired TeacherService       teacherService;    
+    @Autowired TeacherService       teacherService;  
+
+    @Autowired SwimmerGroupService       swimmerGroupService;    
+
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
@@ -59,7 +65,24 @@ public class TeacherController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView retrieveHTML(@PathVariable( "id" ) Long id) {
-        return new ModelAndView("teacher", "teacher", retrieve(id));
+
+
+        Teacher teacher = retrieve(id);
+
+        List<SwimmerGroup> groups = teacher.getSwimmerGroups();      
+
+        ModelAndView model = new ModelAndView("teacher");
+        model.addObject("teacher", teacher);
+        model.addObject("groups",groups);
+
+        return model;
+
+
+
+
+
+
+       // return new ModelAndView("teacher", "teacher", retrieve(id));
     }
 
 
@@ -118,22 +141,48 @@ public class TeacherController {
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public String createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding, HttpServletResponse response) {
+    public String createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId, BindingResult binding, HttpServletResponse response) {
+      
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
             return "teacherForm";
         }
-        Teacher newTeacher = teacherService.addTeacher(teacher);
+
+        Teacher newTeacher = new Teacher();
+        if(groupsListId.size() > 0)  newTeacher = teacherService.addTeacher(teacher, groupsListId);
+        else newTeacher = teacherService.addTeacher(teacher);
+     
+
+        //Teacher newTeacher = teacherService.addTeacher(teacher);
 
         return "redirect:/teachers/"+newTeacher.getId();
     }
+
+
     // Create form
     @RequestMapping(value = "/teacherForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView createForm() {
+
         logger.info("Generating teacherForm for teacher creation");
         Teacher emptyTeacher = new Teacher();
-       // emptyTeacher.setDate(new Date());
-        return new ModelAndView("teacherForm", "teacher", emptyTeacher);
+
+        List<SwimmerGroup> allgroups = new ArrayList<SwimmerGroup>();
+        allgroups =  swimmerGroupService.findAll();
+
+        List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>(); //Groups with no teacher assigned.
+
+           for( SwimmerGroup group : allgroups ){
+
+                if(group.getTeacher() == null) groups.add(group);
+            }
+
+
+        ModelAndView model = new ModelAndView("teacherForm");
+        model.addObject("teacher", emptyTeacher);
+        model.addObject("groups",groups); 
+
+
+        return model;
     }
 
 

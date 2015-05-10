@@ -74,12 +74,11 @@ public class SwimmerController {
             return "swimmerForm";
         }
 
-        SwimmerGroup group = new SwimmerGroup();
-        group = swimmerGroupRepository.findOne(groupId);
+        SwimmerGroup group = swimmerGroupRepository.findOne(groupId);
 
-        if (group.getLevel() == "-no grup assignat-"){
-            System.out.println("Afegint nedador sense grup assignat.");
-            swimmerService.addSwimmer(swimmer);
+        if (groupId == 9999){
+           System.out.println("Afegint nedador sense grup assignat.");
+           swimmerService.addSwimmer(swimmer);
         } 
         else{
             System.out.println("Afegint nedador amb grup assignat.");
@@ -102,17 +101,6 @@ public class SwimmerController {
        
 
         groups =  swimmerGroupService.findAll();
-        SwimmerGroup g = new SwimmerGroup();
-
-        ////////////////////////////////////////////////////////////
-        //SOLS S'HA D'ASSIGNAT GUARDAR AQUEST VALOR AL INICI DE L'APLICAIÓ. NO CADA VEGADA!!!
-        g.setLevel("-no grup assignat-"); //valor 'null' per defecte
-        g.setSessionHour("-");
-        swimmerGroupRepository.save(g);
-
-        groups.add(g);
-        ///////////////////////////////////////////////////////////
-
 
         logger.info("Generating swimmerForm for swimmer creation");
         Swimmer emptySwimmer = new Swimmer();
@@ -124,9 +112,6 @@ public class SwimmerController {
 
 
         return model;
-
-
-        //return new ModelAndView("swimmerForm", "swimmer", emptySwimmer);
     }
 
 

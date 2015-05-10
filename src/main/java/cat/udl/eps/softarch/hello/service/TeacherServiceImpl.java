@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import cat.udl.eps.softarch.hello.model.Teacher;
+import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.repository.TeacherRepository;
+import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import org.springframework.data.domain.Sort;
 
 @Service
@@ -18,6 +20,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     TeacherRepository     teacherRepository;
+
+    @Autowired
+    SwimmerGroupRepository     swimmerGroupRepository;
+
 
     @Transactional(readOnly = true)
     @Override
@@ -50,6 +56,30 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepository.save(t);
         return t;
     }
+
+
+    @Transactional(readOnly = false)
+    @Override
+    public Teacher addTeacher(Teacher teacher, ArrayList<Long> groupsListId){
+
+
+        List<Long> groupsid = groupsListId;
+        for( Long groupid : groupsid ){
+
+            SwimmerGroup group = swimmerGroupRepository.findOne(groupid); 
+
+            teacher.addSwimmerGroup(group); //Assign groups in a list to new teacher.
+
+            group.setTeacher(teacher); //Assign teacher to group
+            swimmerGroupRepository.save(group); //Update group
+
+        }
+
+        teacherRepository.save(teacher);   
+        return teacher;
+
+    }
+
 
       
    

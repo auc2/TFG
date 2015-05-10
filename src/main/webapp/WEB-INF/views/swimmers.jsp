@@ -8,7 +8,7 @@
 	    <ul>
 		    <c:if test="${not empty swimmers}">
 			<c:forEach var="swimmer" items="${swimmers}">
-				<li><a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${fn:escapeXml(swimer.getSwimmerName())}</li>
+				<li><a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${swimer.getSwimmerName()}</li>
 			</c:forEach>
 		    </c:if>
 	    </ul>

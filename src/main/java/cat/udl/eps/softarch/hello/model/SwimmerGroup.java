@@ -21,6 +21,7 @@ public class SwimmerGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank
     private String level; 
 
     @NotBlank(message = "La hora de la classe no pot estar en blanc.")
@@ -31,7 +32,7 @@ public class SwimmerGroup {
     private Teacher teacher;
 
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false) //Si poso False, no eliminara els alunes al borrar el grup.
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = false) //Si poso False, no eliminara els alunes al borrar el grup.
     private List<Swimmer> swimmers = new ArrayList<Swimmer>();
 
 
@@ -54,7 +55,6 @@ public class SwimmerGroup {
 
 
     public void addSwimmer(Swimmer newSwimmer) {
-        System.out.println("----------------Afegint un nedador--------------");
         swimmers.add(newSwimmer);
     }
 

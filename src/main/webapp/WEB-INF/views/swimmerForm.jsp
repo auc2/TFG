@@ -42,16 +42,21 @@
                     <tr>
                     <td><form:label path="group"><b>Grup:  </b></form:label></td>
                             <ul>
-                                <c:if test="${not empty groups}">
+                              
                                 
                                     <tr>
                                       <td>
                                        <div id ="optionsform">
                                        
                                             <select name="groupId" >
-                                                <c:forEach items="${groups}" var="group">
-                                                   <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}                                                    
-                                                </c:forEach>
+
+                                                <option value="9999"> sense classe </option><%--null value, no grup--%>
+                                                
+                                                <c:if test="${not empty groups}">
+                                                    <c:forEach items="${groups}" var="group">
+                                                       <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}                                                    
+                                                    </c:forEach>
+                                                 </c:if>
                                             </select>
                                                                           
                                          </div>
@@ -59,7 +64,7 @@
                                     </tr>
                                   <%--   </c:forEach>  --%>                          
 
-                                </c:if>
+                               
                             </ul>
                     </tr>
 

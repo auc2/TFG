@@ -16,13 +16,17 @@
 
 		    <p><b>Nedadors</b></p>
 
-		      <ul>
-			    <c:if test="${not empty swimmers}">
-				<c:forEach var="swimmer" items="${swimmers}">
+	
+
+<%--
+error--->failed to lazily initialize a collection of role: cat.udl.eps.softarch.hello.model.SwimmerGroup.swimmers, could not initialize proxy - no Session
+	--%> 
+			</ul>
+				<c:forEach items="${swimmers}"  var="swimmer">
 					<li><a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${swimmer.getSwimmerName()}</li>
 				</c:forEach>
-			    </c:if>
 			  </ul>
+			
 
 		    
 		</c:if>

@@ -50,6 +50,7 @@ public class SwimmerServiceImpl implements SwimmerService {
    @Transactional(readOnly = true)
     @Override
     public Swimmer addSwimmer(Swimmer sw){
+
         swimmerRepository.save(sw);
         return sw;
     }
@@ -67,11 +68,7 @@ public class SwimmerServiceImpl implements SwimmerService {
     
             SwimmerGroup group = swimmergroupRepository.findOne(groupId); 
             sw.setGroup(group);
-            swimmerRepository.save(sw);
-    
-
-        //group.addSwimmer(sw);
-        //swimmerGroupRepository.save(group);
+            swimmerRepository.save(sw); 
     }
 
 

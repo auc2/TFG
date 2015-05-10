@@ -12,9 +12,17 @@
 
     <p>Foto:</p> <img alt="equip"  src="getImage/${teacher.getId()}"  width="10%" height="15%"/>
 
- 	<p>Monitor: ${swimmerGroup.getTeacher().getTeacherName()}</p>
+<br>
+ 	<p>Grups assignats: </p>
+ 	
 
-		    <!--Llistar swimmerGroups que te--> 
+ 	   <ul>
+	    <c:if test="${not empty groups}">
+		<c:forEach var="group" items="${groups}">
+		<li><a href="/swimmerGroups/${group.getId()}">Grup: ${group.getId()}</a>  - Monitor:  ${group.getTeacher().getTeacherName()}</li>
+		</c:forEach>
+	    </c:if>
+	    </ul>
 		</c:if>
 	</div>
 </body>

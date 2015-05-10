@@ -30,8 +30,8 @@ public class SwimmerGroupController {
     @Autowired SwimmerGroupRepository       swimmerGroupRepository;
     @Autowired SwimmerGroupService       swimmerGroupService;    
 
-     @Autowired TeacherService       teacherService;
-     @Autowired SwimmerService       swimmerService;    
+    @Autowired TeacherService       teacherService;
+    @Autowired SwimmerService       swimmerService;    
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
@@ -60,21 +60,15 @@ public class SwimmerGroupController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView retrieveHTML(@PathVariable( "id" ) Long id) {
 
+        SwimmerGroup swimmerGroup = retrieve(id);
+
+        List<Swimmer> swimmers = swimmerGroup.getSwimmers();      
 
         ModelAndView model = new ModelAndView("swimmerGroup");
-
-        SwimmerGroup group = retrieve(id);
-        model.addObject("swimmerGroup", group);
-
-////////////////////////////////////////
-       // List<SwimmerGroup> sws = group.getSwimmers();
-       // Iterable<SwimmerGroup> swimmers = Arrays.asList(sws);
-
-       // model.addObject("swimmers", swimmers); // ("nom per referir-nos al jsp", objecte)
-/////////////////////////////////////////
+        model.addObject("swimmerGroup", swimmerGroup);
+        model.addObject("swimmers",swimmers);
 
         return model;
-       // return new ModelAndView("swimmerGroup", "swimmerGroup", retrieve(id));
     }
 
 
@@ -96,6 +90,7 @@ public class SwimmerGroupController {
     }
 
 
+
     // Create form
     @RequestMapping(value = "/swimmerGroupForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView createForm() {
@@ -106,8 +101,6 @@ public class SwimmerGroupController {
         Teacher t = new Teacher();
         t.setTeacherName("    -   ");
         teachers.add(t);
-        
-
 
         List<Swimmer> swimmers = swimmerService.findAll();
 
@@ -118,8 +111,11 @@ public class SwimmerGroupController {
         sessionHours.add("2na Hora  11:15 - 12:15");
         sessionHours.add("3ra Hora  12:15 - 13:15");
 
-
-
+     //    Levels levels;
+       
+      //  for(LevelsGroups level: LevelsGroups.values())
+        //    System.out.println("valor--> "+level.name());
+       // String[] levels = Level.values(); //Get values from the enum Levels
 
 
         logger.info("Generating swimmerGroupForm for swimmerGroup creation");
@@ -131,7 +127,7 @@ public class SwimmerGroupController {
         model.addObject("teachers",teachers); // ("nom per referir-nos al jsp", objecte)
         model.addObject("swimmers",swimmers);
         model.addObject("sessionHours",sessionHours);
-
+      //  model.addObject("levels", levels);
 
         return model;
     }
