@@ -62,7 +62,6 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher addTeacher(Teacher teacher, ArrayList<Long> groupsListId){
 
-
         List<Long> groupsid = groupsListId;
         for( Long groupid : groupsid ){
 
@@ -77,7 +76,13 @@ public class TeacherServiceImpl implements TeacherService {
 
         teacherRepository.save(teacher);   
         return teacher;
+    }
 
+
+    public void removeTeacher(Long teacherId){
+
+        Teacher t = teacherRepository.findOne(teacherId);
+        teacherRepository.delete(t);      
     }
 
 

@@ -112,17 +112,22 @@ public class GreetingController {
     }
 
 // DELETE
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") Long id) {
-        logger.info("Deleting greeting number {}", id);
-        Preconditions.checkNotNull(greetingRepository.findOne(id), "Greeting with id %s not found", id);
-        userGreetingsService.removeGreetingFromUser(id);
-    }
+ //   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+  //  @ResponseStatus(HttpStatus.OK)
+  //  public void delete(@PathVariable("id") Long id) {
+    //    logger.info("Deleting greeting number {}", id);
+   //     Preconditions.checkNotNull(greetingRepository.findOne(id), "Greeting with id %s not found", id);
+   ///     userGreetingsService.removeGreetingFromUser(id);
+   // }
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     @ResponseStatus(HttpStatus.OK)
     public String deleteHTML(@PathVariable("id") Long id) {
-        delete(id);
+       //delete(id);
+
+
+        logger.info("Deleting greeting number {}", id);
+        Preconditions.checkNotNull(greetingRepository.findOne(id), "Greeting with id %s not found", id);
+        userGreetingsService.removeGreetingFromUser(id);
         return "redirect:/greetings";
     }
 }

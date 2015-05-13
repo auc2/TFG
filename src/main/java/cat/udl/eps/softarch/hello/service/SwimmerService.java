@@ -15,13 +15,18 @@ public interface SwimmerService {
  	public Sort sortByIdAsc();
 
     public Swimmer addSwimmer(Swimmer sw);
-    public void addSwimmer(Swimmer sw, Long groupId);
+    public void addSwimmer(Swimmer sw, Long groupId);   
+
+    public void removeSwimmer(Long swimmerId);
+
+
+  //  public void removeReportFromSwimmer(Long reportId);
+
+
 
 
 // PENSAR...
  //   Greeting addReportToSwimmer(Report report);
 
   //  Greeting updateGreetingFromUser(Greeting updateGreeting, Long greetingId);
-
-  //  void removeGreetingFromUser(Long greetingId);
 }

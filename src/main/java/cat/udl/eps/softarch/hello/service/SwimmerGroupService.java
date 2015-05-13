@@ -8,20 +8,21 @@ import org.springframework.data.domain.Sort;
 
 public interface SwimmerGroupService {
 
-    SwimmerGroup getSwimmerGroup(Long userId);
+    public SwimmerGroup getSwimmerGroup(Long userId);
 
-    void addSwimmerGroup(SwimmerGroup group, Long teacherId);
+    public void addSwimmerGroup(SwimmerGroup group);
 
-    void addSwimmerGroup(SwimmerGroup group, Long teacherId,  ArrayList<Long> swimmersListId);
-    
+    public void addSwimmerGroup(SwimmerGroup group, Long teacherId);
+
+    public void addSwimmerGroup(SwimmerGroup group, ArrayList<Long> swimmersListId);
+
+    public void addSwimmerGroup(SwimmerGroup group, Long teacherId,  ArrayList<Long> swimmersListId);
 
 	public List<SwimmerGroup> findAll();
 
 	public Sort sortByIdAsc();
 
+	public void removeSwimmerGroup(Long swimmerGroupId);
 
-   // SwimmerGroup addSwimmerGroup(SwimmerGroup group);
-
-  //  SwimmerGroup deleteSwimmerGroup(SwimmerGroup group);
 
 }

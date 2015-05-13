@@ -17,6 +17,11 @@ public interface TeacherService {
 
  	public Sort sortByIdAsc();
 
+ 	public void removeTeacher(Long teacherId);
+
+
+
+
 
  //   Greeting addGreetingToUser(Greeting greeting);
 

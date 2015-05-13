@@ -77,11 +77,11 @@ public class SwimmerController {
         SwimmerGroup group = swimmerGroupRepository.findOne(groupId);
 
         if (groupId == 9999){
-           System.out.println("Afegint nedador sense grup assignat.");
+            logger.info("Afegint nedador sense grup assignat.");
            swimmerService.addSwimmer(swimmer);
         } 
         else{
-            System.out.println("Afegint nedador amb grup assignat.");
+             logger.info("Afegint nedador amb grup assignat.");
             swimmerService.addSwimmer(swimmer, groupId);
         }
         
@@ -112,6 +112,21 @@ public class SwimmerController {
 
 
         return model;
+    }
+
+
+
+
+    //DELETE
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteHTML(@PathVariable("id") Long id) {
+
+        logger.info("Deleting Swimmer number {}", id);
+        Preconditions.checkNotNull(swimmerRepository.findOne(id), "Swimmer with id %s not found", id);
+        swimmerService.removeSwimmer(id);
+
+        return "redirect:/swimmers";
     }
 
 

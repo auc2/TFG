@@ -186,6 +186,17 @@ public class TeacherController {
     }
 
 
+    //DELETE
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteHTML(@PathVariable("id") Long id) {
+
+        logger.info("Deleting Teacher number {}", id);
+        Preconditions.checkNotNull(teacherRepository.findOne(id), "Teacher with id %s not found", id);
+        teacherService.removeTeacher(id);
+
+        return "redirect:/teachers";
+    }
 
 
 

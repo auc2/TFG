@@ -62,7 +62,7 @@ public class SwimmerGroupController {
 
         SwimmerGroup swimmerGroup = retrieve(id);
 
-        List<Swimmer> swimmers = swimmerGroup.getSwimmers();      
+        List<Swimmer> swimmers = swimmerGroup.getSwimmers();    
 
         ModelAndView model = new ModelAndView("swimmerGroup");
         model.addObject("swimmerGroup", swimmerGroup);
@@ -83,9 +83,11 @@ public class SwimmerGroupController {
             return "swimmerGroupForm";
         }
 
-        if(swimmersListId.size() > 0)  swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId, swimmersListId);
-        else  swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId);
-     
+        if  (teacherId == 9999 && swimmersListId.size() == 0) swimmerGroupService.addSwimmerGroup(swimmerGroup);
+        if  (teacherId == 9999 && swimmersListId.size() > 0)  swimmerGroupService.addSwimmerGroup(swimmerGroup, swimmersListId);
+        if  (teacherId != 9999 && swimmersListId.size() == 0) swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId);
+        if  (teacherId != 9999 && swimmersListId.size() > 0) swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId, swimmersListId);
+        
         return "redirect:/swimmerGroups/"+swimmerGroup.getId();
     }
 
@@ -98,9 +100,6 @@ public class SwimmerGroupController {
         TeacherController teaCont = new TeacherController();
         List<Teacher> teachers = new ArrayList<Teacher>();
         teachers =  teacherService.findAll();
-        Teacher t = new Teacher();
-        t.setTeacherName("    -   ");
-        teachers.add(t);
 
         List<Swimmer> swimmers = swimmerService.findAll();
 
@@ -131,6 +130,20 @@ public class SwimmerGroupController {
 
         return model;
     }
+
+
+    //DELETE
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteHTML(@PathVariable("id") Long id) {
+
+        logger.info("Deleting SwimmerGroup number {}", id);
+        Preconditions.checkNotNull(swimmerGroupRepository.findOne(id), "SwimmerGroup with id %s not found", id);
+        swimmerGroupService.removeSwimmerGroup(id);
+
+        return "redirect:/swimmerGroups";
+    }
+
 
 
 }

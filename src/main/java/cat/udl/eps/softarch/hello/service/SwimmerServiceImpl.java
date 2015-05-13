@@ -58,7 +58,9 @@ public class SwimmerServiceImpl implements SwimmerService {
 
 
     @Autowired
-    SwimmerGroupRepository    swimmergroupRepository;
+    SwimmerGroupRepository    swimmerGroupRepository;
+
+
 
 
 
@@ -66,10 +68,37 @@ public class SwimmerServiceImpl implements SwimmerService {
     public void addSwimmer(Swimmer sw, Long groupId){
 
     
-            SwimmerGroup group = swimmergroupRepository.findOne(groupId); 
+            SwimmerGroup group = swimmerGroupRepository.findOne(groupId); 
             sw.setGroup(group);
             swimmerRepository.save(sw); 
+
+            group.addSwimmer(sw);
+            swimmerGroupRepository.save(group);  
     }
+
+
+
+
+
+    @Transactional
+    @Override
+    public void removeSwimmer(Long swimmerId){
+   
+
+        Swimmer sw = swimmerRepository.findOne(swimmerId);
+
+
+        //Codi per eliminar referencia a grup.
+        //SWIMMER HAURIA DE CONTENIR LONG GROUPID??? ENLLOC DEL OBJECTE???
+        SwimmerGroup group = sw.getGroup();
+        long groupId = group.getId();
+
+        SwimmerGroup groupreal = swimmerGroupRepository.findOne(groupId); 
+        groupreal.removeSwimmer(sw);
+
+        swimmerRepository.delete(sw);       
+    }
+
 
 
   

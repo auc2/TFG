@@ -39,7 +39,7 @@
                          <div id ="optionsform">
 
                                 <select name="teacherId" >
-                                <option value="99"> no monitor assignat </option><%--null value, no teacher--%>
+                                <option value="9999"> no monitor assignat </option><%--null value, no teacher--%>
 
                                 <c:if test="${not empty teachers}">
                                                 <c:forEach items="${teachers}" var="teacher">

@@ -12,7 +12,7 @@
 
     <p>Foto:</p> <img alt="equip"  src="getImage/${teacher.getId()}"  width="10%" height="15%"/>
 
-<br>
+	<br>
  	<p>Grups assignats: </p>
  	
 
@@ -24,6 +24,15 @@
 	    </c:if>
 	    </ul>
 		</c:if>
+
+ 		<form:form method="DELETE" action="/teachers/${teacher.getId()}">
+        <p><input type="submit" value="Delete"/></p>
+        </form:form>
+
+
 	</div>
+
+
+
 </body>
 </html>

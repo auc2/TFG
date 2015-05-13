@@ -2,11 +2,11 @@
 <%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
 	<div id ="content">
-		<p><a href="/swimmerGroups">Tornar</a></p>
+		<p><a href="/swimmerGroups">Grups</a></p>
 
 		<c:if test="${not empty swimmerGroup}">
 		 
-		    <p>ID: ${swimmerGroup.getId()}</p>
+		    <p><h1><b>GRUP ID: ${swimmerGroup.getId()}</b></h1></p>
 		
 		    <p>Hora: ${swimmerGroup.getSessionHour()}</p>
 
@@ -26,9 +26,11 @@ error--->failed to lazily initialize a collection of role: cat.udl.eps.softarch.
 					<li><a href="/swimmers/${swimmer.getId()}">${swimmer.getId()}</a>: ${swimmer.getSwimmerName()}</li>
 				</c:forEach>
 			  </ul>
-			
 
-		    
+
+			   <form:form method="DELETE" action="/swimmerGroups/${swimmerGroup.getId()}">
+		       <p><input type="submit" value="Delete"/></p>
+		       </form:form>
 		</c:if>
 	</div>
 </body>
