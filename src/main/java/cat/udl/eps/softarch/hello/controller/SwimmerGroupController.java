@@ -1,22 +1,25 @@
 package cat.udl.eps.softarch.hello.controller;
 
+import cat.udl.eps.softarch.hello.model.Swimmer;
+import cat.udl.eps.softarch.hello.model.SwimmerGroup;
+import cat.udl.eps.softarch.hello.model.Teacher;
+import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
+import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
+import cat.udl.eps.softarch.hello.service.SwimmerService;
+import cat.udl.eps.softarch.hello.service.TeacherService;
+import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import com.google.common.base.Preconditions;
-import cat.udl.eps.softarch.hello.model.*;
-import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
-import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
-import cat.udl.eps.softarch.hello.service.TeacherService;
-import cat.udl.eps.softarch.hello.service.SwimmerService;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import org.springframework.validation.BindingResult;
-import org.springframework.http.HttpStatus;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,8 +78,8 @@ public class SwimmerGroupController {
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public String createHTML(@Valid @ModelAttribute("swimmerGroup") SwimmerGroup swimmerGroup, @RequestParam Long teacherId, 
-         @RequestParam(required = false, defaultValue = "") ArrayList<Long> swimmersListId, BindingResult binding, HttpServletResponse response) {
+    public String createHTML(@Valid @ModelAttribute("swimmerGroup") SwimmerGroup swimmerGroup, BindingResult binding, @RequestParam Long teacherId,
+         @RequestParam(required = false, defaultValue = "") ArrayList<Long> swimmersListId, HttpServletResponse response) {
         
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
