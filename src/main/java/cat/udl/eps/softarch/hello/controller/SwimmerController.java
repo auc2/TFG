@@ -76,18 +76,20 @@ public class SwimmerController {
             return "swimmerForm";
         }
 
+        Swimmer newSwimmer = new Swimmer();
+
         SwimmerGroup group = swimmerGroupRepository.findOne(groupId);
 
         if (groupId == 9999){
             logger.info("Afegint nedador sense grup assignat.");
-           swimmerService.addSwimmer(swimmer);
+           newSwimmer = swimmerService.addSwimmer(swimmer);
         } 
         else{
              logger.info("Afegint nedador amb grup assignat.");
-            swimmerService.addSwimmer(swimmer, groupId);
+            newSwimmer = swimmerService.addSwimmer(swimmer, groupId);
         }
         
-        return "redirect:/swimmers/"+swimmer.getId();
+        return "redirect:/swimmers/"+newSwimmer.getId();
     }
 
 

@@ -15,7 +15,7 @@ public interface SwimmerService {
  	public Sort sortByIdAsc();
 
     public Swimmer addSwimmer(Swimmer sw);
-    public void addSwimmer(Swimmer sw, Long groupId);   
+    public Swimmer addSwimmer(Swimmer sw, Long groupId);   
 
     public void removeSwimmer(Long swimmerId);
 

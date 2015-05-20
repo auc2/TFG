@@ -47,15 +47,17 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
 
     @Transactional(readOnly = true)
     @Override
-    public void addSwimmerGroup(SwimmerGroup group){
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group){
        
         swimmerGroupRepository.save(group);
+        return group;
+
     }
 
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     @Override
-    public void addSwimmerGroup(SwimmerGroup group, Long teacherId) {
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group, Long teacherId) {
 
         Teacher teacher = teacherRepository.findOne(teacherId); 
         group.setTeacher(teacher);
@@ -63,13 +65,13 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
 
         teacher.addSwimmerGroup(group);
         teacherRepository.save(teacher);
-
+        return group;
     }
 
 
     @Transactional(readOnly = false)
     @Override
-    public void addSwimmerGroup(SwimmerGroup group, ArrayList<Long> swimmersListId){
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group, ArrayList<Long> swimmersListId){
 
         List<Long> swimmersId = swimmersListId;
         for( Long swimmerId : swimmersId ){
@@ -82,13 +84,14 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
             swimmerRepository.save(swimmer);
         }
 
+        return group;
     }
 
 
 
     @Transactional(readOnly = false)
     @Override
-    public void addSwimmerGroup(SwimmerGroup group, Long teacherId,  ArrayList<Long> swimmersListId) {
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group, Long teacherId,  ArrayList<Long> swimmersListId) {
 
 
         Teacher teacher = teacherRepository.findOne(teacherId); 
@@ -116,6 +119,8 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
        //   swimmer.setGroup(group);
       //     swimmerRepository.save(swimmer); //Update swimmer with group assigned
       //  }    
+        return group;
+
     }
 
 

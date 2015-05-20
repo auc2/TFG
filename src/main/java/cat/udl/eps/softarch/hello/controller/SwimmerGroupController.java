@@ -86,12 +86,14 @@ public class SwimmerGroupController {
             return "swimmerGroupForm";
         }
 
-        if  (teacherId == 9999 && swimmersListId.size() == 0) swimmerGroupService.addSwimmerGroup(swimmerGroup);
-        if  (teacherId == 9999 && swimmersListId.size() > 0)  swimmerGroupService.addSwimmerGroup(swimmerGroup, swimmersListId);
-        if  (teacherId != 9999 && swimmersListId.size() == 0) swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId);
-        if  (teacherId != 9999 && swimmersListId.size() > 0) swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId, swimmersListId);
+        System.out.println("TeachersID--------> ["+teacherId +"]swimeerListId size ----> ["+swimmersListId.size()+"]");
+        SwimmerGroup newGroup = new SwimmerGroup();
+        if  (teacherId == 9999 && swimmersListId.size() == 0) newGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup);
+        if  (teacherId == 9999 && swimmersListId.size() > 0)  newGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup, swimmersListId);
+        if  (teacherId != 9999 && swimmersListId.size() == 0) newGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId);
+        if  (teacherId != 9999 && swimmersListId.size() > 0) newGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup, (Long)teacherId, swimmersListId);
         
-        return "redirect:/swimmerGroups/"+swimmerGroup.getId();
+        return "redirect:/swimmerGroups/"+newGroup.getId();
     }
 
 
@@ -101,8 +103,7 @@ public class SwimmerGroupController {
     public ModelAndView createForm() {
 
         TeacherController teaCont = new TeacherController();
-        List<Teacher> teachers = new ArrayList<Teacher>();
-        teachers =  teacherService.findAll();
+        List<Teacher> teachers =  teacherService.findAll();
 
         List<Swimmer> swimmers = swimmerService.findAll();
 

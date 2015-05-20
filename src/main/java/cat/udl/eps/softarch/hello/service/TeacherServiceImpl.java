@@ -39,7 +39,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> findAll(){
 
-       List<Teacher> teachers = new ArrayList<Teacher>();
+      // List<Teacher> teachers = new ArrayList<Teacher>();
        return teacherRepository.findAll(sortByIdAsc());
     }
 
@@ -49,10 +49,10 @@ public class TeacherServiceImpl implements TeacherService {
 
 
   
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     @Override
     public Teacher addTeacher(Teacher t) {
- 
+
         teacherRepository.save(t);
         return t;
     }
@@ -66,12 +66,10 @@ public class TeacherServiceImpl implements TeacherService {
         for( Long groupid : groupsid ){
 
             SwimmerGroup group = swimmerGroupRepository.findOne(groupid); 
-
-            teacher.addSwimmerGroup(group); //Assign groups in a list to new teacher.
-
             group.setTeacher(teacher); //Assign teacher to group
             swimmerGroupRepository.save(group); //Update group
 
+            teacher.addSwimmerGroup(group); //Assign groups in a list to new teacher.
         }
 
         teacherRepository.save(teacher);   

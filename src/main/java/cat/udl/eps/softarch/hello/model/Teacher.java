@@ -70,6 +70,7 @@ public class Teacher {
     }
 
     public void addSwimmerGroup(SwimmerGroup newSwimmerGroup) {
+
         swimmerGroups.add(newSwimmerGroup);
     }
 

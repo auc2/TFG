@@ -10,13 +10,13 @@ public interface SwimmerGroupService {
 
     public SwimmerGroup getSwimmerGroup(Long userId);
 
-    public void addSwimmerGroup(SwimmerGroup group);
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group);
 
-    public void addSwimmerGroup(SwimmerGroup group, Long teacherId);
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group, Long teacherId);
 
-    public void addSwimmerGroup(SwimmerGroup group, ArrayList<Long> swimmersListId);
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group, ArrayList<Long> swimmersListId);
 
-    public void addSwimmerGroup(SwimmerGroup group, Long teacherId,  ArrayList<Long> swimmersListId);
+    public SwimmerGroup addSwimmerGroup(SwimmerGroup group, Long teacherId,  ArrayList<Long> swimmersListId);
 
 	public List<SwimmerGroup> findAll();
 

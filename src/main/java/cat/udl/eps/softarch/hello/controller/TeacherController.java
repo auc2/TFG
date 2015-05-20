@@ -71,7 +71,7 @@ public class TeacherController {
 
         Teacher teacher = retrieve(id);
 
-        List<SwimmerGroup> groups = teacher.getSwimmerGroups();      
+        List<SwimmerGroup> groups = teacher.getSwimmerGroups();    
 
         ModelAndView model = new ModelAndView("teacher");
         model.addObject("teacher", teacher);
