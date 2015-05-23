@@ -32,7 +32,7 @@ public class SwimmerGroup {
     private Teacher teacher;
 
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = false) //Si poso False, no eliminara els alumnes al borrar el grup.
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false) //Si poso False, no eliminara els alumnes al borrar el grup.
     private List<Swimmer> swimmers = new ArrayList<Swimmer>();
 
 

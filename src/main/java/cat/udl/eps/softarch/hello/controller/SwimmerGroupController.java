@@ -4,6 +4,7 @@ import cat.udl.eps.softarch.hello.model.Swimmer;
 import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.model.Teacher;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
+import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
 import cat.udl.eps.softarch.hello.service.SwimmerService;
 import cat.udl.eps.softarch.hello.service.TeacherService;
@@ -35,6 +36,7 @@ public class SwimmerGroupController {
 
     @Autowired TeacherService       teacherService;
     @Autowired SwimmerService       swimmerService;    
+    @Autowired SwimmerRepository    swimmerRepository;
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
@@ -65,8 +67,9 @@ public class SwimmerGroupController {
 
         SwimmerGroup swimmerGroup = retrieve(id);
 
-        List<Swimmer> swimmers = swimmerGroup.getSwimmers();    
 
+        List<Swimmer> swimmers =  swimmerRepository.findSwimmerByGroup(swimmerGroup);
+// List<Swimmer> swimmers = swimmerGroup.getSwimmers();    
         ModelAndView model = new ModelAndView("swimmerGroup");
         model.addObject("swimmerGroup", swimmerGroup);
         model.addObject("swimmers",swimmers);

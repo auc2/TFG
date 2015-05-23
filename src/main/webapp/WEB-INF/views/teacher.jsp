@@ -18,9 +18,9 @@
 
  	   <ul>
 	    <c:if test="${not empty groups}">
-		<c:forEach var="group" items="${groups}">
-		<li><a href="/swimmerGroups/${group.getId()}">Grup: ${group.getId()}</a>  - Monitor:  ${group.getTeacher().getTeacherName()}</li>
-		</c:forEach>
+			<c:forEach var="group" items="${groups}">
+				<li><a href="/swimmerGroups/${group.getId()}">Grup: ${group.getId()}</a>  - Monitor:  ${group.getTeacher().getTeacherName()}</li>
+			</c:forEach>
 	    </c:if>
 	    </ul>
 		</c:if>

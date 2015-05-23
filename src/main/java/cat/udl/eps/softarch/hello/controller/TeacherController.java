@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.hello.controller;
 import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.model.Teacher;
 import cat.udl.eps.softarch.hello.repository.TeacherRepository;
+import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
 import cat.udl.eps.softarch.hello.service.TeacherService;
 import com.google.common.base.Preconditions;
@@ -36,7 +37,8 @@ public class TeacherController {
     @Autowired TeacherRepository       teacherRepository;
     @Autowired TeacherService       teacherService;  
 
-    @Autowired SwimmerGroupService       swimmerGroupService;    
+    @Autowired SwimmerGroupService       swimmerGroupService;  
+    @Autowired SwimmerGroupRepository  swimmerGroupRepository; 
 
 
     // LIST
@@ -70,8 +72,10 @@ public class TeacherController {
 
 
         Teacher teacher = retrieve(id);
+    
+        /*Carrego les entitats groups en el temps d'execució, ja que groups està amb FetchType.Lazy*/
+        List<SwimmerGroup> groups = swimmerGroupRepository.findSwimmerGroupByTeacher(teacher);        
 
-        List<SwimmerGroup> groups = teacher.getSwimmerGroups();    
 
         ModelAndView model = new ModelAndView("teacher");
         model.addObject("teacher", teacher);
