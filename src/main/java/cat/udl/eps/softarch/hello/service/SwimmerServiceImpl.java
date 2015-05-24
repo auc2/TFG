@@ -87,9 +87,12 @@ public class SwimmerServiceImpl implements SwimmerService {
     public void removeSwimmer(Long swimmerId){
    
         Swimmer sw = swimmerRepository.findOne(swimmerId);
-   //     SwimmerGroup group = sw.getGroup();
+        SwimmerGroup group = sw.getGroup();
 
-     //   if(group != null) group.removeSwimmer(sw);
+        if(group != null){
+             group.removeSwimmer(sw);
+             sw.setGroup(null);
+        }
         swimmerRepository.delete(sw);     
     }
 

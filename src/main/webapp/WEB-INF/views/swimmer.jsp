@@ -14,7 +14,6 @@
          </c:when>
          <c:otherwise>
          		<div id ="no_value_assigned"><p> No hi ha grup assignat</p></div>
-         	<%--	<a href="www.google.es">   Assignar grup</a> --%>
          </c:otherwise>
          </c:choose>
 
@@ -25,7 +24,7 @@
 		</c:if>
 
          <form:form method="DELETE" action="/swimmers/${swimmer.getId()}">
-         <p><input type="submit" value="Delete"/></p>
+         <p><input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest nedador?')"/></p>
          </form:form>
 
 

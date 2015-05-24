@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.hello.controller;
 import cat.udl.eps.softarch.hello.model.Swimmer;
 import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.model.Teacher;
+import cat.udl.eps.softarch.hello.model.LevelsGroups;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
@@ -66,10 +67,8 @@ public class SwimmerGroupController {
     public ModelAndView retrieveHTML(@PathVariable( "id" ) Long id) {
 
         SwimmerGroup swimmerGroup = retrieve(id);
-
-
         List<Swimmer> swimmers =  swimmerRepository.findSwimmerByGroup(swimmerGroup);
-// List<Swimmer> swimmers = swimmerGroup.getSwimmers();    
+
         ModelAndView model = new ModelAndView("swimmerGroup");
         model.addObject("swimmerGroup", swimmerGroup);
         model.addObject("swimmers",swimmers);
@@ -89,7 +88,6 @@ public class SwimmerGroupController {
             return "swimmerGroupForm";
         }
 
-        System.out.println("TeachersID--------> ["+teacherId +"]swimeerListId size ----> ["+swimmersListId.size()+"]");
         SwimmerGroup newGroup = new SwimmerGroup();
         if  (teacherId == 9999 && swimmersListId.size() == 0) newGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup);
         if  (teacherId == 9999 && swimmersListId.size() > 0)  newGroup = swimmerGroupService.addSwimmerGroup(swimmerGroup, swimmersListId);
@@ -108,20 +106,25 @@ public class SwimmerGroupController {
         TeacherController teaCont = new TeacherController();
         List<Teacher> teachers =  teacherService.findAll();
 
-        List<Swimmer> swimmers = swimmerService.findAll();
+        List<Swimmer> swimmers = swimmerService.findAll(); //All swimmers.
+        List<Swimmer> swimmersNoGroup = new ArrayList<Swimmer>(); //All swimmers with no group assigned yet
+
+        for( Swimmer swimmer : swimmers ){
+            if(swimmer.getGroup() == null) swimmersNoGroup.add(swimmer);
+        }
+
+
+        List<String> levels = new ArrayList<String>();
+        for(LevelsGroups level: LevelsGroups.values()){
+            levels.add(level.name().toString());
+        }
+
 
         List<String> sessionHours = new ArrayList<String>();
-        //FER-HO EN UN ENUM??
         sessionHours.add("    -   ");
         sessionHours.add("1ra Hora  10:15 - 11:15");
         sessionHours.add("2na Hora  11:15 - 12:15");
         sessionHours.add("3ra Hora  12:15 - 13:15");
-
-     //    Levels levels;
-       
-      //  for(LevelsGroups level: LevelsGroups.values())
-        //    System.out.println("valor--> "+level.name());
-       // String[] levels = Level.values(); //Get values from the enum Levels
 
 
         logger.info("Generating swimmerGroupForm for swimmerGroup creation");
@@ -131,9 +134,9 @@ public class SwimmerGroupController {
         ModelAndView model = new ModelAndView("swimmerGroupForm");
         model.addObject("swimmerGroup", emptySwimmerGroup);
         model.addObject("teachers",teachers); // ("nom per referir-nos al jsp", objecte)
-        model.addObject("swimmers",swimmers);
+        model.addObject("swimmers",swimmersNoGroup);
         model.addObject("sessionHours",sessionHours);
-      //  model.addObject("levels", levels);
+        model.addObject("levels", levels);
 
         return model;
     }

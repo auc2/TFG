@@ -139,11 +139,27 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
     }
 
 
+    @Transactional
+    @Override   
     public void removeSwimmerGroup(Long swimmerGroupId){
 
         SwimmerGroup group = swimmerGroupRepository.findOne(swimmerGroupId);
-        swimmerGroupRepository.delete(group);  
 
+        Teacher teacher = group.getTeacher();
+
+        if(teacher != null){
+           group.setTeacher(null);
+           teacher.removeSwimmerGroup(group); 
+        }
+
+        List<Swimmer> swimmers =  swimmerRepository.findSwimmerByGroup(group);
+
+        for( Swimmer swimmer : swimmers ){
+            group.removeSwimmer(swimmer);
+            swimmer.setGroup(null);
+        }
+
+        swimmerGroupRepository.delete(group);  
     }
 
 

@@ -27,7 +27,9 @@
                 </tr>
                 <tr>
                     <td><form:label path="level"><b>Nivell: </b></form:label></td>
-                    <td><form:input path="level"/> <i><form:errors path="level"></form:errors></i></td>
+                    <td>
+                                <form:select path="level" items="${levels}" />
+                    </td>
                 </tr>
 
                     <tr>
@@ -53,21 +55,13 @@
                                 </c:if>
                             </ul>
                     </tr>
-<br>
-                    <tr>
-                        <c:if test="${not empty swimmers}">
-                        <td><form:label path="swimmers"><b>Nedadors per assignar al grup:  </b></form:label></td>
 
+                    <tr>
+                    <c:choose>
+                        <c:when test="${not empty swimmers}">
+                                <td><form:label path="swimmers"><b>Nedadors per assignar al grup:  </b></form:label></td>
+<br>
                                 <c:forEach var="swimmer" items="${swimmers}">
-                                    
-                                    <c:choose>
-                                        <c:when test="${not empty swimmer.getGroup()}">
-                                            <div id ="optionsform">
-                                              <td><form:label path="swimmers">Tots els nedadors assignats a un grup.</form:label></td>
-                                            </div>
-                                        </c:when>
-                                        
-                                        <c:otherwise>
                                             <tr>
                                                 <td>
                                                     <div id ="optionsform">
@@ -81,11 +75,14 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </c:otherwise>
-                                    </c:choose>
-
                                 </c:forEach>                            
-                        </c:if>
+                        </c:when>
+                        <c:otherwise>
+                                <div id ="optionsform">
+                                              <td><form:label path="swimmers">Tots els nedadors assignats a un grup.</form:label></td>
+                                </div>
+                        </c:otherwise>
+                    </c:choose>
                     </tr>
 
 <%--

@@ -82,13 +82,6 @@ public class TeacherController {
         model.addObject("groups",groups);
 
         return model;
-
-
-
-
-
-
-       // return new ModelAndView("teacher", "teacher", retrieve(id));
     }
 
 
@@ -152,6 +145,7 @@ public class TeacherController {
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
             return "teacherForm";
+          //  return "redirect:/teachers/teacherForm";
         }
 
         Teacher newTeacher = new Teacher();

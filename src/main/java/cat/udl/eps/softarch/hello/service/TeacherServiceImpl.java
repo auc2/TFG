@@ -76,17 +76,21 @@ public class TeacherServiceImpl implements TeacherService {
         return teacher;
     }
 
-
+    @Transactional
+    @Override
     public void removeTeacher(Long teacherId){
 
-        Teacher t = teacherRepository.findOne(teacherId);
-        teacherRepository.delete(t);      
+        Teacher teacher = teacherRepository.findOne(teacherId);
+        List<SwimmerGroup> groups = swimmerGroupRepository.findSwimmerGroupByTeacher(teacher);
+
+        //All this groups, after now they will have no teacher.
+        for( SwimmerGroup group : groups ){
+
+            teacher.removeSwimmerGroup(group); 
+            group.setTeacher(null); 
+        }
+
+        teacherRepository.delete(teacher);              
     }
 
-
-      
-   
-
-
-  
 }

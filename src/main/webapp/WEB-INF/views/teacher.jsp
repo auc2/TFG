@@ -26,7 +26,7 @@
 		</c:if>
 
  		<form:form method="DELETE" action="/teachers/${teacher.getId()}">
-        <p><input type="submit" value="Delete"/></p>
+        <p><input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest monitor?')"/></p>
         </form:form>
 
 

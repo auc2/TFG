@@ -19,14 +19,14 @@ public class Teacher {
     @Lob
     private Blob photo;
 
-    @NotBlank(message = "Teacher name cannot be blank")
+    @NotBlank(message = "El nom del professor no pot estar en blanc.")
     private String teachername;
 
     @NotBlank(message = "El cognom del professor no pot estar en blanc.")
     private String surname;
 
-    @NotBlank(message = "E-mail cannot be blank")
-    @Email(message = "E-mail should be valid")
+    @NotBlank(message = "E-mail no pot estar en blanc")
+    @Email(message = "E-mail ha de ser valit")
     private String email;
 
     @NotBlank(message = "El telefon del professor no pot estar en blanc.")
@@ -35,11 +35,10 @@ public class Teacher {
     @NotBlank(message = "La ciutat del professor no pot estar en blanc.")
     private String city;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
     private List<SwimmerGroup> swimmerGroups = new ArrayList<SwimmerGroup>();
 
     public Teacher() { }
-
 
 
     public long getId() { return id; }
