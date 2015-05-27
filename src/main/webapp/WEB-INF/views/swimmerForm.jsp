@@ -62,13 +62,10 @@
                                          </div>
                                      </td>
                                     </tr>
-                                  <%--   </c:forEach>  --%>                          
 
                                
                             </ul>
                     </tr>
-
-                <!--LLISTAR SWIMMERGROUPS DISPONIBLES PER AFEGIR-->
 <br>
 <br>
                  <tr>

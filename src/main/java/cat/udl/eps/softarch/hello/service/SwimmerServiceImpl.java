@@ -80,8 +80,6 @@ public class SwimmerServiceImpl implements SwimmerService {
 
 
 
-
-
     @Transactional
     @Override
     public void removeSwimmer(Long swimmerId){
@@ -95,6 +93,37 @@ public class SwimmerServiceImpl implements SwimmerService {
         }
         swimmerRepository.delete(sw);     
     }
+
+
+    @Transactional
+    @Override
+    public Swimmer updateSwimmer(Swimmer updateSwimmer, Long oldSwimmerId, Long newGroupId){
+
+        Swimmer oldSwimmer = swimmerRepository.findOne(oldSwimmerId);
+
+        oldSwimmer.setSwimmerName(updateSwimmer.getSwimmerName());
+        oldSwimmer.setSurname(updateSwimmer.getSurname());
+        oldSwimmer.setCity(updateSwimmer.getCity());
+        oldSwimmer.setTelephone(updateSwimmer.getTelephone());
+        oldSwimmer.setEmail(updateSwimmer.getEmail());
+
+        SwimmerGroup oldGroup = new SwimmerGroup();
+        if(newGroupId != 9999){ //Diferent a sense grup.
+             oldGroup = swimmerGroupRepository.findOne(newGroupId);
+             oldSwimmer.setGroup(oldGroup);
+             oldGroup.addSwimmer(oldSwimmer);
+        }else{
+             oldGroup = oldSwimmer.getGroup();
+             oldSwimmer.setGroup(null);
+             oldGroup.removeSwimmer(oldSwimmer);
+        }
+
+        swimmerGroupRepository.save(oldGroup); 
+
+        return swimmerRepository.save(oldSwimmer);
+    }
+
+
 
 
 

@@ -30,6 +30,11 @@
         </form:form>
 
 
+        <form action="/teachers/${teacher.getId()}/teacherForm">
+           <input type="submit" value="Update"/> 
+        </form>
+
+
 	</div>
 
 

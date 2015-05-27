@@ -93,4 +93,49 @@ public class TeacherServiceImpl implements TeacherService {
         teacherRepository.delete(teacher);              
     }
 
+
+    @Transactional
+    @Override
+    public Teacher updateTeacher(Teacher updateTeacher, Long oldTeacherId, ArrayList<Long> newsGroupsListId){
+
+        Teacher oldTeacher = teacherRepository.findOne(oldTeacherId);
+
+        oldTeacher.setTeacherName(updateTeacher.getTeacherName());
+        oldTeacher.setSurname(updateTeacher.getSurname());
+        oldTeacher.setCity(updateTeacher.getCity());
+        oldTeacher.setTelephone(updateTeacher.getTelephone());
+        oldTeacher.setEmail(updateTeacher.getEmail());
+
+
+       // List<SwimmerGroup> groupsTeacher = swimmerGroupRepository.findSwimmerGroupByTeacher(oldTeacher);
+
+        oldTeacher.removeAllSwimmerGroup(); //Delete all the groups relations to the the teacher, to add the new ones.
+
+        List<Long> newGroupsId = newsGroupsListId;
+        for( Long groupid : newGroupsId ){
+
+
+System.out.println("Group--->"+groupid);
+//PENDING -->>> DELETE UNSELECTED GROUPS PREVIOUS TO THE TEACHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+
+
+
+
+
+
+            SwimmerGroup group = swimmerGroupRepository.findOne(groupid); 
+
+            //if(!groupsTeacher.contains(group)){
+                group.setTeacher(oldTeacher); //Assign teacher to group
+                swimmerGroupRepository.save(group); //Update group
+
+                oldTeacher.addSwimmerGroup(group); //Assign groups in a list to teacher.
+           // }
+        }
+
+
+
+        return teacherRepository.save(oldTeacher);
+    }
+
 }

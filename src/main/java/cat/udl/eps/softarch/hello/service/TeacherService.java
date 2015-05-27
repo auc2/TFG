@@ -19,6 +19,9 @@ public interface TeacherService {
 
  	public void removeTeacher(Long teacherId);
 
+ 	public Teacher updateTeacher(Teacher updateTeacher, Long oldTeacherId, ArrayList<Long> newsGroupsListId);
+
+
 
 
 

@@ -9,8 +9,6 @@
   		 <c:choose>
 		 <c:when test="${not empty swimmer.getGroup()}">
              	<p>Grup: <a href="/swimmerGroups/${swimmer.getGroup().getId()}">${swimmer.getGroup().getId()}</a> - ${swimmer.getGroup().getLevel()} - Professor: ${swimmer.getGroup().getTeacher().getTeacherName()}</p>
-             	<a href="www.google.es">   Canviar grup</a>
-
          </c:when>
          <c:otherwise>
          		<div id ="no_value_assigned"><p> No hi ha grup assignat</p></div>
@@ -23,10 +21,19 @@
 		    <p>E-mail: ${swimmer.getEmail()}</p>
 		</c:if>
 
+        
          <form:form method="DELETE" action="/swimmers/${swimmer.getId()}">
-         <p><input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest nedador?')"/></p>
+           <input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest nedador?')"/>
          </form:form>
 
+
+         <form action="/swimmers/${swimmer.getId()}/swimmerForm">
+           <input type="submit" value="Update"/> 
+         </form>
+
+         
+
+ 
 
 	</div>
 </body>

@@ -31,6 +31,12 @@ error--->failed to lazily initialize a collection of role: cat.udl.eps.softarch.
 			   <form:form method="DELETE" action="/swimmerGroups/${swimmerGroup.getId()}">
 		       <p><input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest grup?')"/></p>
 		       </form:form>
+
+
+	           <form action="/swimmerGroups/${swimmerGroup.getId()}/swimmerGroupForm">
+	           <input type="submit" value="Update"/> 
+	           </form>
+
 		</c:if>
 	</div>
 </body>

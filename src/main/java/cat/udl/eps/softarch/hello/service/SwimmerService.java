@@ -19,6 +19,7 @@ public interface SwimmerService {
 
     public void removeSwimmer(Long swimmerId);
 
+    public Swimmer updateSwimmer(Swimmer updateSwimmer, Long oldSwimmerId, Long groupId);
 
   //  public void removeReportFromSwimmer(Long reportId);
 
