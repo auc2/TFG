@@ -77,9 +77,9 @@ public class Teacher {
         swimmerGroups.remove(swimmerGroup);
     }
 
-    public void removeAllSwimmerGroup() {
-        swimmerGroups.clear();
-    }
+ //   public void removeAllSwimmerGroup() {
+//        swimmerGroups.clear();
+ //   }
 
 
 /*

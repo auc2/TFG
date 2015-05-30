@@ -75,6 +75,16 @@ public class SwimmerController {
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
             return "swimmerForm";
+
+
+
+
+
+
+
+
+
+            ///////--->>> FER IGUAL QUE TEACHERCONTROLLER
         }
 
         Swimmer newSwimmer = new Swimmer();

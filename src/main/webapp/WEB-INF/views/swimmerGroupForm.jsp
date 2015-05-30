@@ -32,11 +32,9 @@
                     </td>
                 </tr>
 
-                    <tr>
+                <tr>
                     <td><form:label path="teacher"><b>Monitor </b></form:label></td>
-                            <ul>
 
-                    <tr>
                        <td>
                          <div id ="optionsform">
 
@@ -53,10 +51,45 @@
                                      </td>                    
 
                                 </c:if>
-                            </ul>
+                </tr>
+<tr></tr>
+<tr></tr>
+
+    <tr>
+                     <c:if test="${not empty swimmersInGroup}">
+                        <td><form:label path="swimmers"><b>Nedadors assignats al grup:  </b></form:label></td>
+
+                                <c:forEach var="swimmer" items="${swimmersInGroup}">
+                                    
+                                    <c:choose>
+                                        <c:when test="${not empty swimmersInGroup}">
+                                           <tr>
+                                                <td>
+                                                    <div id ="optionsform">
+
+                                                        <td><b>Nedador:</b> ${swimmer.getSwimmerName()}</td>
+                                                        
+                                                        <td>
+                                                            <input type ="checkbox" name ="swimmersListId" value="${swimmer.getId()}" checked/>    
+                                                        </td>    
+
+                                                    </div>
+                                                </td>
+                                            </tr>                                           
+                                        </c:when>
+                                        
+                                        <c:otherwise>
+                                         <div id ="optionsform">
+                                              <td><form:label path="swimmers">Grup sense nedadors assignats.</form:label></td>
+                                            </div>                                         
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                </c:forEach>      
+                     </c:if>                      
                     </tr>
 
-                    <tr>
+                <tr>
                     <c:choose>
                         <c:when test="${not empty swimmers}">
                                 <td><form:label path="swimmers"><b>Nedadors per assignar al grup:  </b></form:label></td>

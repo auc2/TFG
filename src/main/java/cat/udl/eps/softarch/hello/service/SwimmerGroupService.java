@@ -24,5 +24,7 @@ public interface SwimmerGroupService {
 
 	public void removeSwimmerGroup(Long swimmerGroupId);
 
+	public SwimmerGroup updateSwimmerGroup(SwimmerGroup updateSwimmerGroup, Long oldSwimmerGroupId, ArrayList<Long> newsSwimmersListId);
+
 
 }

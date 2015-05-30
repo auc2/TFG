@@ -47,8 +47,11 @@ public class SwimmerGroup {
 
     public String getLevel() { return level; }
     public void setLevel(String level) { this.level = level; }
-    
 
+    public Teacher getTeacher() { return teacher; }
+    public void setTeacher(Teacher teacher) { this.teacher = teacher;  }
+
+    
     public List<Swimmer> getSwimmers() {
             return swimmers;
     }
@@ -63,11 +66,6 @@ public class SwimmerGroup {
         swimmers.remove(swimmer);
     }
 
-    public Teacher getTeacher() { return teacher; }
-
-     public void setTeacher(Teacher teacher) { 
-      this.teacher = teacher;
-     }
 
      /*CREAR ENTITAT TEACHERIDFORM*/
 

@@ -156,4 +156,73 @@ public class SwimmerGroupController {
 
 
 
+    // UPDATE
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+    @ResponseStatus(HttpStatus.OK)
+    public String updateHTML(@PathVariable("id") Long oldSwimmerGroupId, @Valid @ModelAttribute("swimmerGroup") SwimmerGroup updateSwimmerGroup,
+                         BindingResult binding, @RequestParam(required = false, defaultValue = "") ArrayList<Long> swimmersListId) {
+     
+        if (binding.hasErrors()) {
+            logger.info("Validation error: {}", binding);
+            return "swimmerGroupForm";
+        }
+
+        logger.info("Updating swimmerGroup {}, new content is '{}'", oldSwimmerGroupId, updateSwimmerGroup.getSessionHour());
+        Preconditions.checkNotNull(swimmerGroupRepository.findOne(oldSwimmerGroupId), "swimmerGroup with id %s not found", oldSwimmerGroupId);
+        SwimmerGroup updatedSwimmerGroup = swimmerGroupService.updateSwimmerGroup(updateSwimmerGroup, oldSwimmerGroupId, swimmersListId);
+
+        return "redirect:/swimmerGroups/"+updatedSwimmerGroup.getId();
+    }
+
+    // Generate Update form
+    @RequestMapping(value = "/{id}/swimmerGroupForm", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView updateForm(@PathVariable("id") Long oldSwimmerGroupId) {
+     
+        logger.info("Generating form for updating swimmerGroup number {}", oldSwimmerGroupId);
+        Preconditions.checkNotNull(swimmerGroupRepository.findOne(oldSwimmerGroupId), "swimmerGroup with id %s not found", oldSwimmerGroupId);
+
+        SwimmerGroup oldSwimmerGroup = swimmerGroupRepository.findOne(oldSwimmerGroupId);
+
+
+        List<Swimmer> allswimmers = new ArrayList<Swimmer>();
+        allswimmers =  swimmerService.findAll();
+
+        List<Swimmer> swimmers = new ArrayList<Swimmer>(); //Groups with no teacher assigned.
+
+           for( Swimmer swimmer : allswimmers ){
+
+                if(swimmer.getGroup() == null) swimmers.add(swimmer);
+
+            }
+
+        List<Swimmer> swimmersInGroup = new ArrayList<Swimmer>();
+        swimmersInGroup = swimmerRepository.findSwimmerByGroup(oldSwimmerGroup);
+
+        
+        List<String> levels = new ArrayList<String>();
+        for(LevelsGroups level: LevelsGroups.values()){
+            levels.add(level.name().toString());
+        }
+
+        List<String> sessionHours = new ArrayList<String>();
+        sessionHours.add("    -   ");
+        sessionHours.add("1ra Hora  10:15 - 11:15");
+        sessionHours.add("2na Hora  11:15 - 12:15");
+        sessionHours.add("3ra Hora  12:15 - 13:15");
+
+        List<Teacher> teachers =  teacherService.findAll();
+
+
+        ModelAndView model = new ModelAndView("swimmerGroupForm");
+        model.addObject("swimmerGroup", oldSwimmerGroup);
+        model.addObject("swimmers", swimmers); 
+        model.addObject("swimmersInGroup", swimmersInGroup);
+        model.addObject("sessionHours",sessionHours);
+        model.addObject("levels", levels);
+        model.addObject("teachers",teachers);
+
+        return model;
+    }
+
+
 }

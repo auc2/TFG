@@ -50,13 +50,12 @@ public class TeacherController {
         return teacherRepository.findAll(request).getContent();
     }
 
-
-
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHTML(@RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
         return new ModelAndView("teachers", "teachers", list(page, size));
     }
+
 
     // RETRIEVE
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -107,8 +106,7 @@ public class TeacherController {
         int blobLength = (int) blob.length();
         byte[] imageBytes = blob.getBytes(1, blobLength);
 
-        return imageBytes;
-     
+        return imageBytes;     
 
     }
 
@@ -150,22 +148,30 @@ public class TeacherController {
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public String createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding, @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId, HttpServletResponse response) {
+    public ModelAndView createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding, @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId, HttpServletResponse response) {
       
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
-            return "teacherForm";
-          //  return "redirect:/teachers/teacherForm";
+           // return "teacherForm";
+
+            List<SwimmerGroup> allgroups =  swimmerGroupService.findAll();
+            List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>(); //Groups with no teacher assigned.
+
+            for( SwimmerGroup group : allgroups ){
+                if(group.getTeacher() == null) groups.add(group);
+            }
+
+            ModelAndView model = new ModelAndView("teacherForm");
+            model.addObject("groups",groups); 
+            return model;
         }
+
 
         Teacher newTeacher = new Teacher();
         if(groupsListId.size() > 0)  newTeacher = teacherService.addTeacher(teacher, groupsListId);
         else newTeacher = teacherService.addTeacher(teacher);
      
-
-        //Teacher newTeacher = teacherService.addTeacher(teacher);
-
-        return "redirect:/teachers/"+newTeacher.getId();
+        return new ModelAndView("redirect:/teachers/"+newTeacher.getId());
     }
 
 
@@ -257,7 +263,7 @@ public class TeacherController {
         ModelAndView model = new ModelAndView("teacherForm");
         model.addObject("teacher", oldTeacher);
         model.addObject("groups", groups); 
-        model.addObject("groupsTeacher", groupsTeacher); ///AL JSP, AQUETS HAN DE SORTIR PER DEFECTE MARCATS AMB EL CHECKBOX.
+        model.addObject("groupsTeacher", groupsTeacher);
 
 
         return model;

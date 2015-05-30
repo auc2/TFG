@@ -12,6 +12,7 @@ import cat.udl.eps.softarch.hello.model.Teacher;
 import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.repository.TeacherRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
+import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepositoryCustom;
 import org.springframework.data.domain.Sort;
 
 @Service
@@ -23,6 +24,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Autowired
     SwimmerGroupRepository     swimmerGroupRepository;
+
+    @Autowired
+    SwimmerGroupRepositoryCustom    swimmerGroupRepositoryCustom;
+
 
 
     @Transactional(readOnly = true)
@@ -107,35 +112,35 @@ public class TeacherServiceImpl implements TeacherService {
         oldTeacher.setEmail(updateTeacher.getEmail());
 
 
-       // List<SwimmerGroup> groupsTeacher = swimmerGroupRepository.findSwimmerGroupByTeacher(oldTeacher);
-
-        oldTeacher.removeAllSwimmerGroup(); //Delete all the groups relations to the the teacher, to add the new ones.
-
-        List<Long> newGroupsId = newsGroupsListId;
-        for( Long groupid : newGroupsId ){
+        List<SwimmerGroup> allGroupsTeacher = swimmerGroupRepository.findSwimmerGroupByTeacher(oldTeacher);   
+        List<SwimmerGroup> newsGroupsTeacher = swimmerGroupRepositoryCustom.getSwimmerGroupsByListID(newsGroupsListId);
 
 
-System.out.println("Group--->"+groupid);
-//PENDING -->>> DELETE UNSELECTED GROUPS PREVIOUS TO THE TEACHER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
+        /*Check if there are some group changed to not assigned*/
+        for( SwimmerGroup groupid : allGroupsTeacher ){
+
+            if(!newsGroupsTeacher.contains(groupid)){ //Group not assigned to this teacher from now
+                 oldTeacher.removeSwimmerGroup(groupid); 
+                 groupid.setTeacher(null); 
+            }
+        }
 
 
-
-
-
+        /*Check if there ara a new group to add or old to delete*/
+        for( Long groupid : newsGroupsListId ){
 
             SwimmerGroup group = swimmerGroupRepository.findOne(groupid); 
 
-            //if(!groupsTeacher.contains(group)){
+            if(!allGroupsTeacher.contains(group)){
                 group.setTeacher(oldTeacher); //Assign teacher to group
                 swimmerGroupRepository.save(group); //Update group
 
                 oldTeacher.addSwimmerGroup(group); //Assign groups in a list to teacher.
-           // }
+           }
         }
-
-
 
         return teacherRepository.save(oldTeacher);
     }
+
 
 }

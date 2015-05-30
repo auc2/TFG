@@ -117,11 +117,6 @@
                        </c:if>                      
                     </tr>
 
-
-
-
-
-                <!--LLISTAR SWIMMERGROUPS DISPONIBLES PER AFEGIR-->
                 <tr>
                     <td><input type="submit" id="addButton" value="Acceptar" /></td>
                 </tr>

@@ -14,6 +14,7 @@ import cat.udl.eps.softarch.hello.model.Swimmer;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.repository.TeacherRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
+import cat.udl.eps.softarch.hello.repository.SwimmerRepositoryCustom;
 import org.springframework.data.domain.Sort;
 
 
@@ -26,6 +27,9 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
 
     @Autowired
     SwimmerGroupRepository     swimmerGroupRepository;
+
+    @Autowired
+    SwimmerRepositoryCustom    swimmerRepositoryCustom;
 
     @Transactional(readOnly = true)
     @Override
@@ -111,16 +115,8 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
 
         teacher.addSwimmerGroup(group);
         teacherRepository.save(teacher);
-
-       // for( Long swimmerId : swimmersId ){
-
-       //    Swimmer swimmer = swimmerRepository.findOne(swimmerId); 
-
-       //   swimmer.setGroup(group);
-      //     swimmerRepository.save(swimmer); //Update swimmer with group assigned
-      //  }    
+  
         return group;
-
     }
 
 
@@ -134,9 +130,11 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
     }
     
 
+
     public Sort sortByIdAsc(){
         return new Sort(Sort.Direction.ASC, "id");
     }
+
 
 
     @Transactional
@@ -161,6 +159,52 @@ public class SwimmerGroupServiceImpl implements SwimmerGroupService {
 
         swimmerGroupRepository.delete(group);  
     }
+
+
+    @Transactional
+    @Override   
+    public SwimmerGroup updateSwimmerGroup(SwimmerGroup updateSwimmerGroup, Long oldSwimmerGroupId, ArrayList<Long> newsSwimmersListId){
+
+        SwimmerGroup oldGroup = swimmerGroupRepository.findOne(oldSwimmerGroupId);
+
+        oldGroup.setSessionHour(updateSwimmerGroup.getSessionHour());
+        oldGroup.setLevel(updateSwimmerGroup.getLevel());
+        oldGroup.setTeacher(updateSwimmerGroup.getTeacher());
+      
+
+        List<Swimmer> allSwimmerInGroup = swimmerRepository.findSwimmerByGroup(oldGroup);
+        List<Swimmer> newsSwimmersInGroup = swimmerRepositoryCustom.getSwimmersByListID(newsSwimmersListId);
+
+
+        /*Check if there are some swimmer changed to not assigned*/
+        for( Swimmer swimmerid : allSwimmerInGroup ){
+
+            if(!newsSwimmersInGroup.contains(swimmerid)){ //Swimmer not assigned in this group until now
+                 oldGroup.removeSwimmer(swimmerid); 
+                 swimmerid.setGroup(null); 
+            }
+        }
+
+
+        /*Check if there ara a new swimmer to add or old to delete*/
+        for( Long swimmerid : newsSwimmersListId ){
+
+            Swimmer swimmer = swimmerRepository.findOne(swimmerid); 
+
+            if(!allSwimmerInGroup.contains(swimmer)){
+                swimmer.setGroup(oldGroup); //Assign swimmer to group
+                swimmerRepository.save(swimmer); //Update swimmer
+
+                oldGroup.addSwimmer(swimmer); //Assign swimmers in a list to group.
+           }
+        }
+
+
+
+        return swimmerGroupRepository.save(oldGroup);
+
+    }
+
 
 
 }
