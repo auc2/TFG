@@ -70,21 +70,21 @@ public class SwimmerController {
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public String createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, @RequestParam Long groupId, HttpServletResponse response) {
+    public ModelAndView createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, @RequestParam Long groupId, HttpServletResponse response) {
        
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
-            return "swimmerForm";
+            //return "swimmerForm";
 
+            List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>();
 
+            groups =  swimmerGroupService.findAll();
 
+            ModelAndView model = new ModelAndView("swimmerForm");
+            model.addObject("groups",groups); // ("nom per referir-nos al jsp", objecte)
 
+            return model;
 
-
-
-
-
-            ///////--->>> FER IGUAL QUE TEACHERCONTROLLER
         }
 
         Swimmer newSwimmer = new Swimmer();
@@ -100,7 +100,7 @@ public class SwimmerController {
             newSwimmer = swimmerService.addSwimmer(swimmer, groupId);
         }
         
-        return "redirect:/swimmers/"+newSwimmer.getId();
+        return new ModelAndView("redirect:/swimmers/"+newSwimmer.getId());
     }
 
 
@@ -108,7 +108,6 @@ public class SwimmerController {
     @RequestMapping(value = "/swimmerForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView createForm() {
       
-      //  SwimmerGroupController swGrCont = new SwimmerGroupController();
         List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>();
 
         groups =  swimmerGroupService.findAll();
@@ -151,12 +150,6 @@ public class SwimmerController {
             return "swimmerForm";
         }
 
-      //  if (groupId == 9999){
-        //   updateSwimmer = swimmerService.addSwimmer(swimmer);
-       // } 
-      //  else{
-      //      updateSwimmer = swimmerService.addSwimmer(swimmer, groupId);
-      //  }
 
         logger.info("Updating swimmer {}, new content is '{}'", oldSwimmerId, updateSwimmer.getSwimmerName());
         Preconditions.checkNotNull(swimmerRepository.findOne(oldSwimmerId), "Swimmer with id %s not found", oldSwimmerId);

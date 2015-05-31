@@ -109,9 +109,21 @@ public class SwimmerServiceImpl implements SwimmerService {
 
         SwimmerGroup oldGroup = new SwimmerGroup();
         if(newGroupId != 9999){ //Diferent a sense grup.
+            
+             oldGroup = oldSwimmer.getGroup();
+
+                if(oldSwimmer.getGroup() != null){
+                             oldSwimmer.setGroup(null);
+                             oldGroup.removeSwimmer(oldSwimmer);
+                             swimmerGroupRepository.save(oldGroup); 
+                             swimmerRepository.save(oldSwimmer);
+                }
+
              oldGroup = swimmerGroupRepository.findOne(newGroupId);
              oldSwimmer.setGroup(oldGroup);
              oldGroup.addSwimmer(oldSwimmer);
+
+
         }else{
              oldGroup = oldSwimmer.getGroup();
              oldSwimmer.setGroup(null);
@@ -122,10 +134,6 @@ public class SwimmerServiceImpl implements SwimmerService {
 
         return swimmerRepository.save(oldSwimmer);
     }
-
-
-
-
 
   
 }
