@@ -1,10 +1,14 @@
 package cat.udl.eps.softarch.hello.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import java.sql.Blob;
 import java.io.InputStream;
 
@@ -17,7 +21,7 @@ public class Teacher {
     private long id;
 
     @Lob
-    private Blob photo;
+    private byte[] photo;
 
     @NotBlank(message = "El nom del professor no pot estar en blanc.")
     private String teachername;
@@ -43,8 +47,8 @@ public class Teacher {
 
     public long getId() { return id; }
 
-    public void setPhoto(Blob photo) { this.photo = photo; }
-    public Blob getPhoto() { return photo; }
+    public void setPhoto(MultipartFile photo) throws IOException { this.photo = photo.getBytes(); }
+    public byte[] getPhoto() { return photo; }
 
     public void setTeacherName(String teachername) { this.teachername = teachername; }
     public String getTeacherName() { return teachername; }

@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -101,12 +102,12 @@ public class TeacherController {
 
         Teacher teacher = teacherService.getTeacher(id);
 
-        Blob blob =  teacher.getPhoto();
+        /*Blob blob =  teacher.getPhoto();
 
         int blobLength = (int) blob.length();
-        byte[] imageBytes = blob.getBytes(1, blobLength);
+        byte[] imageBytes = blob.getBytes(1, blobLength);*/
 
-        return imageBytes;     
+        return teacher.getPhoto();
 
     }
 
@@ -147,8 +148,10 @@ public class TeacherController {
 
 
     // CREATE
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public ModelAndView createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding, @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId, HttpServletResponse response) {
+    @RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data", produces="text/html")
+    public ModelAndView createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding,
+                                   @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId,
+                                   HttpServletResponse response) throws IOException {
       
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
@@ -167,11 +170,12 @@ public class TeacherController {
         }
 
 
-        Teacher newTeacher = new Teacher();
-        if(groupsListId.size() > 0)  newTeacher = teacherService.addTeacher(teacher, groupsListId);
-        else newTeacher = teacherService.addTeacher(teacher);
+        //Teacher newTeacher = new Teacher();
+        //newTeacher.setPhoto(photoFile.getBytes());
+        if(groupsListId.size() > 0)  teacher = teacherService.addTeacher(teacher, groupsListId);
+        else teacher = teacherService.addTeacher(teacher);
      
-        return new ModelAndView("redirect:/teachers/"+newTeacher.getId());
+        return new ModelAndView("redirect:/teachers/"+teacher.getId());
     }
 
 
