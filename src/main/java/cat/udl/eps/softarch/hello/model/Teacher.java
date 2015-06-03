@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.sql.Blob;
 import java.io.InputStream;
 
@@ -16,8 +18,8 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Lob
-    private Blob photo;
+    //@Lob
+    private MultipartFile photo;
 
     @NotBlank(message = "El nom del professor no pot estar en blanc.")
     private String teachername;
@@ -43,8 +45,8 @@ public class Teacher {
 
     public long getId() { return id; }
 
-    public void setPhoto(Blob photo) { this.photo = photo; }
-    public Blob getPhoto() { return photo; }
+    public void setPhoto(MultipartFile photo) { this.photo = photo; }
+    public MultipartFile getPhoto() { return photo; }
 
     public void setTeacherName(String teachername) { this.teachername = teachername; }
     public String getTeacherName() { return teachername; }

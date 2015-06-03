@@ -15,7 +15,7 @@
             </c:otherwise>
         </c:choose>
 
-        <form:form method="${method}" action="${action}" modelAttribute="teacher">
+        <form:form method="${method}" action="${action}" modelAttribute="teacher" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td><form:label path="teacherName">Nom: </form:label></td>
@@ -43,7 +43,7 @@
                     L'ENCARREGAT DE TRANSFORMARLA.-->
                     
                     <td><form:label path="photo">Foto: </form:label></td>
-                    <td><input type="file" name="file" id="file"></td>
+                    <td><form:input path="photo" type="file"/> <i><form:errors path="photo"></form:errors></i></td>
                 </tr>
 <br>
 <br>
