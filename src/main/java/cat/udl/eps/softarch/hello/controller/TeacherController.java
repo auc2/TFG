@@ -98,7 +98,7 @@ public class TeacherController {
 
     @RequestMapping(value = "/getImage/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
-    public MultipartFile getImage(@PathVariable("id") Long id) throws IOException, SQLException{
+    public byte[] getImage(@PathVariable("id") Long id) throws IOException, SQLException{
 
         Teacher teacher = teacherService.getTeacher(id);
 
