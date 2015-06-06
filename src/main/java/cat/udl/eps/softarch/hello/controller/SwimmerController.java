@@ -6,6 +6,7 @@ import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
 import cat.udl.eps.softarch.hello.service.SwimmerService;
+//import cat.udl.eps.softarch.hello.service.ReportService;
 import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,9 @@ public class SwimmerController {
     @Autowired SwimmerGroupRepository       swimmerGroupRepository;
 
     @Autowired SwimmerService       swimmerService;   
-    @Autowired SwimmerGroupService       swimmerGroupService;    
+    @Autowired SwimmerGroupService       swimmerGroupService;   
+
+  //  @Autowired ReportService    reportService; 
  
 
     // LIST
@@ -76,7 +79,6 @@ public class SwimmerController {
        
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
-            //return "swimmerForm";
 
             List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>();
 
@@ -86,14 +88,9 @@ public class SwimmerController {
             model.addObject("groups",groups); // ("nom per referir-nos al jsp", objecte)
 
             return model;
-
         }
 
         Swimmer newSwimmer = new Swimmer();
-
-      //  System.out.println("Swimmer value--------------------________________>"+swimmer.getValue());
-
-        //SwimmerGroup group = swimmerGroupRepository.findOne(groupId);
 
         if (groupId == 9999){
             logger.info("Afegint nedador sense grup assignat.");
@@ -195,8 +192,7 @@ public class SwimmerController {
 
 
 
-
-
+ /* 
  // CREATE REPORT
    @RequestMapping(value = "/{id}/reportForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView reportForm(@PathVariable("id") Long id) {
@@ -206,11 +202,10 @@ public class SwimmerController {
      //PREPARAR UN REPORT PER ASSIGNAR A L'USUARI AMB EL ID per paràmetre.
 
 
-
         logger.info("Generating form for create report for swimmer number {}", id);
         Preconditions.checkNotNull(swimmerRepository.findOne(id), "Swimmer with id %s not found", id);
 
-        Report r = null;
+        Report report = null;
 
         Swimmer sw = swimmerRepository.findOne(id);
 
@@ -219,14 +214,14 @@ public class SwimmerController {
 
         if(level.equals("Dofins")){
             logger.info("Generating form with level Dofins");
-            r = new DofiReport();
+            report = new DofiReport();
         }
         //if level .. 
         //if level .. 
         //if level .. 
 
 
-            List<String> questions = r.getQuestions();
+            List<String> questions = report.getQuestions();
 
             List<String> puntuation = new ArrayList<String>();
             puntuation.add("Necessita Millorar");
@@ -238,12 +233,33 @@ public class SwimmerController {
         
 
         ModelAndView model = new ModelAndView("reportForm");
+        model.addObject("report", report);
         model.addObject("puntuation", puntuation);
         model.addObject("questions", questions);
 
         return model;
 
     }
+
+
+ // CREATE
+  @RequestMapping(value = "/reports/{id}", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
+    public ModelAndView createHTML(@PathVariable("id") Long swimmerId, @Valid @ModelAttribute("swimmer") Report report, BindingResult binding, HttpServletResponse response) {
+
+        if (binding.hasErrors()) {
+            logger.info("Validation error: {}", binding);
+
+            ModelAndView model = new ModelAndView("reportForm");
+            return model;
+        }
+
+        Swimmer swimmer = swimmerRepository.findOne(swimmerId);
+
+       // Report newReport = reportService.addReportSwimmer(report, swimmer);
+        
+        Report newReport = new DofiReport();
+        return new ModelAndView("redirect:/reports/"+newReport.getId());
+    }*/
 
 
 

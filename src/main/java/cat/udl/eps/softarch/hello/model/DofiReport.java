@@ -9,13 +9,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
 
-
+//PERQUE NO PUC POSAR AQUESTA ANOTACIÓ??
+//@Entity
 public class DofiReport implements Report{
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     public String value;
-
-
-
 
     public  List<String> questions = new ArrayList<String>();
     public  List<String> values = new ArrayList<String>();
@@ -30,10 +33,26 @@ public class DofiReport implements Report{
 
 
     @Override
+    public long getId() { return id; }
+
+
+    @Override
     public List<String> getQuestions() {
 
         return this.questions;
     }
+
+
+    @Override
+    public String getValue() { return value;}
+    
+    @Override
+    public void setValue(String value) {
+              System.out.println("Value!!-..............++++++............................->"+value);
+
+     this.value = value;        
+  }
+
 
 
     @Override
@@ -45,17 +64,17 @@ public class DofiReport implements Report{
     @Override
     public void setValues(List<String> values) {
 
+        for( String value : values ){
+
+          System.out.println("Value!!-..........................................->"+value);
+        }
+
         this.values = values;
     }
 
 
 
 
-    @Override
-    public String getValue() { return value; }
-    
-    @Override
-    public void setValue(String value) { this.value = value; }
 
 
 

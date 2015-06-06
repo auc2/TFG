@@ -11,14 +11,14 @@
             <c:otherwise>
                 <h3>Crear nou informe</h3>
                 <c:set var="method" value="POST"/>
-                <c:set var="action" value="/reports"/>
+                <c:set var="action" value="/reports/${swimmer.getId()}/"/>
             </c:otherwise>
         </c:choose>
 
         <form:form method="${method}" action="${action}" modelAttribute="report">
             <table>
              
-
+<%--
             <tr>
                  <c:if test="${not empty questions}">
                      <c:forEach items="${questions}" var="question">
@@ -26,12 +26,16 @@
                     </c:forEach>
                 </c:if>
             </tr>
+--%>
 
 
                     <tr>
-                <%--        <td>${question1}</td>
-                        <td><form:radiobuttons path="value1" items="${puntuation}" />
+                  <%--      <td>${question1}</td>--%>
+                        <td><form:radiobuttons path="value" items="${puntuation}" /></td>
+                        <td><form:radiobuttons path="value" items="${puntuation}" /></td>
+
                     </tr>
+                    <%--
                     <tr>
                      <td>${question2}</td>
                         <td><form:radiobuttons path="value2" items="${puntuation}" />

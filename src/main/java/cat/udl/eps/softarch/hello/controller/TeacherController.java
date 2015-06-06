@@ -100,55 +100,18 @@ public class TeacherController {
 
         Teacher teacher = teacherService.getTeacher(id);
 
-<<<<<<< HEAD
-        return teacher.getPhoto();   
-=======
-        /*Blob blob =  teacher.getPhoto();
-
-        int blobLength = (int) blob.length();
-        byte[] imageBytes = blob.getBytes(1, blobLength);*/
-
         return teacher.getPhoto();
-
     }
 
-
-
-/*
-
-  @RequestMapping(value = "/getImage/{id}", method = RequestMethod.GET)
-    public void getImage(@PathVariable("id") Long id, HttpServletResponse response) throws IOException, SQLException{
-
-        Teacher teacher = teacherService.getTeacher(id);
-
-        response.setContentType("image/jpeg");
-        Blob blob =  teacher.getPhoto();
-
-        int blobLength = (int) blob.length();
-        byte[] imageBytes = blob.getBytes(1, blobLength);
-
-        response.getOutputStream().write(imageBytes);
-        response.getOutputStream().flush();
-
->>>>>>> 52b9a30322143ed976189ee3122db542f8924714
-    }
 
 
 
     // CREATE
-<<<<<<< HEAD
-   @RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data", produces="text/html")
-   public ModelAndView createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding, 
-                            @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId,
-                            HttpServletResponse response) throws IOException {
-
-=======
     @RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data", produces="text/html")
     public ModelAndView createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding,
                                    @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId,
                                    HttpServletResponse response) throws IOException {
       
->>>>>>> 52b9a30322143ed976189ee3122db542f8924714
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
 
@@ -164,21 +127,10 @@ public class TeacherController {
             return model;
         }
 
-
-<<<<<<< HEAD
-        Teacher newTeacher = new Teacher();
-        if(groupsListId.size() > 0)  newTeacher = teacherService.addTeacher(teacher, groupsListId);
-        else newTeacher = teacherService.addTeacher(teacher);
-
-        return new ModelAndView("redirect:/teachers/"+newTeacher.getId());
-=======
-        //Teacher newTeacher = new Teacher();
-        //newTeacher.setPhoto(photoFile.getBytes());
         if(groupsListId.size() > 0)  teacher = teacherService.addTeacher(teacher, groupsListId);
         else teacher = teacherService.addTeacher(teacher);
      
         return new ModelAndView("redirect:/teachers/"+teacher.getId());
->>>>>>> 52b9a30322143ed976189ee3122db542f8924714
     }
 
 
@@ -268,8 +220,6 @@ public class TeacherController {
         model.addObject("teacher", oldTeacher);
         model.addObject("groups", groups); 
         model.addObject("groupsTeacher", groupsTeacher);
-
-
         return model;
     }
 

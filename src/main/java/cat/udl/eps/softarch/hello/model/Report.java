@@ -9,8 +9,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
 
+@Entity
 public interface Report{
 
+
+    public long getId();
 
     public List<String> getQuestions();
 
