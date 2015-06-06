@@ -6,11 +6,16 @@ import java.util.List;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+<<<<<<< HEAD
+import org.springframework.web.multipart.MultipartFile; 
+=======
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+>>>>>>> 52b9a30322143ed976189ee3122db542f8924714
 import java.sql.Blob;
 import java.io.InputStream;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 @Entity
@@ -48,6 +53,10 @@ public class Teacher {
     public long getId() { return id; }
 
     public void setPhoto(MultipartFile photo) throws IOException { this.photo = photo.getBytes(); }
+<<<<<<< HEAD
+    public void setPhotoBytes(byte[] photo) throws IOException { this.photo = photo; }
+=======
+>>>>>>> 52b9a30322143ed976189ee3122db542f8924714
     public byte[] getPhoto() { return photo; }
 
     public void setTeacherName(String teachername) { this.teachername = teachername; }

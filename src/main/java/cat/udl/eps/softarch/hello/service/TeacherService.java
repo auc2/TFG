@@ -1,6 +1,8 @@
 package cat.udl.eps.softarch.hello.service;
 import cat.udl.eps.softarch.hello.model.Teacher;
 import org.springframework.data.domain.Sort;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface TeacherService {
 
  	public void removeTeacher(Long teacherId);
 
- 	public Teacher updateTeacher(Teacher updateTeacher, Long oldTeacherId, ArrayList<Long> newsGroupsListId);
+ 	public Teacher updateTeacher(Teacher updateTeacher, Long oldTeacherId, ArrayList<Long> newsGroupsListId) throws IOException;
 
 
 

@@ -6,19 +6,25 @@
 		<c:if test="${not empty swimmer}">
 		    <h2>Nedador  ${swimmer.getSwimmerName()}  ${swimmer.getSurname()}</h2>
 
-  		 <c:choose>
-		 <c:when test="${not empty swimmer.getGroup()}">
+  		<c:choose>
+		     <c:when test="${not empty swimmer.getGroup()}">
              	<p>Grup: <a href="/swimmerGroups/${swimmer.getGroup().getId()}">${swimmer.getGroup().getId()}</a> - ${swimmer.getGroup().getLevel()} - Professor: ${swimmer.getGroup().getTeacher().getTeacherName()}</p>
+
+
+            <form action="/swimmers/${swimmer.getId()}/reportForm">
+              <input type="submit" value="Add Report"/> 
+            </form>
+
          </c:when>
          <c:otherwise>
          		<div id ="no_value_assigned"><p> No hi ha grup assignat</p></div>
          </c:otherwise>
-         </c:choose>
+      </c:choose>
 
 
             <p>Ciutat: ${swimmer.getCity()}</p>
-		    <p>Telefon: ${swimmer.getTelephone()}</p>
-		    <p>E-mail: ${swimmer.getEmail()}</p>
+    		    <p>Telefon: ${swimmer.getTelephone()}</p>
+    		    <p>E-mail: ${swimmer.getEmail()}</p>
 		</c:if>
 
         

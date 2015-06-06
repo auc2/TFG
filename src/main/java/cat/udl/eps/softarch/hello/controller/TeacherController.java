@@ -21,13 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.sql.Blob;
 
 
 @Controller
@@ -95,13 +94,15 @@ public class TeacherController {
     }
 
 
-
     @RequestMapping(value = "/getImage/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getImage(@PathVariable("id") Long id) throws IOException, SQLException{
 
         Teacher teacher = teacherService.getTeacher(id);
 
+<<<<<<< HEAD
+        return teacher.getPhoto();   
+=======
         /*Blob blob =  teacher.getPhoto();
 
         int blobLength = (int) blob.length();
@@ -129,33 +130,27 @@ public class TeacherController {
         response.getOutputStream().write(imageBytes);
         response.getOutputStream().flush();
 
+>>>>>>> 52b9a30322143ed976189ee3122db542f8924714
     }
-    @ResponseBody
-    @RequestMapping(value = "admin/user/{id}/photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] testphoto(@PathVariable("id") int id_sys_user) throws Exception {        
-        byte[] thumb = null;
 
-        Teacher teacher = teacherService.getTeacher(id);
-
-        InputStream in = teacher.getPhoto();   
-        if(in!=null){
-            thumb = IOUtils.toByteArray(in); 
-        }
-        return thumb;       
-}
-
-*/
 
 
     // CREATE
+<<<<<<< HEAD
+   @RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data", produces="text/html")
+   public ModelAndView createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding, 
+                            @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId,
+                            HttpServletResponse response) throws IOException {
+
+=======
     @RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data", produces="text/html")
     public ModelAndView createHTML(@Valid @ModelAttribute("teacher") Teacher teacher, BindingResult binding,
                                    @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId,
                                    HttpServletResponse response) throws IOException {
       
+>>>>>>> 52b9a30322143ed976189ee3122db542f8924714
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
-           // return "teacherForm";
 
             List<SwimmerGroup> allgroups =  swimmerGroupService.findAll();
             List<SwimmerGroup> groups = new ArrayList<SwimmerGroup>(); //Groups with no teacher assigned.
@@ -170,12 +165,20 @@ public class TeacherController {
         }
 
 
+<<<<<<< HEAD
+        Teacher newTeacher = new Teacher();
+        if(groupsListId.size() > 0)  newTeacher = teacherService.addTeacher(teacher, groupsListId);
+        else newTeacher = teacherService.addTeacher(teacher);
+
+        return new ModelAndView("redirect:/teachers/"+newTeacher.getId());
+=======
         //Teacher newTeacher = new Teacher();
         //newTeacher.setPhoto(photoFile.getBytes());
         if(groupsListId.size() > 0)  teacher = teacherService.addTeacher(teacher, groupsListId);
         else teacher = teacherService.addTeacher(teacher);
      
         return new ModelAndView("redirect:/teachers/"+teacher.getId());
+>>>>>>> 52b9a30322143ed976189ee3122db542f8924714
     }
 
 
@@ -219,14 +222,11 @@ public class TeacherController {
     }
 
 
-
-
-
     // UPDATE
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = "multipart/form-data")
     @ResponseStatus(HttpStatus.OK)
     public String updateHTML(@PathVariable("id") Long oldTeacherId, @Valid @ModelAttribute("swimmer") Teacher updateTeacher,
-                         BindingResult binding, @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId) {
+                         BindingResult binding, @RequestParam(required = false, defaultValue = "") ArrayList<Long> groupsListId) throws IOException{
      
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);

@@ -42,19 +42,37 @@
                     <tr>
                     <td><form:label path="group"><b>Grup:  </b></form:label></td>
                             <ul>
-                              
-                                
                                     <tr>
                                       <td>
                                        <div id ="optionsform">
                                        
                                             <select name="groupId" >
 
+                                                 <c:if test="${not empty swimmer.getGroup()}">
+                                                        <option value="${swimmer.getGroup().getId()}">Grup Actual: ${swimmer.getGroup().getSessionHour()} - ${swimmer.getGroup().getTeacher().getTeacherName()} -  ${swimmer.getGroup().getLevel()}  </option>
+                                                 </c:if>
                                                 <option value="9999"> sense classe </option><%--null value, no grup--%>
                                                 
                                                 <c:if test="${not empty groups}">
                                                     <c:forEach items="${groups}" var="group">
-                                                       <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}                                                    
+                                                     <c:choose>
+                                                       <c:when  test="${not empty swimmer.getGroup()}">
+                                                          <c:choose>
+                                                                <c:when test="${swimmer.getGroup().getId() != group.getId()}">
+
+                                                                     <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}    </option>
+                                                                </c:when>
+
+                                                                <c:otherwise>
+                                                                </c:otherwise>
+                                                           </c:choose>
+                                                     </c:when>       
+                                                        <c:otherwise>
+                                                               <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}    </option>              
+                                                        </c:otherwise>
+                                                       </c:choose>
+                      
+
                                                     </c:forEach>
                                                  </c:if>
                                             </select>
@@ -66,6 +84,10 @@
                                
                             </ul>
                     </tr>
+                 <%--    <tr>
+                        <td>Prova 1 :</td>
+                        <td><form:radiobuttons path="value" items="${puntuation}" />
+                    </tr>--%>
 <br>
 <br>
                  <tr>

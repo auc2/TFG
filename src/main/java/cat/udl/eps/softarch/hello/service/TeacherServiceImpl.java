@@ -1,5 +1,6 @@
 package cat.udl.eps.softarch.hello.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import cat.udl.eps.softarch.hello.repository.TeacherRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepositoryCustom;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -101,7 +103,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Transactional
     @Override
-    public Teacher updateTeacher(Teacher updateTeacher, Long oldTeacherId, ArrayList<Long> newsGroupsListId){
+    public Teacher updateTeacher(Teacher updateTeacher, Long oldTeacherId, ArrayList<Long> newsGroupsListId) throws IOException {
 
         Teacher oldTeacher = teacherRepository.findOne(oldTeacherId);
 
@@ -110,6 +112,8 @@ public class TeacherServiceImpl implements TeacherService {
         oldTeacher.setCity(updateTeacher.getCity());
         oldTeacher.setTelephone(updateTeacher.getTelephone());
         oldTeacher.setEmail(updateTeacher.getEmail());
+        oldTeacher.setPhotoBytes(updateTeacher.getPhoto());
+
 
 
         List<SwimmerGroup> allGroupsTeacher = swimmerGroupRepository.findSwimmerGroupByTeacher(oldTeacher);   

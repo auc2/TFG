@@ -5,7 +5,7 @@
         <c:choose>
             <c:when test="${teacher.getId()>0}">
                 <h3>Modificar monitor</h3>
-                <c:set var="method" value="PUT"/>
+                <c:set var="method" value="POST"/>
                 <c:set var="action" value="/teachers/${teacher.getId()}"/>
             </c:when>
             <c:otherwise>
@@ -45,6 +45,22 @@
                     <td><form:label path="photo">Foto: </form:label></td>
                     <td><form:input path="photo" type="file"/> <i><form:errors path="photo"></form:errors></i></td>
                 </tr>
+  <%--    
+                <tr>
+                        <fieldset>
+                            <legend>Afegir Foto: </legend>
+                            <table>
+                                <tr>
+                                <td><form:label for="fileData" path="fileData">Fitxer</form:label><br />
+                                </td>
+                                <td><form:input path="fileData" id="image" type="file" /></td>
+                            </tr>
+                            <tr>
+                                <td><br />
+                                </td>
+                            </tr></table>
+                        </fieldset> 
+                </tr>--%>
 <br>
 <br>
 

@@ -16,6 +16,9 @@ public class Swimmer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+
+    private String value;
+
     @NotBlank(message = "El nom del nedador no pot estar en blanc.")
     private String swimmername;
 
@@ -48,6 +51,10 @@ public class Swimmer {
 
 
     public long getId() { return id; }
+
+
+    public String getValue() { return value; }
+    public void setValue(String value) { this.value = value; }
 
     public String getSwimmerName() { return swimmername; }
     public void setSwimmerName(String swimmername) { this.swimmername = swimmername; }

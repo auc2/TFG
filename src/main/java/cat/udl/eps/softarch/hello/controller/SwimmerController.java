@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import cat.udl.eps.softarch.hello.model.*;
+
 
 
 
@@ -89,6 +91,8 @@ public class SwimmerController {
 
         Swimmer newSwimmer = new Swimmer();
 
+      //  System.out.println("Swimmer value--------------------________________>"+swimmer.getValue());
+
         //SwimmerGroup group = swimmerGroupRepository.findOne(groupId);
 
         if (groupId == 9999){
@@ -115,9 +119,18 @@ public class SwimmerController {
         logger.info("Generating swimmerForm for swimmer creation");
         Swimmer emptySwimmer = new Swimmer();
 
+        List<String> puntuation = new ArrayList<String>();
+            puntuation.add("Necessita Millorar");
+          puntuation.add("Regular");
+            puntuation.add("Be");
+            puntuation.add("Molt be");
+           puntuation.add("Perfecte");
+
+
         ModelAndView model = new ModelAndView("swimmerForm");
         model.addObject("swimmer", emptySwimmer);
         model.addObject("groups",groups); // ("nom per referir-nos al jsp", objecte)
+        model.addObject("puntuation", puntuation);
 
         return model;
     }
@@ -176,5 +189,62 @@ public class SwimmerController {
         return model;
 
     }
+
+
+
+
+
+
+
+
+ // CREATE REPORT
+   @RequestMapping(value = "/{id}/reportForm", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView reportForm(@PathVariable("id") Long id) {
+     
+
+
+     //PREPARAR UN REPORT PER ASSIGNAR A L'USUARI AMB EL ID per paràmetre.
+
+
+
+        logger.info("Generating form for create report for swimmer number {}", id);
+        Preconditions.checkNotNull(swimmerRepository.findOne(id), "Swimmer with id %s not found", id);
+
+        Report r = null;
+
+        Swimmer sw = swimmerRepository.findOne(id);
+
+        String level = sw.getGroup().getLevel();
+
+
+        if(level.equals("Dofins")){
+            logger.info("Generating form with level Dofins");
+            r = new DofiReport();
+        }
+        //if level .. 
+        //if level .. 
+        //if level .. 
+
+
+            List<String> questions = r.getQuestions();
+
+            List<String> puntuation = new ArrayList<String>();
+            puntuation.add("Necessita Millorar");
+            puntuation.add("Regular");
+            puntuation.add("Be");
+            puntuation.add("Molt be");
+            puntuation.add("Perfecte");
+
+        
+
+        ModelAndView model = new ModelAndView("reportForm");
+        model.addObject("puntuation", puntuation);
+        model.addObject("questions", questions);
+
+        return model;
+
+    }
+
+
 
 }
