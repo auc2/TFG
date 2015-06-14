@@ -5,80 +5,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+//PERQUE NO PUC POSAR AQUESTA ANOTACIÓ??
 @Entity
-public class AnualReport{
+public class DofiReport implements Report{
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    public String level;
-
     public String value;
-    //value2
-    //value3
-    //...value20
 
     @ElementCollection 
     public  List<String> questions = new ArrayList<String>();
-  //  @ElementCollection 
-   // public  List<String> values = new ArrayList<String>();
-    
+
+    //@ElementCollection 
+    //public  List<String> values = new ArrayList<String>();
     public String comment;
 
 
-    public AnualReport() {
-    }
-
-
-    
-    public long getId() { return id; }
-
-    public void setLevel(String level){ this.level = level;}
-    public String getLevel(){ return this.level;}
-
-
-
-
-    public List<String> getQuestions() {
-
-      if(level == "Dofins"){
+    public DofiReport() {
 
         this.questions.add("1. Te un nivell d'apnea capaç per realitzar més de 25 metres");
         this.questions.add("2. És capaç de realitzar el viratge de crol");
         this.questions.add("3. És capaç d'aguantar-se inmovil en poscició prono durant 10 segons.");
-      }
-      if(level == "Sardines"){
+    }
 
-        this.questions.add("1. Domina l'estil crol amb respiració bilateral");
-        this.questions.add("2. Iniciazió en l'estil esquena");
-        this.questions.add("3. Te una bona freqüencia en les braçades d'esquena");
-      }      
-      //if(level == "Taurons"){
-      //....
-      //}
+
+    @Override
+    public long getId() { return id; }
+
+
+    @Override
+    public List<String> getQuestions() {
 
         return this.questions;
     }
 
 
-    
+    @Override
     public String getValue() { return value;}
-    //getvalue2,3,4...
-    //getvalue20..
-
-
+    
+    @Override
     public void setValue(String value) {
+              System.out.println("Value!!-..............++++++............................->"+value);
+
      this.value = value;        
     }
 
-    //Setvalue2,3,4...
-    //setvalue20..
-
+    @Override
     public void setComment(String comment){ this.comment = comment;}
 
-    
+    @Override
     public String getComment(){ return comment; }
 
 

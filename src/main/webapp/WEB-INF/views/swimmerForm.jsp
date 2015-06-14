@@ -84,10 +84,21 @@
                                
                             </ul>
                     </tr>
-                 <%--    <tr>
-                        <td>Prova 1 :</td>
-                        <td><form:radiobuttons path="value" items="${puntuation}" />
-                    </tr>--%>
+
+
+   <c:if test="${not empty swimmer.getGroup()}">
+                    <tr>
+                       <c:if test="${not empty questions}">
+                          <c:forEach items="${questions}" var="question">
+                          
+                        <p>Habilitat --> ${question}</p>
+
+                          </c:forEach>
+                       </c:if>
+
+                        <td><form:radiobuttons path="value" items="${puntuation}" /></td>
+                    </tr>
+    </c:if>
 <br>
 <br>
                  <tr>

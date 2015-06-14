@@ -6,7 +6,7 @@ import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
 import cat.udl.eps.softarch.hello.service.SwimmerGroupService;
 import cat.udl.eps.softarch.hello.service.SwimmerService;
-//import cat.udl.eps.softarch.hello.service.ReportService;
+import cat.udl.eps.softarch.hello.service.ReportService;
 import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,9 @@ public class SwimmerController {
     @Autowired SwimmerService       swimmerService;   
     @Autowired SwimmerGroupService       swimmerGroupService;   
 
-  //  @Autowired ReportService    reportService; 
+   // @Autowired ReportRepository    reportRepository; 
+    @Autowired ReportService    reportService; 
+
  
 
     // LIST
@@ -56,7 +58,7 @@ public class SwimmerController {
         return new ModelAndView("swimmers", "swimmers", list(page, size));
     }
 
-    // RETRIEVE
+    // RETRIEVE SWIMMER
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Swimmer retrieve(@PathVariable("id") Long id) {
@@ -69,6 +71,25 @@ public class SwimmerController {
     public ModelAndView retrieveHTML(@PathVariable( "id" ) Long id) {
         return new ModelAndView("swimmer", "swimmer", retrieve(id));
     }
+
+
+    // RETRIEVE REPORT
+   // @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  //  @ResponseBody
+  //  public AnualReport retrieveReport(@PathVariable("id") Long id) {
+  //      logger.info("Retrieving report number {}", id);
+  //      Preconditions.checkNotNull(reportRepository.findOne(id), "Report with id %s not found", id);
+   //     return reportService.getSwimmer(id);
+   // }
+
+   // @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html")
+   // public ModelAndView retrieveHTMLReport(@PathVariable( "id" ) Long id) {
+  //      return new ModelAndView("report", "report", retrieve(id));
+  //  }
+
+
+
+
 
 
 
@@ -192,8 +213,8 @@ public class SwimmerController {
 
 
 
- /* 
- // CREATE REPORT
+ 
+ // CREATE REPORT FORM
    @RequestMapping(value = "/{id}/reportForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView reportForm(@PathVariable("id") Long id) {
      
@@ -205,21 +226,33 @@ public class SwimmerController {
         logger.info("Generating form for create report for swimmer number {}", id);
         Preconditions.checkNotNull(swimmerRepository.findOne(id), "Swimmer with id %s not found", id);
 
-        Report report = null;
+       // Report report = null;
 
+        AnualReport report = null;
         Swimmer sw = swimmerRepository.findOne(id);
 
         String level = sw.getGroup().getLevel();
 
 
-        if(level.equals("Dofins")){
-            logger.info("Generating form with level Dofins");
-            report = new DofiReport();
-        }
+        //if(level.equals("Dofins")){
+       //     logger.info("Generating form with level Dofins");
+       //     report = new DofiReport();
+       // }
         //if level .. 
         //if level .. 
         //if level .. 
 
+         if(level.equals("Dofins")){
+            logger.info("Generating form with level Dofins");
+            report = new AnualReport();
+            report.setLevel("Dofins");
+         }
+
+         if(level.equals("Sardines")){
+            logger.info("Generating form with level Sardines");
+            report = new AnualReport();
+            report.setLevel("Sardines");
+         }
 
             List<String> questions = report.getQuestions();
 
@@ -242,9 +275,11 @@ public class SwimmerController {
     }
 
 
- // CREATE
+
+
+  // CREATE REPORT
   @RequestMapping(value = "/reports/{id}", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public ModelAndView createHTML(@PathVariable("id") Long swimmerId, @Valid @ModelAttribute("swimmer") Report report, BindingResult binding, HttpServletResponse response) {
+    public ModelAndView createHTML(@PathVariable("id") Long swimmerId, @Valid @ModelAttribute("swimmer") AnualReport report, BindingResult binding, HttpServletResponse response) {
 
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
@@ -255,11 +290,10 @@ public class SwimmerController {
 
         Swimmer swimmer = swimmerRepository.findOne(swimmerId);
 
-       // Report newReport = reportService.addReportSwimmer(report, swimmer);
-        
-        Report newReport = new DofiReport();
-        return new ModelAndView("redirect:/reports/"+newReport.getId());
-    }*/
+        AnualReport newReport = reportService.addReportSwimmer(report, swimmer);
+
+        return new ModelAndView("redirect:/swimmers/reports/"+newReport.getId()); //FALTE FER AQUEST METODE RETRIEVE!!!
+    }
 
 
 

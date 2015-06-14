@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import cat.udl.eps.softarch.hello.model.Swimmer;
-import cat.udl.eps.softarch.hello.model.Report;
+import cat.udl.eps.softarch.hello.model.AnualReport;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
-//import cat.udl.eps.softarch.hello.repository.ReportRepository;
+import cat.udl.eps.softarch.hello.repository.ReportRepository;
 import org.springframework.data.domain.Sort;
 
 
@@ -27,8 +27,9 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     SwimmerRepository    swimmerRepository;
 
-   // @Autowired
-   // ReportRepository    reportRepository;
+
+    @Autowired
+    ReportRepository    reportRepository;
 
 
 
@@ -36,13 +37,14 @@ public class ReportServiceImpl implements ReportService {
 
     @Transactional(readOnly = false)
     @Override
-    public Report addReportSwimmer(Report report, Swimmer swimmer){
+    public AnualReport addReportSwimmer(AnualReport report, Swimmer swimmer){
 
 
-       // reportRepository.save(report);
+       reportRepository.save(report);      
 
-       // swimmer.addReport(report);
-       // swimmerRepository.save(swimmer);
+       System.out.println("------------------------__> "+report.getValue());
+       swimmer.addReport(report);
+       swimmerRepository.save(swimmer);
 
 
         return report;
