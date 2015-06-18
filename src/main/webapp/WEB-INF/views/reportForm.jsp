@@ -6,12 +6,12 @@
             <c:when test="${report.getId()>0}">
                 <h3>Modificar informe</h3>
                 <c:set var="method" value="PUT"/>
-                <c:set var="action" value="/swimmers/reports/${swimmer.getId()}/${report.getId()}"/>
+                <c:set var="action" value="/swimmers/${swimmer.getId()}/reports/${report.getId()}"/>
             </c:when>
             <c:otherwise>
                 <h3>Nou Informe</h3>
                 <c:set var="method" value="POST"/>
-                <c:set var="action" value="/swimmers/reports/${report.getId()}/"/>
+                <c:set var="action" value="/swimmers/${swimmer.getId()}/reports"/>
             </c:otherwise>
         </c:choose>
 

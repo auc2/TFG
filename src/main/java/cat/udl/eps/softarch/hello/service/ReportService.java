@@ -12,6 +12,9 @@ public interface ReportService{
    
 	public AnualReport addReportSwimmer(AnualReport report, Swimmer swimmer);
 
+	public AnualReport getReport(Long reportId);
+
+
   //  public void removeReportFromSwimmer(Long reportId);
 
 

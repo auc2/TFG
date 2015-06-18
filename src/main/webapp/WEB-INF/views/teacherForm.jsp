@@ -39,9 +39,6 @@
                 </tr>
                 <tr>
 
-                    <!-- FER UN METODE APART AL CONTROLLER, PER AGAFAR LA INFORMACIÓ EN BYTES DEL DEBLOB, I RETORNARLA AL HTML, QUE SERA 
-                    L'ENCARREGAT DE TRANSFORMARLA.-->
-                    
                     <td><form:label path="photo">Foto: </form:label></td>
                     <td><form:input path="photo" type="file"/> <i><form:errors path="photo"></form:errors></i></td>
                 </tr>

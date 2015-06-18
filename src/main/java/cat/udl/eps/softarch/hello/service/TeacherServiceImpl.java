@@ -112,8 +112,8 @@ public class TeacherServiceImpl implements TeacherService {
         oldTeacher.setCity(updateTeacher.getCity());
         oldTeacher.setTelephone(updateTeacher.getTelephone());
         oldTeacher.setEmail(updateTeacher.getEmail());
-        oldTeacher.setPhotoBytes(updateTeacher.getPhoto());
 
+        if(updateTeacher.getPhoto().length > 0) oldTeacher.setPhotoBytes(updateTeacher.getPhoto());
 
 
         List<SwimmerGroup> allGroupsTeacher = swimmerGroupRepository.findSwimmerGroupByTeacher(oldTeacher);   

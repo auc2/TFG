@@ -34,20 +34,30 @@ public class ReportServiceImpl implements ReportService {
 
 
 
+    @Transactional(readOnly = true)
+    @Override
+    public AnualReport getReport(Long reportId) {
+        AnualReport report = reportRepository.findOne(reportId);
+        logger.info("Report num {}", report.getId());
+        return report;
+    }
+
 
     @Transactional(readOnly = false)
     @Override
     public AnualReport addReportSwimmer(AnualReport report, Swimmer swimmer){
 
 
+
        reportRepository.save(report);      
 
-       System.out.println("------------------------__> "+report.getValue());
+       System.out.println("------------------------------__> "+report.getValue());
        swimmer.addReport(report);
+
        swimmerRepository.save(swimmer);
 
 
-        return report;
+       return report;
     }
 
 

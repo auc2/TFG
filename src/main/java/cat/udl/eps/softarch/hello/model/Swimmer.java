@@ -43,10 +43,7 @@ public class Swimmer {
     private SwimmerGroup group;
 
 
-   // @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
-   // private List<Report> reports = new ArrayList<Report>();
-
-     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
     private List<AnualReport> reports = new ArrayList<AnualReport>();
 
 
@@ -83,9 +80,9 @@ public class Swimmer {
     public void setGroup(SwimmerGroup newSwimmerGroup) {   this.group = newSwimmerGroup;  }
 
 
-     public void addReport(AnualReport report) {
+    public void addReport(AnualReport report) {
         reports.add(report);
-     }
+    }
 
     public void removeReport(AnualReport report) {
         reports.remove(report);
