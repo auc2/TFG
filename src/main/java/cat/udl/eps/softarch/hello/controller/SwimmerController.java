@@ -74,29 +74,21 @@ public class SwimmerController {
     }
 
 
-   // public AnualReport retrieveReport(@PathVariable("id") Long id) {
-   //     logger.info("Retrieving report number {}", id);
-    //    Preconditions.checkNotNull(reportRepository.findOne(id), "Report with id %s not found", id);
-   //     return reportService.getReport(id);
-    //}
 
     // RETRIEVE REPORT
     @RequestMapping(value = "/{swimmerid}/reports/{reportid}", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView retrieveHTMLReport(@PathVariable( "swimmerid" ) Long swimmerid, @PathVariable( "reportid" ) Long reportid) {
 
-       // /swimmers/"+swimmer.getId()+"/reports/"+newReport.getId()); " 
-
         logger.info("Retrieving report number {}", reportid);
         Preconditions.checkNotNull(reportRepository.findOne(reportid), "Report with id %s not found", reportid);
         AnualReport report = reportService.getReport(reportid);
 
-
         ModelAndView model = new ModelAndView("report");
-        model.addObject("report", report);
         model.addObject("swimmer", retrieve(swimmerid));
+        model.addObject("report", report);
+        model.addObject("questions", report.getQuestions());
+        model.addObject("values", report.getValues());
         return model;
-
-        //return new ModelAndView("report", "report", retrieve(id));
     }
 
 
@@ -292,7 +284,7 @@ public class SwimmerController {
 
   // CREATE REPORT
   @RequestMapping(value = "/{id}/reports", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public ModelAndView createHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("anualReport") AnualReport report, BindingResult binding, HttpServletResponse response) {
+    public ModelAndView createHTML(@PathVariable("id") Long swimmerid, @Valid @ModelAttribute("anualReport") AnualReport report, BindingResult binding, HttpServletResponse response) {
 
         logger.info("Creation report");
 
@@ -303,20 +295,11 @@ public class SwimmerController {
             return model;
         }
 
-
-        Swimmer swimmer = swimmerRepository.findOne(id);
-
-        System.out.println("--------------------------------oi!!");
-        AnualReport newReport = reportService.addReportSwimmer(report, swimmer);
-        System.out.println("--------------------------------ui!!!");
+        AnualReport newReport = reportService.addReportSwimmer(report, swimmerid);
 
 
-     //   ModelAndView model = new ModelAndView("redirect:/swimmers/"+swimmer.getId()+"/reports/"+newReport.getId());
-     //   model.addObject("swimmer", swimmer);
-     //   return model;
 
-        return new ModelAndView("redirect:/swimmers/"+swimmer.getId()+"/reports/"+newReport.getId());
-      //  return new ModelAndView("redirect:/swimmers/reports/"+newReport.getId()); //FALTE FER AQUEST METODE RETRIEVE!!!
+        return new ModelAndView("redirect:/swimmers/"+swimmerid+"/reports/"+newReport.getId());
     }
 
 

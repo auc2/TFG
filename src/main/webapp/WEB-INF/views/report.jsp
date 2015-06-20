@@ -9,9 +9,26 @@
 
             <p>Nivell Informe: ${report.getLevel()}</p>
 
-            <p>1.Pregunta........... Resposta = ${report.getValue()}</p>
 
-            
+
+            <c:forEach var="question" items="${questions}" varStatus="status">
+              <tr>
+                  <td>${question}</td>
+                  <td>${values[status.index]}</td>
+              </tr>
+            </c:forEach>
+<%--
+
+
+                          <c:forEach items="${questions}" var="question">
+
+                          <p>${question}  = ${report.getValue()}</p>
+
+                          </c:forEach>
+
+
+            <p>1.Pregunta........... Resposta = ${report.getValue()}</p>
+            --%>
     		
 		</c:if>
 

@@ -14,4 +14,5 @@ public interface ReportRepository extends JpaRepository<AnualReport, Long> {
 
     // List<Report> findReportBySwimmer(@Param("swimmer") Swimmer swimmer);
 
+
 }

@@ -49,7 +49,7 @@ public class Teacher {
 
     public void setPhoto(MultipartFile photo) throws IOException { this.photo = photo.getBytes(); }
 
-    public void setPhotoBytes(byte[] photo) throws IOException { System.out.println("-----------------------------> "+photo);this.photo = photo; }
+    public void setPhotoBytes(byte[] photo) throws IOException { this.photo = photo; }
 
     public byte[] getPhoto() { return photo; }
 

@@ -18,12 +18,13 @@
         <form:form method="${method}" action="${action}" modelAttribute="report">
             <table>
 
-
+<c:set var="count" value="1" scope="page" />
               
                        <c:if test="${not empty questions}">
                           <c:forEach items="${questions}" var="question">
                             <tr>
-                        <td><p>${question}</p> </td><td><form:radiobuttons path="value" items="${puntuation}" /></td>
+                               <td><p>${question}</p> </td><td><form:radiobuttons path="value${count}" items="${puntuation}" /></td>
+                               <c:set var="count" value="${count + 1}" scope="page"/>
                             </tr>
 
                           </c:forEach>
@@ -44,20 +45,6 @@
                     </c:forEach>
                 </c:if>
             </tr>
-
-
-
-                    <tr>
-                       <td>${question1}</td>
-                        <td><form:radiobuttons path="value" items="${puntuation}" /></td>
-                        <td><form:radiobuttons path="value" items="${puntuation}" /></td>
-
-                    </tr>
-                   
-                    <tr>
-                     <td>${question2}</td>
-                        <td><form:radiobuttons path="value2" items="${puntuation}" />
-                    </tr>
 
 
                     <tr>

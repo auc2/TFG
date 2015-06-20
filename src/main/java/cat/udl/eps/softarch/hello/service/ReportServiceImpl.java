@@ -45,17 +45,20 @@ public class ReportServiceImpl implements ReportService {
 
     @Transactional(readOnly = false)
     @Override
-    public AnualReport addReportSwimmer(AnualReport report, Swimmer swimmer){
+    public AnualReport addReportSwimmer(AnualReport report, Long swimmerid){
 
 
 
+       System.out.println("------------------------___>VALOR5-->"+report.getValue5());
        reportRepository.save(report);      
 
-       System.out.println("------------------------------__> "+report.getValue());
+       Swimmer swimmer = swimmerRepository.findOne(swimmerid);
+
        swimmer.addReport(report);
 
        swimmerRepository.save(swimmer);
 
+       System.out.println(".---------------------------i'm here--------------------------------------------");
 
        return report;
     }
