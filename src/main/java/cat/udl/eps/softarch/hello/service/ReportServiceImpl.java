@@ -47,18 +47,20 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public AnualReport addReportSwimmer(AnualReport report, Long swimmerid){
 
+    
+      Swimmer swimmer = swimmerRepository.findOne(swimmerid);
+      String level = swimmer.getGroup().getLevel();
 
 
-       System.out.println("------------------------___>VALOR5-->"+report.getValue5());
+     if(level.equals("Dofins")){ report.setLevel("Dofins");   }
+     if(level.equals("Sardines")){ report.setLevel("Sardines"); }
+
+
        reportRepository.save(report);      
-
-       Swimmer swimmer = swimmerRepository.findOne(swimmerid);
 
        swimmer.addReport(report);
 
        swimmerRepository.save(swimmer);
-
-       System.out.println(".---------------------------i'm here--------------------------------------------");
 
        return report;
     }

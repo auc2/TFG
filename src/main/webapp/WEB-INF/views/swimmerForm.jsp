@@ -86,21 +86,6 @@
                     </tr>
 
 
-   <c:if test="${not empty swimmer.getGroup()}">
-                    <tr>
-                       <c:if test="${not empty questions}">
-                          <c:forEach items="${questions}" var="question">
-                          
-                        <p>Habilitat --> ${question}</p>
-
-                          </c:forEach>
-                       </c:if>
-
-                        <td><form:radiobuttons path="value" items="${puntuation}" /></td>
-                    </tr>
-    </c:if>
-<br>
-<br>
                  <tr>
                     <td><input type="submit" id="addButton" value="Acceptar" /></td>
                 </tr>

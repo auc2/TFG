@@ -13,22 +13,12 @@
 
             <c:forEach var="question" items="${questions}" varStatus="status">
               <tr>
-                  <td>${question}</td>
-                  <td>${values[status.index]}</td>
+                <td>${question}</td>  
+                <td><b>${values[status.index]}</b></td>
               </tr>
             </c:forEach>
-<%--
 
-
-                          <c:forEach items="${questions}" var="question">
-
-                          <p>${question}  = ${report.getValue()}</p>
-
-                          </c:forEach>
-
-
-            <p>1.Pregunta........... Resposta = ${report.getValue()}</p>
-            --%>
+          
     		
 		</c:if>
 

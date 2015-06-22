@@ -83,11 +83,29 @@ public class SwimmerController {
         Preconditions.checkNotNull(reportRepository.findOne(reportid), "Report with id %s not found", reportid);
         AnualReport report = reportService.getReport(reportid);
 
+
+      List<String> questions = report.getQuestions();
+
+     // List<String> values = report.getValues(); //NOT WORK!
+
+      List<String> values = new ArrayList<String>();
+      values.add(report.getValue1());
+      values.add(report.getValue2());
+      values.add(report.getValue3());
+      values.add(report.getValue4());
+      values.add(report.getValue5());
+      values.add(report.getValue6());
+      values.add(report.getValue7());
+      values.add(report.getValue8());
+      values.add(report.getValue9());
+      values.add(report.getValue10());
+
+
         ModelAndView model = new ModelAndView("report");
         model.addObject("swimmer", retrieve(swimmerid));
         model.addObject("report", report);
-        model.addObject("questions", report.getQuestions());
-        model.addObject("values", report.getValues());
+        model.addObject("questions", questions);
+        model.addObject("values", values);
         return model;
     }
 
@@ -238,25 +256,26 @@ public class SwimmerController {
         String level = sw.getGroup().getLevel();
 
 
-        //if(level.equals("Dofins")){
+            logger.info("Generating form with level ["+level+"]");
+            report = new AnualReport();
+
+            //WHERE IS THE PROBLEM? 
+            report.setLevel("Sardines"); //OK. 
+          //   report.setLevel(level); //FAIL -->LEVEL = Sardines
+
+
+
+        // if(level.equals("Dofins")){
        //     logger.info("Generating form with level Dofins");
-       //     report = new DofiReport();
-       // }
-        //if level .. 
-        //if level .. 
-        //if level .. 
+       //     report = new AnualReport();
+       ///     report.setLevel("Dofins");
+      //   }
 
-         if(level.equals("Dofins")){
-            logger.info("Generating form with level Dofins");
-            report = new AnualReport();
-            report.setLevel("Dofins");
-         }
-
-         if(level.equals("Sardines")){
-            logger.info("Generating form with level Sardines");
-            report = new AnualReport();
-            report.setLevel("Sardines");
-         }
+      //   if(level.equals("Sardines")){
+      //      logger.info("Generating form with level Sardines");
+      //      report = new AnualReport();
+      //      report.setLevel("Sardines");
+      //   }
 
             List<String> questions = report.getQuestions();
 
@@ -295,6 +314,7 @@ public class SwimmerController {
             return model;
         }
 
+        //LEVEL NULL!
         AnualReport newReport = reportService.addReportSwimmer(report, swimmerid);
 
 

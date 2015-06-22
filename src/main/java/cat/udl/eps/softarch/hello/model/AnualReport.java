@@ -29,10 +29,10 @@ public class AnualReport{
     public String value10;
 
 
-    @ElementCollection 
+    @ElementCollection(fetch=FetchType.EAGER)
     public  List<String> questions = new ArrayList<String>();
-    @ElementCollection 
-    public  List<String> values = new ArrayList<String>();
+  //  @ElementCollection(fetch=FetchType.EAGER)
+  //  public  List<String> values = new ArrayList<String>();
     
     public String comment;
 
@@ -43,9 +43,6 @@ public class AnualReport{
 
     
     public long getId() { return id; }
-
-    public void setLevel(String level){ this.level = level;}
-    public String getLevel(){ return this.level;}
 
 
 
@@ -102,19 +99,22 @@ public class AnualReport{
    public String getValue10() { return value10;}
 
 
-    public void setValue(String value) { this.value = value; values.add(value); }
+    public void setValue(String value) { this.value = value; }
 
-    public void setValue1(String value1) { this.value1 = value1; values.add(value1); }
-    public void setValue2(String value2) { this.value2 = value2; values.add(value2); }
-    public void setValue3(String value3) { this.value3 = value3; values.add(value3); }
-    public void setValue4(String value4) { this.value4 = value4; values.add(value4); }
-    public void setValue5(String value5) { this.value5 = value5; values.add(value5); }
-    public void setValue6(String value6) { this.value6 = value6; values.add(value6); }
-    public void setValue7(String value7) { this.value7 = value7; values.add(value7); }
-    public void setValue8(String value8) { this.value8 = value8; values.add(value8); }
-    public void setValue9(String value9) { this.value9 = value9; values.add(value9); }
-    public void setValue10(String value10) { this.value10 = value10; values.add(value10); }
+    public void setValue1(String value1) { this.value1 = value1;}
+    public void setValue2(String value2) { this.value2 = value2;}
+    public void setValue3(String value3) { this.value3 = value3;}
+    public void setValue4(String value4) { this.value4 = value4;}
+    public void setValue5(String value5) { this.value5 = value5;}
+    public void setValue6(String value6) { this.value6 = value6;}
+    public void setValue7(String value7) { this.value7 = value7;}
+    public void setValue8(String value8) { this.value8 = value8;}
+    public void setValue9(String value9) { this.value9 = value9;}
+    public void setValue10(String value10) { this.value10 = value10;}
 
+
+    public void setLevel(String level){ this.level = level;}
+    public String getLevel(){ return level;}
 
 
     public void setComment(String comment){ this.comment = comment;}
@@ -124,10 +124,22 @@ public class AnualReport{
 
 
 
-    public List<String> getValues() {
 
-        return this.values;
-    }
+ //   public List<String> getValues() {
+
+     // values.add(getValue1());
+     // values.add(getValue2());
+    //  values.add(getValue3());
+    //  values.add(getValue4());
+    //  values.add(getValue5());
+    ///  values.add(getValue6());
+    //  values.add(getValue7());
+    //  values.add(getValue8());
+    //  values.add(getValue9());
+    //  values.add(getValue10());
+
+     //   return this.values;
+   // }
 
    // @Override
    // public void setValues(List<String> values) {

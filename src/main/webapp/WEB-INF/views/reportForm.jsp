@@ -17,8 +17,7 @@
 
         <form:form method="${method}" action="${action}" modelAttribute="report">
             <table>
-
-<c:set var="count" value="1" scope="page" />
+                      <c:set var="count" value="1" scope="page" />
               
                        <c:if test="${not empty questions}">
                           <c:forEach items="${questions}" var="question">
@@ -36,23 +35,8 @@
                     <td><form:label path="comment">Comentari: </form:label>
                     <form:textarea path="comment" rows="5" cols="100"/> <i><form:errors path="comment"></form:errors></i></td>
                 </tr>
-             
-<%--
-            <tr>
-                 <c:if test="${not empty questions}">
-                     <c:forEach items="${questions}" var="question">
-                              <p>Pregunta : ${question} </p>                                                    
-                    </c:forEach>
-                </c:if>
-            </tr>
 
 
-                    <tr>
-                        <td>Prova 1 :</td>
-                        <td><form:radiobuttons path="value" items="${puntuation}" />
-                    </tr>
-
---%>
                  <tr>
                     <td><input type="submit" id="addButton" value="Acceptar" /></td>
                 </tr>
