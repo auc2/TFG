@@ -17,6 +17,10 @@
 
         <form:form method="${method}" action="${action}" modelAttribute="report">
             <table>
+
+                    <td><form:label path="level">Nivell: </form:label></td>
+                    <td><form:input path="level" value="${level}" readonly="true" /></td>
+
                       <c:set var="count" value="1" scope="page" />
               
                        <c:if test="${not empty questions}">

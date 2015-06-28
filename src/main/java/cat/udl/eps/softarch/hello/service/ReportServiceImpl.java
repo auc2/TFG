@@ -51,10 +51,10 @@ public class ReportServiceImpl implements ReportService {
       Swimmer swimmer = swimmerRepository.findOne(swimmerid);
       String level = swimmer.getGroup().getLevel();
 
+      //System.out.println("****************+LEVEL ---------->"+report.getLevel());  //Però em fa posar el setLevel.. sino no funciona
 
      if(level.equals("Dofins")){ report.setLevel("Dofins");   }
      if(level.equals("Sardines")){ report.setLevel("Sardines"); }
-
 
        reportRepository.save(report);      
 
@@ -63,6 +63,43 @@ public class ReportServiceImpl implements ReportService {
        swimmerRepository.save(swimmer);
 
        return report;
+    }
+
+
+    @Transactional
+    @Override
+    public void removeReportFromSwimmer(Long reportid, Long swimmerid){
+        
+
+        AnualReport report =  reportRepository.findOne(reportid);
+        Swimmer swimmer = swimmerRepository.findOne(swimmerid);
+
+        swimmer.removeReport(report);
+
+        reportRepository.delete(report);
+    }
+
+
+    @Transactional
+    @Override
+    public AnualReport updateReportFromSwimmer(AnualReport updatedReport, Long oldreportid){
+
+        AnualReport oldreport = reportRepository.findOne(oldreportid);
+
+        oldreport.setValue1(updatedReport.getValue1());
+        oldreport.setValue2(updatedReport.getValue2());
+        oldreport.setValue3(updatedReport.getValue3());
+        oldreport.setValue4(updatedReport.getValue4());
+        oldreport.setValue5(updatedReport.getValue5());
+        oldreport.setValue6(updatedReport.getValue6());
+        oldreport.setValue7(updatedReport.getValue7());
+        oldreport.setValue8(updatedReport.getValue8());
+        oldreport.setValue9(updatedReport.getValue9());
+        oldreport.setValue10(updatedReport.getValue10());
+
+        oldreport.setComment(updatedReport.getComment());
+
+        return reportRepository.save(oldreport);
     }
 
 

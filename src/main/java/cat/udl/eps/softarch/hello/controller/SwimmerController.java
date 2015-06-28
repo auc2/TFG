@@ -83,22 +83,8 @@ public class SwimmerController {
         Preconditions.checkNotNull(reportRepository.findOne(reportid), "Report with id %s not found", reportid);
         AnualReport report = reportService.getReport(reportid);
 
-
-      List<String> questions = report.getQuestions();
-
-     // List<String> values = report.getValues(); //NOT WORK!
-
-      List<String> values = new ArrayList<String>();
-      values.add(report.getValue1());
-      values.add(report.getValue2());
-      values.add(report.getValue3());
-      values.add(report.getValue4());
-      values.add(report.getValue5());
-      values.add(report.getValue6());
-      values.add(report.getValue7());
-      values.add(report.getValue8());
-      values.add(report.getValue9());
-      values.add(report.getValue10());
+        List<String> questions = report.getQuestions();
+        List<String> values = report.getValues();
 
 
         ModelAndView model = new ModelAndView("report");
@@ -232,8 +218,21 @@ public class SwimmerController {
 
 
 
+//===========================================================================================================
+//REPORTS//
 
+    @RequestMapping(value ="/{swimmerid}/reports", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView listHTML(@PathVariable("swimmerid") Long swimmerid, @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "100") int size) {
+       
+        ModelAndView model = new ModelAndView("reports");
+        PageRequest request = new PageRequest(page, size);
 
+        model.addObject("reports", reportRepository.findAll(request).getContent());
+        model.addObject("swimmer", swimmerRepository.findOne(swimmerid));
+       
+        return model;
+    }
 
  
    // CREATE REPORT FORM
@@ -256,26 +255,29 @@ public class SwimmerController {
         String level = sw.getGroup().getLevel();
 
 
-            logger.info("Generating form with level ["+level+"]");
-            report = new AnualReport();
+          //  logger.info("Generating form with level ["+level+"]");
+           // report = new AnualReport();
 
             //WHERE IS THE PROBLEM? 
-            report.setLevel("Sardines"); //OK. 
-          //   report.setLevel(level); //FAIL -->LEVEL = Sardines
+         //   report.setLevel("Sardines"); //OK. 
+            // report.setLevel(level); //FAIL -->LEVEL = Sardines
+
+             //System.out.println("****************-->["+level+"]----->equal?-->"+level.equals("Sardines"));
 
 
 
-        // if(level.equals("Dofins")){
-       //     logger.info("Generating form with level Dofins");
-       //     report = new AnualReport();
-       ///     report.setLevel("Dofins");
-      //   }
 
-      //   if(level.equals("Sardines")){
-      //      logger.info("Generating form with level Sardines");
-      //      report = new AnualReport();
-      //      report.setLevel("Sardines");
-      //   }
+         if(level.equals("Dofins")){
+            logger.info("Generating form with level Dofins");
+            report = new AnualReport();
+            report.setLevel("Dofins");
+         }
+
+         if(level.equals("Sardines")){
+            logger.info("Generating form with level Sardines");
+            report = new AnualReport();
+            report.setLevel("Sardines");
+         }
 
             List<String> questions = report.getQuestions();
 
@@ -293,6 +295,8 @@ public class SwimmerController {
         model.addObject("puntuation", puntuation);
         model.addObject("questions", questions);
         model.addObject("swimmer", sw);
+        model.addObject("level", level);
+
 
         return model;
 
@@ -302,7 +306,7 @@ public class SwimmerController {
 
 
   // CREATE REPORT
-  @RequestMapping(value = "/{id}/reports", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
+   @RequestMapping(value = "/{id}/reports", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
     public ModelAndView createHTML(@PathVariable("id") Long swimmerid, @Valid @ModelAttribute("anualReport") AnualReport report, BindingResult binding, HttpServletResponse response) {
 
         logger.info("Creation report");
@@ -314,12 +318,81 @@ public class SwimmerController {
             return model;
         }
 
-        //LEVEL NULL!
         AnualReport newReport = reportService.addReportSwimmer(report, swimmerid);
 
-
-
         return new ModelAndView("redirect:/swimmers/"+swimmerid+"/reports/"+newReport.getId());
+    }
+
+
+
+
+
+    //DELETE REPORT
+    @RequestMapping(value = "/{swimmerid}/reports/{reportid}", method = RequestMethod.DELETE, produces = "text/html")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteHTML(@PathVariable( "swimmerid" ) Long swimmerid, @PathVariable( "reportid" ) Long reportid)  {
+
+        logger.info("Deleting report number {} from swimmer number {}", reportid, swimmerid);
+        Preconditions.checkNotNull(reportRepository.findOne(reportid), "Report with id %s not found", reportid);
+        reportService.removeReportFromSwimmer(reportid, swimmerid);
+
+        return "redirect:/swimmers";
+    }
+
+
+
+    // UPDATE REPORT
+    @RequestMapping(value = "/{swimmerid}/reports/{reportid}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+    @ResponseStatus(HttpStatus.OK)
+    public String updateHTML(@PathVariable("swimmerid") Long swimmerid, @PathVariable( "reportid" ) Long oldreportid, @Valid @ModelAttribute("anualReport") AnualReport updateReport,
+                         BindingResult binding) {
+     
+      if (binding.hasErrors()) {
+            logger.info("Validation error: {}", binding);
+            return "reportForm";
+      }
+
+
+        logger.info("Updating report from swimmer number {}", swimmerid);
+        Preconditions.checkNotNull(reportRepository.findOne(oldreportid), "Report with id %s not found", oldreportid);
+
+        AnualReport reportUpdated = reportService.updateReportFromSwimmer(updateReport, oldreportid);
+
+        return "redirect:/swimmers/"+swimmerid+"/reports/"+reportUpdated.getId();
+    }
+
+
+
+    // Generate Update REPORT form
+    @RequestMapping(value = "/{swimmerid}/reports/{reportid}/reportForm", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView updateForm(@PathVariable( "swimmerid" ) Long swimmerid, @PathVariable( "reportid" ) Long oldreportid) {
+     
+        logger.info("Generating form for updating report number {}", oldreportid);
+        Preconditions.checkNotNull(reportRepository.findOne(oldreportid), "Report with id %s not found", oldreportid);
+
+       
+        Swimmer sw = swimmerRepository.findOne(swimmerid);
+        AnualReport report = reportRepository.findOne(oldreportid);
+
+            List<String> questions = report.getQuestions();
+
+            List<String> puntuation = new ArrayList<String>();
+            puntuation.add("Necessita Millorar");
+            puntuation.add("Regular");
+            puntuation.add("Be");
+            puntuation.add("Molt be");
+            puntuation.add("Perfecte");
+
+        
+
+        ModelAndView model = new ModelAndView("reportForm");
+        model.addObject("report", reportRepository.findOne(oldreportid));
+        model.addObject("puntuation", puntuation);
+        model.addObject("questions", questions);
+        model.addObject("swimmer", sw);
+
+        return model;
+
     }
 
 

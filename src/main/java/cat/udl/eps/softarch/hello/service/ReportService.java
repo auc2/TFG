@@ -14,14 +14,10 @@ public interface ReportService{
 
 	public AnualReport getReport(Long reportId);
 
+    public void removeReportFromSwimmer(Long reportid, Long swimmerid);
 
-  //  public void removeReportFromSwimmer(Long reportId);
+    public AnualReport updateReportFromSwimmer(AnualReport updatedReport, Long oldreportid);
 
 
 
-
-// PENSAR...
- //   Greeting addReportToSwimmer(Report report);
-
-  //  Greeting updateGreetingFromUser(Greeting updateGreeting, Long greetingId);
 }

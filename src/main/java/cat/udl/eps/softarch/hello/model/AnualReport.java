@@ -13,28 +13,28 @@ public class AnualReport{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    public String level;
+    private String level;
 
-    public String value;
+    private String value;
 
-    public String value1;
-    public String value2;
-    public String value3;
-    public String value4;
-    public String value5;
-    public String value6;
-    public String value7;
-    public String value8;
-    public String value9;
-    public String value10;
+    private String value1;
+    private String value2;
+    private String value3;
+    private String value4;
+    private String value5;
+    private String value6;
+    private String value7;
+    private String value8;
+    private String value9;
+    private String value10;
 
 
     @ElementCollection(fetch=FetchType.EAGER)
-    public  List<String> questions = new ArrayList<String>();
+    private  List<String> questions = new ArrayList<String>();
   //  @ElementCollection(fetch=FetchType.EAGER)
   //  public  List<String> values = new ArrayList<String>();
     
-    public String comment;
+    private String comment;
 
 
     public AnualReport() {
@@ -49,7 +49,7 @@ public class AnualReport{
 
     public List<String> getQuestions() {
 
-      if(level == "Sardines"){
+      if(this.level == "Sardines"){
 
         this.questions.add("1. Domina l'estil crol amb respiració bilateral");
         this.questions.add("2. Iniciazió en l'estil esquena");
@@ -62,7 +62,7 @@ public class AnualReport{
         this.questions.add("9. Te una bona freqüencia en les braçades d'esquena");
         this.questions.add("10. Domina l'estil crol amb respiració bilateral");
       }
-      if(level == "Dofins"){
+      if(this.level == "Dofins"){
 
         this.questions.add("1. Te un nivell d'apnea capaç per realitzar més de 25 metres");
         this.questions.add("2. És capaç de realitzar el viratge de crol");
@@ -101,16 +101,17 @@ public class AnualReport{
 
     public void setValue(String value) { this.value = value; }
 
-    public void setValue1(String value1) { this.value1 = value1;}
-    public void setValue2(String value2) { this.value2 = value2;}
-    public void setValue3(String value3) { this.value3 = value3;}
-    public void setValue4(String value4) { this.value4 = value4;}
-    public void setValue5(String value5) { this.value5 = value5;}
-    public void setValue6(String value6) { this.value6 = value6;}
-    public void setValue7(String value7) { this.value7 = value7;}
-    public void setValue8(String value8) { this.value8 = value8;}
-    public void setValue9(String value9) { this.value9 = value9;}
-    public void setValue10(String value10) { this.value10 = value10;}
+        public void setValue1(String value1) { this.value1 = value1;}
+        public void setValue2(String value2) { this.value2 = value2;}
+        public void setValue3(String value3) { this.value3 = value3;}
+        public void setValue4(String value4) { this.value4 = value4;}
+        public void setValue5(String value5) { this.value5 = value5;}
+        public void setValue6(String value6) { this.value6 = value6;}
+        public void setValue7(String value7) { this.value7 = value7;}
+        public void setValue8(String value8) { this.value8 = value8;}
+        public void setValue9(String value9) { this.value9 = value9;}
+        public void setValue10(String value10) { this.value10 = value10;
+        }
 
 
     public void setLevel(String level){ this.level = level;}
@@ -125,21 +126,23 @@ public class AnualReport{
 
 
 
- //   public List<String> getValues() {
+    public List<String> getValues() {
 
-     // values.add(getValue1());
-     // values.add(getValue2());
-    //  values.add(getValue3());
-    //  values.add(getValue4());
-    //  values.add(getValue5());
-    ///  values.add(getValue6());
-    //  values.add(getValue7());
-    //  values.add(getValue8());
-    //  values.add(getValue9());
-    //  values.add(getValue10());
+      List<String> values = new ArrayList<String>();
 
-     //   return this.values;
-   // }
+      values.add(getValue1());
+      values.add(getValue2());
+      values.add(getValue3());
+      values.add(getValue4());
+      values.add(getValue5());
+      values.add(getValue6());
+      values.add(getValue7());
+      values.add(getValue8());
+      values.add(getValue9());
+      values.add(getValue10());
+
+        return values;
+    }
 
    // @Override
    // public void setValues(List<String> values) {

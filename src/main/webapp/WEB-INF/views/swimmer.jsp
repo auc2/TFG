@@ -27,7 +27,12 @@
     		    <p>E-mail: ${swimmer.getEmail()}</p>
 		</c:if>
 
-        
+
+         <form:form method="GET" action="/swimmers/${swimmer.getId()}/reports">
+           <input type="submit" value="Informes"/>
+         </form:form>
+
+
          <form:form method="DELETE" action="/swimmers/${swimmer.getId()}">
            <input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest nedador?')"/>
          </form:form>
@@ -37,7 +42,6 @@
            <input type="submit" value="Update"/> 
          </form>
 
-         
 
  
 
