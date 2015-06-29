@@ -2,6 +2,9 @@
 
 
 <div id ="content">
+
+<a href="/swimmers/${swimmer.getId()}">Veure nedador</a>
+
 	<h1>Llista de informes de ${swimmer.getSwimmerName()}</h1>
 
 	    <ul>

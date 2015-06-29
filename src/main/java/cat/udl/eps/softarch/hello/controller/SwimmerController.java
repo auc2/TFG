@@ -75,33 +75,6 @@ public class SwimmerController {
 
 
 
-    // RETRIEVE REPORT
-    @RequestMapping(value = "/{swimmerid}/reports/{reportid}", method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView retrieveHTMLReport(@PathVariable( "swimmerid" ) Long swimmerid, @PathVariable( "reportid" ) Long reportid) {
-
-        logger.info("Retrieving report number {}", reportid);
-        Preconditions.checkNotNull(reportRepository.findOne(reportid), "Report with id %s not found", reportid);
-        AnualReport report = reportService.getReport(reportid);
-
-        List<String> questions = report.getQuestions();
-        List<String> values = report.getValues();
-
-
-        ModelAndView model = new ModelAndView("report");
-        model.addObject("swimmer", retrieve(swimmerid));
-        model.addObject("report", report);
-        model.addObject("questions", questions);
-        model.addObject("values", values);
-        return model;
-    }
-
-
-
-
-
-
-
-
     // CREATE
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
     public ModelAndView createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, @RequestParam Long groupId, HttpServletResponse response) {
@@ -221,6 +194,36 @@ public class SwimmerController {
 //===========================================================================================================
 //REPORTS//
 
+
+    // RETRIEVE REPORT
+    @RequestMapping(value = "/{swimmerid}/reports/{reportid}", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView retrieveHTMLReport(@PathVariable( "swimmerid" ) Long swimmerid, @PathVariable( "reportid" ) Long reportid) {
+
+        logger.info("Retrieving report number {}", reportid);
+        Preconditions.checkNotNull(reportRepository.findOne(reportid), "Report with id %s not found", reportid);
+        AnualReport report = reportService.getReport(reportid);
+
+        String level = report.getLevel();
+
+         if(level.equals("Dofins")){ report.setLevel("Dofins"); } 
+         if(level.equals("Sardines")){ report.setLevel("Sardines"); }
+
+
+        List<String> questions = report.getQuestions();
+        List<String> values = report.getValues();
+
+
+        ModelAndView model = new ModelAndView("report");
+        model.addObject("swimmer", retrieve(swimmerid));
+        model.addObject("report", report);
+        model.addObject("questions", questions);
+        model.addObject("values", values);
+        return model;
+    }
+
+
+
+    //List reports from a swimmer
     @RequestMapping(value ="/{swimmerid}/reports", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHTML(@PathVariable("swimmerid") Long swimmerid, @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "100") int size) {
@@ -234,15 +237,12 @@ public class SwimmerController {
         return model;
     }
 
+
  
    // CREATE REPORT FORM
    @RequestMapping(value = "/{id}/reportForm", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView reportForm(@PathVariable("id") Long id) {
      
-
-
-     //PREPARAR UN REPORT PER ASSIGNAR A L'USUARI AMB EL ID per paràmetre.
-
 
         logger.info("Generating form for create report for swimmer number {}", id);
         Preconditions.checkNotNull(swimmerRepository.findOne(id), "Swimmer with id %s not found", id);
@@ -299,7 +299,6 @@ public class SwimmerController {
 
 
         return model;
-
     }
 
 

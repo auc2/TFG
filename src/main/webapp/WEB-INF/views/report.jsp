@@ -6,7 +6,7 @@
 		  
             <table>
 
-           <tr> <p>Informe del nedador: ${swimmer.getSwimmerName()}</p></tr>
+           <tr> <p>Informe del nedador: <a href="/swimmers/${swimmer.getId()}">${swimmer.getSwimmerName()}</a></p></tr>
 
            <tr> <p>Nivell Informe: ${report.getLevel()}</p></tr>
 

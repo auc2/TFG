@@ -76,10 +76,6 @@ public class AnualReport{
         this.questions.add("10. És capaç d'aguantar-se inmovil en poscició prono durant 10 segons.");
 
       }
-          
-      //if(level == "Taurons"){
-      //....
-      //}
 
         return this.questions;
     }
