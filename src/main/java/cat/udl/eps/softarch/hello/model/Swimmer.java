@@ -7,6 +7,12 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import java.sql.Blob;
+import java.io.InputStream;
+import java.io.IOException;
+
 
 
 
@@ -37,6 +43,9 @@ public class Swimmer {
 
     @Email(message = "E-mail should be valid")
     private String email;
+
+    @Lob
+    private byte[] photo;
 
 
     @ManyToOne
@@ -73,6 +82,14 @@ public class Swimmer {
 
     public void setEmail(String email) { this.email = email; }
     public String getEmail() { return email; }
+
+    
+    public void setPhoto(MultipartFile photo) throws IOException { this.photo = photo.getBytes(); }
+
+    public void setPhotoBytes(byte[] photo) throws IOException { this.photo = photo; }
+
+    public byte[] getPhoto() { return photo; }
+
 
 
     public SwimmerGroup getGroup() { return group;  }

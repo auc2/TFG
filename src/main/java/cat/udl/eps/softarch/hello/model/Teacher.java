@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import java.sql.Blob;
 import java.io.InputStream;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 @Entity
@@ -19,9 +18,6 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Lob
-    private byte[] photo;
 
     @NotBlank(message = "El nom del professor no pot estar en blanc.")
     private String teachername;
@@ -39,6 +35,9 @@ public class Teacher {
     @NotBlank(message = "La ciutat del professor no pot estar en blanc.")
     private String city;
 
+    @Lob
+    private byte[] photo;
+
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
     private List<SwimmerGroup> swimmerGroups = new ArrayList<SwimmerGroup>();
 
@@ -46,12 +45,6 @@ public class Teacher {
 
 
     public long getId() { return id; }
-
-    public void setPhoto(MultipartFile photo) throws IOException { this.photo = photo.getBytes(); }
-
-    public void setPhotoBytes(byte[] photo) throws IOException { this.photo = photo; }
-
-    public byte[] getPhoto() { return photo; }
 
     public void setTeacherName(String teachername) { this.teachername = teachername; }
     public String getTeacherName() { return teachername; }
@@ -71,6 +64,13 @@ public class Teacher {
     public String getEmail() { return email; }
 
 
+    public void setPhoto(MultipartFile photo) throws IOException { this.photo = photo.getBytes(); }
+
+    public void setPhotoBytes(byte[] photo) throws IOException { this.photo = photo; }
+
+    public byte[] getPhoto() { return photo; }
+
+
     public List<SwimmerGroup> getSwimmerGroups() {
         return swimmerGroups;
     }
@@ -86,16 +86,5 @@ public class Teacher {
  //   public void removeAllSwimmerGroup() {
 //        swimmerGroups.clear();
  //   }
-
-
-/*
-    public InputStream get_user_photo() throws Exception {     
-       
-        
-        if(photo!=null)
-            return photo.getBinaryStream();
-        else
-            return null;
-    }*/
 
 }

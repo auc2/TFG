@@ -13,6 +13,8 @@ import cat.udl.eps.softarch.hello.model.SwimmerGroup;
 import cat.udl.eps.softarch.hello.repository.SwimmerRepository;
 import cat.udl.eps.softarch.hello.repository.SwimmerGroupRepository;
 import org.springframework.data.domain.Sort;
+import java.io.IOException;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -97,7 +99,7 @@ public class SwimmerServiceImpl implements SwimmerService {
 
     @Transactional
     @Override
-    public Swimmer updateSwimmer(Swimmer updateSwimmer, Long oldSwimmerId, Long newGroupId){
+    public Swimmer updateSwimmer(Swimmer updateSwimmer, Long oldSwimmerId, Long newGroupId) throws IOException {
 
         Swimmer oldSwimmer = swimmerRepository.findOne(oldSwimmerId);
 
@@ -107,8 +109,11 @@ public class SwimmerServiceImpl implements SwimmerService {
         oldSwimmer.setTelephone(updateSwimmer.getTelephone());
         oldSwimmer.setEmail(updateSwimmer.getEmail());
 
+        if(updateSwimmer.getPhoto().length > 0) oldSwimmer.setPhotoBytes(updateSwimmer.getPhoto());
+
+
         SwimmerGroup oldGroup = new SwimmerGroup();
-        if(newGroupId != 9999){ //Diferent a sense grup.
+        if(newGroupId != 9999){ //Afegint grup
             
              oldGroup = oldSwimmer.getGroup();
 
@@ -124,10 +129,11 @@ public class SwimmerServiceImpl implements SwimmerService {
              oldGroup.addSwimmer(oldSwimmer);
 
 
-        }else{
-             oldGroup = oldSwimmer.getGroup();
-             oldSwimmer.setGroup(null);
-             oldGroup.removeSwimmer(oldSwimmer);
+        }else{ //Treient grup
+                 oldGroup = oldSwimmer.getGroup();
+                 if (oldGroup == null) return swimmerRepository.save(oldSwimmer);
+                 oldSwimmer.setGroup(null);
+                 oldGroup.removeSwimmer(oldSwimmer);
         }
 
         swimmerGroupRepository.save(oldGroup); 

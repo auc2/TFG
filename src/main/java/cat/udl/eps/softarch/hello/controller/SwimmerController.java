@@ -24,7 +24,14 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import cat.udl.eps.softarch.hello.model.*;
+import java.io.IOException;
+import org.springframework.http.MediaType;
 
+import org.springframework.web.multipart.MultipartFile;
+import java.io.*;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.sql.Blob;
 
 
 
@@ -74,10 +81,11 @@ public class SwimmerController {
     }
 
 
-
+      
     // CREATE
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces="text/html")
-    public ModelAndView createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, @RequestParam Long groupId, HttpServletResponse response) {
+    @RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data", produces="text/html")
+    public ModelAndView createHTML(@Valid @ModelAttribute("swimmer") Swimmer swimmer, BindingResult binding, 
+                              @RequestParam Long groupId, HttpServletResponse response) throws IOException {
        
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
@@ -152,10 +160,10 @@ public class SwimmerController {
 
 
     // UPDATE
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = "multipart/form-data")
     @ResponseStatus(HttpStatus.OK)
     public String updateHTML(@PathVariable("id") Long oldSwimmerId, @Valid @ModelAttribute("swimmer") Swimmer updateSwimmer,
-                         BindingResult binding, @RequestParam Long groupId) {
+                         BindingResult binding, @RequestParam Long groupId) throws IOException{
      
         if (binding.hasErrors()) {
             logger.info("Validation error: {}", binding);
@@ -166,7 +174,6 @@ public class SwimmerController {
         logger.info("Updating swimmer {}, new content is '{}'", oldSwimmerId, updateSwimmer.getSwimmerName());
         Preconditions.checkNotNull(swimmerRepository.findOne(oldSwimmerId), "Swimmer with id %s not found", oldSwimmerId);
         Swimmer swimmerUpdated = swimmerService.updateSwimmer(updateSwimmer, oldSwimmerId, groupId);
-
         return "redirect:/swimmers/"+swimmerUpdated.getId();
     }
 
@@ -187,6 +194,16 @@ public class SwimmerController {
 
         return model;
 
+    }
+
+
+    @RequestMapping(value = "/getImage/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getImage(@PathVariable("id") Long id) throws IOException, SQLException{
+
+        Swimmer swimmer = swimmerService.getSwimmer(id);
+
+        return swimmer.getPhoto();
     }
 
 

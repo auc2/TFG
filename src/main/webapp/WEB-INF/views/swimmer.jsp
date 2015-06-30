@@ -25,6 +25,9 @@
             <p>Ciutat: ${swimmer.getCity()}</p>
     		    <p>Telefon: ${swimmer.getTelephone()}</p>
     		    <p>E-mail: ${swimmer.getEmail()}</p>
+
+            <p>Foto:</p> <img alt="equip"  src="getImage/${swimmer.getId()}"  width="10%" height="15%"/>
+
 		</c:if>
 
 

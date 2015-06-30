@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import cat.udl.eps.softarch.hello.model.Swimmer;
 import org.springframework.data.domain.Sort;
+import java.io.IOException;
 
 
 
@@ -19,7 +20,7 @@ public interface SwimmerService {
 
     public void removeSwimmer(Long swimmerId);
 
-    public Swimmer updateSwimmer(Swimmer updateSwimmer, Long oldSwimmerId, Long groupId);
+    public Swimmer updateSwimmer(Swimmer updateSwimmer, Long oldSwimmerId, Long groupId) throws IOException;
 
   //  public void removeReportFromSwimmer(Long reportId);
 

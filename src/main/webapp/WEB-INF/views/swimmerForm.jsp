@@ -5,7 +5,7 @@
         <c:choose>
             <c:when test="${swimmer.getId()>0}">
                 <h3>Modificar nedador</h3>
-                <c:set var="method" value="PUT"/>
+                <c:set var="method" value="POST"/>
                 <c:set var="action" value="/swimmers/${swimmer.getId()}"/>
             </c:when>
             <c:otherwise>
@@ -15,7 +15,7 @@
             </c:otherwise>
         </c:choose>
 
-        <form:form method="${method}" action="${action}" modelAttribute="swimmer">
+        <form:form method="${method}" action="${action}" modelAttribute="swimmer" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td><form:label path="swimmerName">Nom: </form:label></td>
@@ -36,6 +36,11 @@
                 <tr>
                     <td><form:label path="email">E-Mail:</form:label></td>
                     <td><form:input path="email"/> <i><form:errors path="email"></form:errors></i></td>
+                </tr>
+                <tr>
+
+                    <td><form:label path="photo">Foto: </form:label></td>
+                    <td><form:input path="photo" type="file"/> <i><form:errors path="photo"></form:errors></i></td>
                 </tr>
 
 
