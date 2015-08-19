@@ -248,8 +248,14 @@ public class SwimmerController {
         ModelAndView model = new ModelAndView("reports");
         PageRequest request = new PageRequest(page, size);
 
-        model.addObject("reports", reportRepository.findAll(request).getContent());
-        model.addObject("swimmer", swimmerRepository.findOne(swimmerid));
+        Swimmer swimmer = swimmerRepository.findOne(swimmerid);
+        List<AnualReport> reports = swimmer.getReports();
+        model.addObject("reports", reports);
+        model.addObject("swimmer", swimmer);
+
+
+        //  model.addObject("reports", reportRepository.findAll(request).getContent());
+       // model.addObject("swimmer", swimmerRepository.findOne(swimmerid));
        
         return model;
     }

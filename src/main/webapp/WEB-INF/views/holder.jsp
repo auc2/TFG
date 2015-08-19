@@ -5,24 +5,41 @@
 
 <html>
 <head>
-<title>Monitors de natació</title>
+<title>Activitats Aquàtiques Natació Cervera</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <style type="text/css">
-<%@include file="mystyle.css" %>
+<%@include file="style.css" %>
 </style>
 
-<div id="titol">
-	<h1>Activitats Aquàtiques Natació Cervera</h1>
-</div>
+<style type="text/css">
+<%@include file="coin-slider.css" %>
+</style>
 
+<script type="text/javascript" src="cufon-yui.js"></script>
+<script type="text/javascript" src="cufon-titillium-250.js"></script>
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="coin-slider.min.js"></script>
 </head>
 <body>
-	<ul class="navbar">
-		<li><a href="/mainpage">Inici</a>
-		<li><a href="/teachers/teacherForm">Afegir monitor</a>
-		<li><a href="/teachers">Llistar monitors</a>
-		<li><a href="/swimmers/swimmerForm">Afegir nedador</a>
-		<li><a href="/swimmers">Llistar nedadors</a>
-			
-		<li><a href="/swimmerGroups/swimmerGroupForm">Nova classe</a>
-		<li><a href="/swimmerGroups">Llista classes</a>
-	</ul>
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="menu_nav">
+        <ul>
+          <li class="active"><a href="/mainpage">Inici</span></a></li>
+          <li><a href="/teachers">Monitors<span></a></li>
+          <li><a href="/swimmers">Nedadors</span></a></li>
+          <li><a href="/swimmerGroups">Grups</span></a></li>
+        </ul>
+      </div>
+      <div class="logo">
+        <h1><a href="index.html">Activitats<span> Aquàtiques</span> <small>Natació Cervera</small></a></h1>
+      </div>
+    </div>
+  </div>
+ <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        <div class="article">

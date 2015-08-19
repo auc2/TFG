@@ -1,43 +1,35 @@
 <%@include file="holder.jsp" %>
+<%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
-	<div id ="content">
 		<p><a href="/teachers">Tornar</a></p>
-
 		<c:if test="${not empty teacher}">
-		    <h2>Monitor ${teacher.getTeacherName()} ${teacher.getSurname()}</h2>
-		    <br>
-		    <p>E-mail: ${teacher.getEmail()}</p>
-		    <p>Telefon: ${teacher.getTelephone()}</p>
-		    <p>Ciutat: ${teacher.getCity()}</p>
 
-    <p>Foto:</p> <img alt="equip"  src="getImage/${teacher.getId()}"  width="10%" height="15%"/>
+          <h2><span>Monitor ${teacher.getTeacherName()} ${teacher.getSurname()}</h2>
+          <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+          <div class="clr"></div>
+          <div class="img"><img src="getImage/${teacher.getId()}" width="200" height="210" alt="" class="fl" /></div>
 
-	<br>
- 	<p>Grups assignats: </p>
- 	
+          <div class="post_content">
 
- 	   <ul>
-	    <c:if test="${not empty groups}">
-			<c:forEach var="group" items="${groups}">
-				<li><a href="/swimmerGroups/${group.getId()}">Grup: ${group.getId()}</a>  - Monitor:  ${group.getTeacher().getTeacherName()}</li>
-			</c:forEach>
-	    </c:if>
-	    </ul>
-		</c:if>
+		      <br>
+		      <p>E-mail: ${teacher.getEmail()}</p>
+		      <p>Telefon: ${teacher.getTelephone()}</p>
+		      <p>Ciutat: ${teacher.getCity()}</p>
 
- 		<form:form method="DELETE" action="/teachers/${teacher.getId()}">
-        <p><input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest monitor?')"/></p>
-        </form:form>
+		  
+		    </c:if>
+
+		        <form:form method="DELETE" action="/teachers/${teacher.getId()}">
+		            <input type="submit" value="Delete" onclick ="return confirm('Segur que vols eliminar aquest monitor?')"/>
+		            </form:form>
 
 
-        <form action="/teachers/${teacher.getId()}/teacherForm">
-           <input type="submit" value="Update"/> 
-        </form>
+		            <form action="/teachers/${teacher.getId()}/teacherForm">
+		            <input type="submit" value="Update"/> 
+		            </form>
 
 
-	</div>
+<%@include file="bottom.jsp" %>
 
 
 
-</body>
-</html>

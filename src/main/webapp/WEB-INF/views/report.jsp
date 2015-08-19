@@ -1,13 +1,16 @@
 <%@include file="holder.jsp" %>
+<%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
-	<div id ="content">
 
 		<c:if test="${not empty report}">
 		  
-            <table>
+        <h2>Informe del nedador: <a href="/swimmers/${swimmer.getId()}">${swimmer.getSwimmerName()}</a></h2>
+        <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+        <div class="clr"></div>
+        <div class="img"><img src="addr.png" width="200" height="210" alt="" class="fl" /></div>
+        <div class="post_content">
 
-           <tr> <p>Informe del nedador: <a href="/swimmers/${swimmer.getId()}">${swimmer.getSwimmerName()}</a></p></tr>
-
+        <table>
            <tr> <p>Nivell Informe: ${report.getLevel()}</p></tr>
 
 
@@ -36,8 +39,4 @@
 
          
 
- 
-
-	</div>
-</body>
-</html>
+<%@include file="bottom.jsp" %>

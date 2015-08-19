@@ -1,4 +1,5 @@
 <%@include file="holder.jsp" %>
+<%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
 
     <div id ="content">
@@ -7,11 +8,19 @@
                 <h3>Modificar informe</h3>
                 <c:set var="method" value="PUT"/>
                 <c:set var="action" value="/swimmers/${swimmer.getId()}/reports/${report.getId()}"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="edir.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:when>
             <c:otherwise>
                 <h3>Nou Informe</h3>
                 <c:set var="method" value="POST"/>
                 <c:set var="action" value="/swimmers/${swimmer.getId()}/reports"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="addr.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:otherwise>
         </c:choose>
 
@@ -46,7 +55,6 @@
                 </tr>
             </table>
         </form:form>
-    </div>
+    
 
-</body>
-</html>
+<%@include file="bottom.jsp" %>

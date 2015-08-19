@@ -52,7 +52,7 @@ public class Swimmer {
     private SwimmerGroup group;
 
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = false)
     private List<AnualReport> reports = new ArrayList<AnualReport>();
 
 
@@ -95,6 +95,11 @@ public class Swimmer {
     public SwimmerGroup getGroup() { return group;  }
 
     public void setGroup(SwimmerGroup newSwimmerGroup) {   this.group = newSwimmerGroup;  }
+
+
+    public List<AnualReport> getReports() {
+            return reports;
+    }
 
 
     public void addReport(AnualReport report) {

@@ -15,18 +15,16 @@ import cat.udl.eps.softarch.hello.service.UserGreetingsService;
 
 
 @Controller
-@RequestMapping(value = "/mainpage")
-public class MainPageController {
+@RequestMapping(value = "/teachersPage")
+public class teacherPageController {
     final Logger logger = LoggerFactory.getLogger(MainPageController.class);
 
 
     @RequestMapping(produces = "text/html")
     public ModelAndView listHTML(@RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size) {
-        return new ModelAndView("mainpage");
+        return new ModelAndView("teachersPage");
     }
-
-
 
 
 }

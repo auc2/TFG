@@ -1,19 +1,29 @@
 <%@include file="holder.jsp" %>
+<%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
-
-    <div id ="content">
         <c:choose>
             <c:when test="${teacher.getId()>0}">
-                <h3>Modificar monitor</h3>
+                <h2>Modificar monitor</h2>
                 <c:set var="method" value="POST"/>
                 <c:set var="action" value="/teachers/${teacher.getId()}"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="ediu.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:when>
             <c:otherwise>
-                <h3>Crear nou monitor</h3>
+                <h2>Crear nou monitor</h2>
                 <c:set var="method" value="POST"/>
                 <c:set var="action" value="/teachers"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="addu.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:otherwise>
         </c:choose>
+        <br>
+
+
 
         <form:form method="${method}" action="${action}" modelAttribute="teacher" enctype="multipart/form-data">
             <table>
@@ -135,7 +145,6 @@
                 </tr>
             </table>
         </form:form>
-    </div>
 
-</body>
-</html>
+
+<%@include file="bottom.jsp" %>

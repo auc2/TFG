@@ -1,19 +1,28 @@
 <%@include file="holder.jsp" %>
+<%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
 
-    <div id ="content">
         <c:choose>
             <c:when test="${swimmer.getId()>0}">
-                <h3>Modificar nedador</h3>
+                <h2>Modificar nedador</h2>
                 <c:set var="method" value="POST"/>
                 <c:set var="action" value="/swimmers/${swimmer.getId()}"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="ediu.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:when>
             <c:otherwise>
-                <h3>Crear nou nedador</h3>
+                <h2>Crear nou nedador</h2>
                 <c:set var="method" value="POST"/>
                 <c:set var="action" value="/swimmers"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="addu.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:otherwise>
         </c:choose>
+        <br>
 
         <form:form method="${method}" action="${action}" modelAttribute="swimmer" enctype="multipart/form-data">
             <table>
@@ -43,11 +52,10 @@
                     <td><form:input path="photo" type="file"/> <i><form:errors path="photo"></form:errors></i></td>
                 </tr>
 
-
+                  <br>
                     <tr>
                     <td><form:label path="group"><b>Grup:  </b></form:label></td>
                             <ul>
-                                    <tr>
                                       <td>
                                        <div id ="optionsform">
                                        
@@ -73,10 +81,9 @@
                                                            </c:choose>
                                                      </c:when>       
                                                         <c:otherwise>
-                                                               <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}    </option>              
+                                                               <option value="${group.getId()}">${group.getSessionHour()} - ${group.getTeacher().getTeacherName()} -  ${group.getLevel()}    </option>       
                                                         </c:otherwise>
-                                                       </c:choose>
-                      
+                                                       </c:choose>                    
 
                                                     </c:forEach>
                                                  </c:if>
@@ -84,19 +91,14 @@
                                                                           
                                          </div>
                                      </td>
-                                    </tr>
-
-                               
-                            </ul>
-                    </tr>
-
+                           </ul>
+                    </tr>                               
 
                  <tr>
                     <td><input type="submit" id="addButton" value="Acceptar" /></td>
                 </tr>
             </table>
         </form:form>
-    </div>
+   
 
-</body>
-</html>
+<%@include file="bottom.jsp" %>

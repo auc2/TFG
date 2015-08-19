@@ -2,19 +2,28 @@
 <%@page contentType="Text/html" pageEncoding="UTF-8"%>
 
 
-    <div id ="content">
         <c:choose>
             <c:when test="${swimmerGroup.getId()>0}">
-                <h3>Modificar grup</h3>
+                <h2><span>Modificar grup</h2>
                 <c:set var="method" value="PUT"/>
                 <c:set var="action" value="/swimmerGroups/${swimmerGroup.getId()}"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="edig.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:when>
             <c:otherwise>
-                <h3>Crear nou grup</h3>
+                <h2><span>Crear nou grup</h2>
                 <c:set var="method" value="POST"/>
                 <c:set var="action" value="/swimmerGroups"/>
+                <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
+                <div class="clr"></div>
+                <div class="img"><img src="addu.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="post_content">
             </c:otherwise>
         </c:choose>
+        <br>
+
 
         <form:form method="${method}" action="${action}" modelAttribute="swimmerGroup">
             <table>
@@ -112,7 +121,9 @@
                         </c:when>
                         <c:otherwise>
                                 <div id ="optionsform">
+                                    <br>
                                               <td><form:label path="swimmers">Tots els nedadors assignats a un grup.</form:label></td>
+                                    <br>
                                 </div>
                         </c:otherwise>
                     </c:choose>
@@ -122,7 +133,6 @@
                 </tr>
             </table>
         </form:form>
-    </div>
+ 
 
-</body>
-</html>
+<%@include file="bottom.jsp" %>
