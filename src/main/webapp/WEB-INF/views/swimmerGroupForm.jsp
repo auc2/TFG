@@ -4,21 +4,21 @@
 
         <c:choose>
             <c:when test="${swimmerGroup.getId()>0}">
-                <h2><span>Modificar grup</h2>
+                <h2>Modificar grup</h2>
                 <c:set var="method" value="PUT"/>
                 <c:set var="action" value="/swimmerGroups/${swimmerGroup.getId()}"/>
                 <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
                 <div class="clr"></div>
-                <div class="img"><img src="edig.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="img"><img src="/edig.png" width="200" height="210" alt="" class="fl" /></div>
                 <div class="post_content">
             </c:when>
             <c:otherwise>
-                <h2><span>Crear nou grup</h2>
+                <h2>Crear nou grup</h2>
                 <c:set var="method" value="POST"/>
                 <c:set var="action" value="/swimmerGroups"/>
                 <p class="infopost">Posted <span class="date">on 11 sep 2015</span> by <a href="#">Admin</a> 
                 <div class="clr"></div>
-                <div class="img"><img src="addu.png" width="200" height="210" alt="" class="fl" /></div>
+                <div class="img"><img src="/addu.png" width="200" height="210" alt="" class="fl" /></div>
                 <div class="post_content">
             </c:otherwise>
         </c:choose>
@@ -79,7 +79,7 @@
                                                         <td><b>Nedador:</b> ${swimmer.getSwimmerName()}</td>
                                                         
                                                         <td>
-                                                            <input type ="checkbox" name ="swimmersListId" value="${swimmer.getId()}" checked/>    
+                                                            <input type ="checkbox" name ="swimmersListId" value="${swimmer.getId()}" checked="true"/>
                                                         </td>    
 
                                                     </div>
@@ -121,9 +121,9 @@
                         </c:when>
                         <c:otherwise>
                                 <div id ="optionsform">
-                                    <br>
+                                    <br/>
                                               <td><form:label path="swimmers">Tots els nedadors assignats a un grup.</form:label></td>
-                                    <br>
+                                    <br/>
                                 </div>
                         </c:otherwise>
                     </c:choose>

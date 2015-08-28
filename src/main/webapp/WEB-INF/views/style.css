@@ -6,14 +6,14 @@ body {
 	width:100%;
 	color:#929292;
 	font:normal 12px/1.5em "Liberation sans", Arial, Helvetica, sans-serif;
-	background:#fff url(main_bg.jpg) repeat-x left top;
+	background:#fff url(/main_bg.jpg) repeat-x left top;
 }
 html, .main {
 	padding:0;
 	margin:0;
 }
 .main {
-	background:url(header_bg.jpg) no-repeat center top;
+	background:url(/header_bg.jpg) no-repeat center top;
 }
 .clr {
 	clear:both;
@@ -125,7 +125,7 @@ h1 small {
 	margin:0;
 	padding:0;
 	float:left;
-	background:url(menu_split.png) no-repeat left center;
+	background:url(/menu_split.png) no-repeat left center;
 }
 .menu_nav ul li a {
 	display:block;
@@ -180,7 +180,7 @@ h1 small {
 .content .mainbar .article {
 	margin:0 0 32px;
 	padding:0;
-	background:url(dot.gif) repeat-x left bottom;
+	background:url(/dot.gif) repeat-x left bottom;
 }
 .content .mainbar .post_content {
 	float:right;
@@ -197,7 +197,7 @@ h1 small {
 .content .sidebar .gadget {
 	margin:0 0 12px;
 	padding:8px 0 24px;
-	background:url(dot.gif) repeat-x left bottom;
+	background:url(/dot.gif) repeat-x left bottom;
 }
 .content .sidebar h2 {
 	color:#0082ae;
@@ -360,7 +360,7 @@ p.infopost a {
 	padding:2px 0 2px 12px;
 	color:#6e6e6e;
 	text-decoration:none;
-	background:url(li.gif) no-repeat left center;
+	background:url(/li.gif) no-repeat left center;
 }
 .fbg .fbg_ul li a:hover {
 	color:#0082ae;
