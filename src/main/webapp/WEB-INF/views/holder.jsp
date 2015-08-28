@@ -16,11 +16,11 @@
 <%@include file="coin-slider.css" %>
 </style>
 
-<script type="text/javascript" src="cufon-yui.js"></script>
-<script type="text/javascript" src="cufon-titillium-250.js"></script>
-<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="script.js"></script>
-<script type="text/javascript" src="coin-slider.min.js"></script>
+<script type="text/javascript" src="/cufon-yui.js"></script>
+<script type="text/javascript" src="/cufon-titillium-250.js"></script>
+<script type="text/javascript" src="/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/script.js"></script>
+<script type="text/javascript" src="/coin-slider.min.js"></script>
 </head>
 <body>
 <div class="main">
